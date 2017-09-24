@@ -1,5 +1,5 @@
-# New England Conservatory of Music
-### Public interactive installation that showcases almnus music award winners: "Spinning Awards"
+# "Spinning Awards" — New England Conservatory of Music
+### Public interactive installation that showcases almnus music awards and musicians
 
 This is a fullstack web application built using jQuery, NodeJS, ExressJS, and MySQL. Currently locally hosted.
 
