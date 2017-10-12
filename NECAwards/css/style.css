@@ -38,7 +38,7 @@ body {
     font-size:14px;
     color:#eee; }
 
-body, html {  overflow-x: hidden;  overflow-y: hidden;  }
+/*body, html {  overflow-x: hidden;  overflow-y: hidden;  }*/
 
 p { margin-bottom: 2px; }
 
@@ -148,6 +148,143 @@ p { margin-bottom: 2px; }
 .year, .lastName {
     font-family:"Lato-Bold";
 }
+
+.search {
+    background-color: #e17c26;
+    position: relative;
+}
+
+.searchBackNavIcon {
+    padding-top: 22px;
+    padding-left: 30px;
+}
+
+.searchBackNavButton {
+    display: inline-block;
+    font-size: 40px;
+}
+
+.activatable:active {
+    opacity: 0.5;
+}
+
+.searchOptions {
+    padding-top: 32px;
+}
+
+.searchOption, .os-only {
+    padding-left: 32px;
+    height: 43px;
+}
+
+.searchOptionIcon, .os-only-icon {
+    float: left;
+    font-size: 30px;
+}
+
+.searchOptionIcon > i, .os-only-icon {
+    vertical-align: middle;
+}
+
+.searchOptionText {
+    font-size: 35px;
+    padding-left: 18px;
+    width: 10px;
+    height: 30px;
+}
+.os-only {
+    vertical-align: center;
+    line-height: 43px;
+}
+.os-only > span {
+    font-size: 17px;
+    vertical-align: center;
+    line-height: 43px;
+}
+
+.searchField {
+    display: block;
+    background-color: transparent;
+    border: solid white 6px;
+    color: transparent;
+    text-shadow: 0 0 0 white;
+    font-size: 23px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    padding: 3px;
+    text-transform: uppercase;
+}
+
+input:focus {
+    outline: none;
+}
+
+.keyboard {
+    margin-top: 15px;
+    width: 100%;
+    text-align: center;
+    font-size: 28px;
+}
+
+.keyboard > div {
+    height: 40px;
+}
+
+.keyboard > div > span {
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.keyboard > div > div {
+    background-image: url(../img/backspaceIcon.png);
+    width: 34px;
+    height: 31px;
+    display: inline-block;
+}
+
+.keyboard > div > span:active, .keyboard > div > div:active {
+    opacity: 0.5;
+}
+
+.searchButton {
+    text-align: center;
+    font-size: 24px;
+    height: 35px;
+    margin-top: 10px;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fillRect {
+    width: 100%;
+    height: 100%;
+}
+
+.SEARCH_FLOW_INACTIVE > span {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 80%;
+    height: 30%;
+    margin: auto;
+
+    font-size: 71px;
+    text-align: center;
+    /*padding-top: 10px;*/
+    /*padding-left: 10px;*/
+    /*padding-right: 10px;*/
+
+    /*position: relative;*/
+    /*display:table-cell; vertical-align:bottom;*/
+}
+
 
 .lastName {
     padding-left: 3px;
