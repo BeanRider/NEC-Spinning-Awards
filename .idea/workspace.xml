@@ -2,27 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="178e5385-f743-4822-84ac-85b595ecc810" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NECAwards/js/archive/bezierInterpolator.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NECAwards/js/controllers/card.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NECAwards/js/controllers/cardManager.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NECAwards/js/controllers/gestureEngine/idleActivationTimer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NECAwards/js/controllers/main.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NECAwards/js/controllers/timer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NECAwards/js/services/award.client.service.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/NECAwards/js/anim/bezierInterpolator.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/NECAwards/js/card.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/NECAwards/js/cardManager.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/NECAwards/js/controller/awardController.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/NECAwards/js/gestureEngine/idleActivationTimer.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/NECAwards/js/main.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/NECAwards/js/timer.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/.idea/workspace.xml" afterPath="$PROJECT_DIR$/NECAwards/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/css/style.css" afterPath="$PROJECT_DIR$/NECAwards/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/index2.html" afterPath="$PROJECT_DIR$/NECAwards/index2.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/js/utils/custommath.js" afterPath="$PROJECT_DIR$/NECAwards/js/utils/custommath.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/js/controllers/cardManager.js" afterPath="$PROJECT_DIR$/NECAwards/js/controllers/cardManager.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/js/controllers/gestureEngine/idleActivationTimer.js" afterPath="$PROJECT_DIR$/NECAwards/js/controllers/gestureEngine/idleActivationTimer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/js/controllers/main.js" afterPath="$PROJECT_DIR$/NECAwards/js/controllers/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/js/controllers/timer.js" afterPath="$PROJECT_DIR$/NECAwards/js/controllers/timer.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/award.service.server.js" afterPath="$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/award.service.server.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -43,21 +29,21 @@
       <file leaf-file-name="index2.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NECAwards/index2.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state relative-caret-position="450">
+              <caret line="54" column="43" lean-forward="true" selection-start-line="54" selection-start-column="43" selection-end-line="54" selection-end-column="43" />
               <folding>
-                <element signature="e#81420#81426#0" expanded="true" />
-                <element signature="e#81426#81432#0" expanded="true" />
+                <element signature="e#81467#81473#0" expanded="true" />
+                <element signature="e#81473#81479#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="645">
-              <caret line="43" column="3" lean-forward="false" selection-start-line="43" selection-start-column="3" selection-end-line="43" selection-end-column="3" />
+            <state relative-caret-position="421">
+              <caret line="45" column="7" lean-forward="false" selection-start-line="45" selection-start-column="6" selection-end-line="45" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -66,8 +52,8 @@
       <file leaf-file-name="gesture.service.server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/gesture.service.server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="795">
-              <caret line="53" column="28" lean-forward="false" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
+            <state relative-caret-position="115">
+              <caret line="32" column="10" lean-forward="true" selection-start-line="32" selection-start-column="10" selection-end-line="32" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -93,11 +79,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="award.service.server.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="award.service.server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/award.service.server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="712">
-              <caret line="571" column="0" lean-forward="true" selection-start-line="571" selection-start-column="0" selection-end-line="571" selection-end-column="0" />
+            <state relative-caret-position="261">
+              <caret line="326" column="26" lean-forward="true" selection-start-line="326" selection-start-column="26" selection-end-line="326" selection-end-column="26" />
               <folding>
                 <element signature="e#4480#5040#0" expanded="false" />
                 <element signature="e#8261#9539#0" expanded="false" />
@@ -137,6 +123,12 @@
       <find>resul</find>
       <find>prepareAlum</find>
       <find>finishRequest</find>
+      <find>splice</find>
+      <find>space</find>
+      <find>foreach</find>
+      <find>Lee</find>
+      <find>foreach((k)</find>
+      <find>liang</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -150,8 +142,8 @@
         <option value="$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/config/auth.json" />
         <option value="$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/app.js" />
         <option value="$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/routes/award.js" />
-        <option value="$PROJECT_DIR$/NECAwards/index2.html" />
         <option value="async_hooks.js" />
+        <option value="$PROJECT_DIR$/NECAwards/index2.html" />
         <option value="$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/award.service.server.js" />
       </list>
     </option>
@@ -312,7 +304,7 @@
       <workItem from="1507235730435" duration="11658000" />
       <workItem from="1507784534138" duration="4516000" />
       <workItem from="1508808721594" duration="3874000" />
-      <workItem from="1508820400755" duration="6367000" />
+      <workItem from="1508820400755" duration="8057000" />
     </task>
     <task id="LOCAL-00001" summary="Deleted a lot of un-used libraries and code.">
       <created>1506055543379</created>
@@ -321,22 +313,29 @@
       <option name="project" value="LOCAL" />
       <updated>1506055543379</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Started working on upgrading NodeJS server to use ES6 style promises.&#10;Updated search card features.">
+      <created>1508832784821</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1508832784821</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41518000" />
+    <option name="totallyTimeSpent" value="43208000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="952" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24954791" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24954791" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32905483" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905483" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24954791" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32906976" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905483" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39789966" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -392,14 +391,15 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Deleted a lot of un-used libraries and code." />
-    <option name="LAST_COMMIT_MESSAGE" value="Deleted a lot of un-used libraries and code." />
+    <MESSAGE value="Started working on upgrading NodeJS server to use ES6 style promises.&#10;Updated search card features." />
+    <option name="LAST_COMMIT_MESSAGE" value="Started working on upgrading NodeJS server to use ES6 style promises.&#10;Updated search card features." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/award.service.server.js</url>
-          <line>366</line>
+          <line>380</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
@@ -456,8 +456,8 @@
         <state relative-caret-position="300">
           <caret line="20" column="61" lean-forward="false" selection-start-line="20" selection-start-column="61" selection-end-line="20" selection-end-column="61" />
           <folding>
-            <element signature="e#81420#81426#0" expanded="true" />
-            <element signature="e#81426#81432#0" expanded="true" />
+            <element signature="e#81467#81473#0" expanded="true" />
+            <element signature="e#81473#81479#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -518,8 +518,8 @@
         <state relative-caret-position="300">
           <caret line="20" column="61" lean-forward="false" selection-start-line="20" selection-start-column="61" selection-end-line="20" selection-end-column="61" />
           <folding>
-            <element signature="e#81420#81426#0" expanded="true" />
-            <element signature="e#81426#81432#0" expanded="true" />
+            <element signature="e#81467#81473#0" expanded="true" />
+            <element signature="e#81473#81479#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -580,8 +580,8 @@
         <state relative-caret-position="285">
           <caret line="19" column="61" lean-forward="false" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="61" />
           <folding>
-            <element signature="e#81420#81426#0" expanded="true" />
-            <element signature="e#81426#81432#0" expanded="true" />
+            <element signature="e#81467#81473#0" expanded="true" />
+            <element signature="e#81473#81479#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -642,8 +642,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#81420#81426#0" expanded="true" />
-            <element signature="e#81426#81432#0" expanded="true" />
+            <element signature="e#81467#81473#0" expanded="true" />
+            <element signature="e#81473#81479#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -661,8 +661,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#81420#81426#0" expanded="true" />
-            <element signature="e#81426#81432#0" expanded="true" />
+            <element signature="e#81467#81473#0" expanded="true" />
+            <element signature="e#81473#81479#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -741,8 +741,8 @@
         <state relative-caret-position="270">
           <caret line="18" column="14" lean-forward="false" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
           <folding>
-            <element signature="e#81420#81426#0" expanded="true" />
-            <element signature="e#81426#81432#0" expanded="true" />
+            <element signature="e#81467#81473#0" expanded="true" />
+            <element signature="e#81473#81479#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -772,33 +772,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NECAwards/index2.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding>
-            <element signature="e#81420#81426#0" expanded="true" />
-            <element signature="e#81426#81432#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="43" column="3" lean-forward="false" selection-start-line="43" selection-start-column="3" selection-end-line="43" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/gesture.service.server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="53" column="28" lean-forward="false" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -833,14 +806,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/NECAwards/index2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="54" column="43" lean-forward="true" selection-start-line="54" selection-start-column="43" selection-end-line="54" selection-end-column="43" />
+          <folding>
+            <element signature="e#81467#81473#0" expanded="true" />
+            <element signature="e#81473#81479#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/gesture.service.server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="32" column="10" lean-forward="true" selection-start-line="32" selection-start-column="10" selection-end-line="32" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/award.service.server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="712">
-          <caret line="571" column="0" lean-forward="true" selection-start-line="571" selection-start-column="0" selection-end-line="571" selection-end-column="0" />
+        <state relative-caret-position="261">
+          <caret line="326" column="26" lean-forward="true" selection-start-line="326" selection-start-column="26" selection-end-line="326" selection-end-column="26" />
           <folding>
             <element signature="e#4480#5040#0" expanded="false" />
             <element signature="e#8261#9539#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="45" column="7" lean-forward="false" selection-start-line="45" selection-start-column="6" selection-end-line="45" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>

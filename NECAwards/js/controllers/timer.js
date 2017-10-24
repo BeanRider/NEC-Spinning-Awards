@@ -47,7 +47,7 @@ class TimerLoop {
     }
 
     start() {
-        this.tid = setInterval(this.onEachLoop, this.interval);
+        this.tid = setInterval(this.onEachLoop.bind(this), this.interval);
     }
 
     onEachLoop() {

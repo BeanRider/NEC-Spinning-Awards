@@ -313,16 +313,30 @@ module.exports = function(app, mysql) {
 
         let alumSearchTask = async function(field, keyword) {
             let queryString;
+            let keywords = keyword.split(" ");
             switch (field) {
                 case "DISCIPLINE":
-                    queryString =
-                        "SELECT * FROM necawards.alum " +
-                        "WHERE alum.discipline LIKE '%" + keyword + "%';";
+                    queryString = "SELECT * FROM necawards.alum WHERE alum.discipline LIKE '%" + keyword + "%';";
+                    // queryString =
+                    //     "SELECT * FROM necawards.alum WHERE ";
+                    // keywords.forEach((k, i) => {
+                    //     queryString += "alum.discipline LIKE '%" + k + "%'";
+                    //     if (i < (keywords.length - 1)) {
+                    //         queryString += " OR "
+                    //     }
+                    // });
                     break;
                 case "NAME":
                     queryString =
-                        "SELECT * FROM necawards.alum " +
-                        "WHERE alum.firstName LIKE '%" + keyword + "%' OR alum.lastName LIKE '%" + keyword + "%';";
+                        "SELECT * FROM necawards.alum WHERE ";
+                    keywords.forEach((k, i) => {
+                        queryString += "alum.firstName LIKE '%" + k + "%' OR " +
+                                        "alum.lastName LIKE '%" + k + "%'";
+                        if (i < (keywords.length - 1)) {
+                            queryString += " OR "
+                        }
+                    });
+                    queryString += ";";
                     break;
                 default:
                     console.log("An alumSearchTask does not support search by '" + field + "' field yet!");

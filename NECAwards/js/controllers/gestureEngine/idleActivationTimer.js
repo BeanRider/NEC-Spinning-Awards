@@ -10,7 +10,6 @@ class IdleActivationTimer extends TimerLoop {
         super(IdleTimeoutConstants.IDLE_LOOP_INTERVAL);
         this.runningShortTimer = true;
         this.shortIdleTimeout = 10000;
-
         this.elapsedLongIdleMS = 0;
     }
 

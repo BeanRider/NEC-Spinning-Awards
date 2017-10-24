@@ -171,9 +171,11 @@ class CardManager {
             } else {
                 // Remove card data
                 this.allCardDataFront[cardIdx] = null;
+                this.allCardDataBack[cardIdx] = null;
 
                 // Update the HTML
                 updateHTMLCard_AllTypes(cardIdx, true, null);
+                updateHTMLCard_AllTypes(cardIdx, false, null);
             }
         }
     }

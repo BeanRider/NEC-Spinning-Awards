@@ -524,6 +524,9 @@ $(document).ready(async function() {
         $(".keyboard > div > span").click((e) => {
            let $k = $(e.currentTarget);
            let kChar = $k.text();
+           if (kChar === '⎵') {
+               kChar = " ";
+           }
 
            let $field = $(".searchField");
            let fieldText = $field.val();
