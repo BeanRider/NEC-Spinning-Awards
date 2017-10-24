@@ -4,8 +4,6 @@ const CHANCE_FOR_FACT_CARD = 0.03;
 const CARD_COLUMNS = 9;
 const CARD_ROWS = 5;
 
-
-
 class CardManager {
     constructor() {
         this.NUM_CARDS = CARD_COLUMNS * CARD_ROWS;
@@ -28,8 +26,8 @@ class CardManager {
 
     getCardDataPair(cardIdx) {
         return {
-            "front": this.allCardDataFront[CardManager.getCardRowCol(cardIdx)],
-            "back": this.allCardDataBack[CardManager.getCardRowCol(cardIdx)]
+            "front": this.allCardDataFront[cardIdx],
+            "back": this.allCardDataBack[cardIdx]
         }
     }
 

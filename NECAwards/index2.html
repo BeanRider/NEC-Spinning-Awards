@@ -6,8 +6,6 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-
-
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
 
@@ -22,13 +20,16 @@
     <script src="js/vendor/axios.min.js"></script>
 
     <script src="js/plugins.js"></script>
+
+    <script src="js/services/award.client.service.js"></script>
+
     <script src="js/utils/custommath.js"></script>
-    <script src="js/card.js"></script>
-    <script src="js/cardManager.js"></script>
-    <script src="js/timer.js"></script>
-    <script src="js/gestureEngine/idleActivationTimer.js"></script>
-    <script src="js/controller/awardController.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/controllers/card.js"></script>
+    <script src="js/controllers/cardManager.js"></script>
+    <script src="js/controllers/timer.js"></script>
+    <script src="js/controllers/gestureEngine/idleActivationTimer.js"></script>
+    <script src="js/controllers/main.js"></script>
+
 </head>
 <body>
 
@@ -1858,27 +1859,27 @@
                         </div>
                         <div class="searchOptions">
                             <div class="searchOption activatable activated">
-                                <div class="searchOptionIcon">
-                                    <i class="fa fa-circle" aria-hidden="true"></i>
-                                </div>
+                                <!--<div class="searchOptionIcon">-->
+                                    <!--<i class="fa fa-circle" aria-hidden="true"></i>-->
+                                <!--</div>-->
                                 <span class="searchOptionText bold">NAME</span>
                             </div>
                             <div class="searchOption activatable">
-                                <div class="searchOptionIcon">
-                                    <i class="fa fa-circle-o" aria-hidden="true"></i>
-                                </div>
+                                <!--<div class="searchOptionIcon">-->
+                                    <!--<i class="fa fa-circle-o" aria-hidden="true"></i>-->
+                                <!--</div>-->
                                 <span class="searchOptionText bold">YEAR</span>
                             </div>
                             <div class="searchOption activatable">
-                                <div class="searchOptionIcon">
-                                    <i class="fa fa-circle-o" aria-hidden="true"></i>
-                                </div>
+                                <!--<div class="searchOptionIcon">-->
+                                    <!--<i class="fa fa-circle-o" aria-hidden="true"></i>-->
+                                <!--</div>-->
                                 <span class="searchOptionText bold">DISCIPLINE</span>
                             </div>
                             <div class="searchOption activatable">
-                                <div class="searchOptionIcon">
-                                    <i class="fa fa-circle-o" aria-hidden="true"></i>
-                                </div>
+                                <!--<div class="searchOptionIcon">-->
+                                    <!--<i class="fa fa-circle-o" aria-hidden="true"></i>-->
+                                <!--</div>-->
                                 <span class="searchOptionText bold">AWARD</span>
                             </div>
                         </div>
@@ -1891,25 +1892,13 @@
                             <span class="searchOptionText bold">OUTSTANDING ONLY</span>
                         </div>
                     </div>
-                    <div class="SEARCH_FLOW_INPUT_YEAR">
+                    <div class="SEARCH_FLOW_INPUT_ALPHA">
                         <div class="searchBackNavButton activatable">
                             <i class="searchBackNavIcon fa fa-chevron-left" aria-hidden="true"></i>
                         </div>
 
                         <input class="searchField bold" type="text" />
                         <div class="keyboard bold">
-                            <div class="numberKeys">
-                                <span>1</span>
-                                <span>2</span>
-                                <span>3</span>
-                                <span>4</span>
-                                <span>5</span>
-                                <span>6</span>
-                                <span>7</span>
-                                <span>8</span>
-                                <span>9</span>
-                                <span>0</span>
-                            </div>
                             <div class="qRow">
                                 <span>Q</span>
                                 <span>W</span>
@@ -1942,6 +1931,35 @@
                                 <span>N</span>
                                 <span>M</span>
                                 <div class="backspace"></div>
+                            </div>
+                        </div>
+                        <div class="searchButton activatable"><a class="bold ">SEARCH</a></div>
+                    </div>
+                    <div class="SEARCH_FLOW_INPUT_YEAR">
+                        <div class="searchBackNavButton activatable">
+                            <i class="searchBackNavIcon fa fa-chevron-left" aria-hidden="true"></i>
+                        </div>
+
+                        <input class="searchField bold" type="text" />
+                        <div class="keyboard bold">
+                            <div class="numberKeys">
+                                <span>1</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span>0</span>
+                            </div>
+                            <div class="numberKeys">
+                                <span>4</span>
+                                <span>5</span>
+                                <span>6</span>
+                                <span>&nbsp;&nbsp;</span>
+                            </div>
+                            <div class="numberKeys">
+                                <span>7</span>
+                                <span>8</span>
+                                <span>9</span>
+
+                                <span><div class="backspace"></div></span>
                             </div>
                         </div>
                         <div class="searchButton activatable"><a class="bold ">SEARCH</a></div>

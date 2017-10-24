@@ -229,17 +229,17 @@ input:focus {
 }
 
 .keyboard > div {
-    height: 40px;
+    height: 55px;
 }
 
 .keyboard > div > span {
-    padding-left: 4px;
-    padding-right: 4px;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    display: inline-block;
+    padding: 4px;
+    /*width: 18px;*/
 }
 
-.keyboard > div > div {
+.keyboard > div > div,
+.keyboard > div > span > div {
     background-image: url(../img/backspaceIcon.png);
     width: 34px;
     height: 31px;
@@ -258,6 +258,17 @@ input:focus {
     width: 40%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.keyboard > div.numberKeys {
+    height: 52px;
+}
+
+.keyboard > div.numberKeys > span {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .fillRect {

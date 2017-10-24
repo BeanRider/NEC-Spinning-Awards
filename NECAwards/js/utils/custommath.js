@@ -14,7 +14,16 @@ function sq(num) {
 
 
 function distance(aX, aY, bX, bY) {
-    var xDiff = bX - aX;
-    var yDiff = bY - aY;
+    let xDiff = bX - aX;
+    let yDiff = bY - aY;
     return Math.sqrt(sq(xDiff) + sq(yDiff));
+}
+
+// Converts from radians to degrees.
+function degrees(radians) {
+    return radians * 180 / Math.PI;
+}
+
+function isOdd(num) {
+    return num % 2;
 }

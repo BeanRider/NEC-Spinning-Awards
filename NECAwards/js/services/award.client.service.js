@@ -113,7 +113,7 @@ function postSearch(callback, body) {
 }
 
 function urlExists(url) {
-    var http = new XMLHttpRequest();
+    let http = new XMLHttpRequest();
     http.open('HEAD', url, false);
     http.send();
     return http.status!=404;

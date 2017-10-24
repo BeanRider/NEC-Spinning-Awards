@@ -2,6 +2,38 @@ var async = require("async");
 var sql = require("./customsql.js");
 
 module.exports = function(app, mysql) {
+
+    function toFullDegree(shortDegree) {
+        switch (shortDegree) {
+            case "BM":
+                return "Bachelor of Music";
+            case "MM":
+                return "Master of Music";
+            case "DP":
+                return "Undergraduate Diploma";
+            case "GD":
+                return "Graduate Diploma";
+            case "Tufts/NEC":
+                return "Tufts/NEC Dual Degree";
+            case "Harvard/NEC":
+                return "Harvard/NEC Dual Degree";
+            case "DMA":
+                return "Doctor of Musical Arts";
+            case "Honorary Diploma":
+                return "Honorary Diploma";
+            case "NEC Prep":
+                return "NEC Preparatory School";
+            case "AD":
+                return "Artist Diploma";
+            case "CE":
+                return "Continuing Education";
+            case "TMI":
+                return "Thelonious Monk Institute";
+            default:
+                return shortDegree;
+        }
+    }
+
     // Takes an existing list of awards and returns new awards that is not currently in that list of awards.
     function randomAward(req, res, next) {
         var con = null;
@@ -74,39 +106,8 @@ module.exports = function(app, mysql) {
                 });
         };
 
-        function toFullDegree(shortDegree) {
-            switch (shortDegree) {
-                case "BM":
-                    return "Bachelor of Music";
-                case "MM":
-                    return "Master of Music";
-                case "DP":
-                    return "Undergraduate Diploma";
-                case "GD":
-                    return "Graduate Diploma";
-                case "Tufts/NEC":
-                    return "Tufts/NEC Dual Degree";
-                case "Harvard/NEC":
-                    return "Harvard/NEC Dual Degree";
-                case "DMA":
-                    return "Doctor of Musical Arts";
-                case "Honorary Diploma":
-                    return "Honorary Diploma";
-                case "NEC Prep":
-                    return "NEC Preparatory School";
-                case "AD":
-                    return "Artist Diploma";
-                case "CE":
-                    return "Continuing Education";
-                case "TMI":
-                    return "Thelonious Monk Institute";
-                default:
-                    return shortDegree;
-            }
-        }
-
-        function prepareAlum(alumId, returnResult) {
-            var alumQueryString = "SELECT * FROM necawards.alum WHERE alumId = '" + alumId + "'";
+        function getAlumTask(alumId, returnResult) {
+            let alumQueryString = "SELECT * FROM necawards.alum WHERE alumId = '" + alumId + "'";
             console.log(alumQueryString);
             con.query(
                 alumQueryString,
@@ -116,46 +117,7 @@ module.exports = function(app, mysql) {
                         returnResult(null);
                         return;
                     }
-                    // console.log(rows[0]);
-
-                    var foundAlum = rows[0];
-
-                    // Parse discipline
-                    if (foundAlum.discipline) {
-                        foundAlum.disciplines = foundAlum.discipline.split("/").map(function (d) {
-                            return d.trim();
-                        });
-                        delete foundAlum["discipline"];
-                    }
-
-                    if (foundAlum.gradYear) {
-                        if (foundAlum.gradYear === "Faculty") {
-                            // DO NOTHING
-                        } else {
-                            // Only non-faculty has grad year(s)
-                            foundAlum.gradYears = foundAlum.gradYear.split(",").map(function (d) {
-                                return d.trim();
-                            });
-                            // Don't delete gradYear because it might contain "Faculty" which is used for more logic
-
-                            // Only non-faculty has degree(s)
-                            if (foundAlum.degree) {
-                                foundAlum.degrees = foundAlum.degree.split(",").map(function (d) {
-                                    return toFullDegree(d.trim());
-                                });
-                                delete foundAlum["degree"];
-                            }
-                        }
-                    }
-
-                    if (foundAlum.studioTeacher) {
-                        foundAlum.studioTeachers = foundAlum.studioTeacher.split("/").map(function(t) {
-                            return t.trim();
-                        });
-                        delete foundAlum["studioTeacher"];
-                    }
-
-                    returnResult(foundAlum);
+                    returnResult(convertAlum(rows[0]));
                 });
         }
 
@@ -168,7 +130,7 @@ module.exports = function(app, mysql) {
                 if (ensembleId === null) {
                     var alumIds = r.award.alumId.split(",");
                     var alumId =  alumIds[Math.floor(alumIds.length * Math.random())].replace(/\s/g, '');
-                    prepareAlum(alumId, function (alumResult) {
+                    getAlumTask(alumId, function (alumResult) {
                         r.winner = alumResult;
 
                         totalTasks--;
@@ -184,7 +146,7 @@ module.exports = function(app, mysql) {
                     });
                     const lastIndex = ensembleAlumIds.length - 1;
                     ensembleAlumIds.forEach(function(a, i) {
-                        prepareAlum(a, function (alumResult) {
+                        getAlumTask(a, function (alumResult) {
                             if (!r.ensembleAlums) {
                                 r.ensembleAlums = [];
                             }
@@ -246,29 +208,80 @@ module.exports = function(app, mysql) {
         });
     }
 
-    function searchAward(req, res, next) {
-        var con = null;
-        function taskConnectToDB(fn) {
+    async function sqlQuery(con, queryString) {
+        return new Promise((resolve, reject) => {
+            con.query(queryString, (err, rows, fields) => {
+                if (err) {
+                    console.error(err);
+                    reject(err);
+                } else {
+                    resolve(rows);
+                }
+            });
+        });
+    }
+
+    async function taskConnectToDB() {
+        return new Promise((resolve, reject) => {
             sql.connectToDB(function (connection, isSuccess) {
                 if (isSuccess) {
                     console.log("Connected!");
-                    con = connection;
-                    fn();
+                    resolve(connection);
                 } else {
                     console.error(connection);
-                    fn(true);
+                    reject(connection);
                 }
             });
+        });
+    }
+
+    function convertAlum(alumObj) {
+        // Parse discipline
+        if (alumObj.discipline) {
+            alumObj.disciplines = alumObj.discipline.split("/").map(function (d) {
+                return d.trim();
+            });
+            delete alumObj["discipline"];
         }
 
-        var incomingData = req.body;
-        var searchType = incomingData.type;
-        var keyword = incomingData.keyword;
+        if (alumObj.gradYear) {
+            if (alumObj.gradYear === "Faculty") {
+                // DO NOTHING
+            } else {
+                // Only non-faculty has grad year(s)
+                alumObj.gradYears = alumObj.gradYear.split(",").map(function (d) {
+                    return d.trim();
+                });
+                // Don't delete gradYear because it might contain "Faculty" which is used for more logic
+
+                // Only non-faculty has degree(s)
+                if (alumObj.degree) {
+                    alumObj.degrees = alumObj.degree.split(",").map(function (d) {
+                        return toFullDegree(d.trim());
+                    });
+                    delete alumObj["degree"];
+                }
+            }
+        }
+
+        if (alumObj.studioTeacher) {
+            alumObj.studioTeachers = alumObj.studioTeacher.split("/").map(function(t) {
+                return t.trim();
+            });
+            delete alumObj["studioTeacher"];
+        }
+        return alumObj;
+    }
+
+    async function searchAward(req, res, next) {
+
+        const con = await taskConnectToDB();
+        const incomingData = req.body;
         console.log("incomingData = " + JSON.stringify(incomingData));
 
-        var result = [];
+        let result = [];
 
-        var finishRequest = function(result) {
+        const finishRequest = function(toSend) {
             // TODO reenable this
             // if (!result || (result && !result[3])) {
             //     res.send(500);
@@ -276,19 +289,21 @@ module.exports = function(app, mysql) {
             // }
 
             console.log("finishRequest:");
-            // console.log("About to send:\n" + JSON.stringify(result[3]));
-            if (searchType === "ALUM" || searchType === "DISCIPLINE") {
-                console.log("About to send:\n" + JSON.stringify(result[1]));
-
-                res.send(result[1]); // send only the 3rd task result.
+            if (searchType === "NAME" || searchType === "DISCIPLINE") {
+                console.log("About to send:\n" + JSON.stringify(toSend));
+                res.send(toSend);
             } else {
-                res.send(result[3]); // send only the 3rd task result.
+                if (toSend.length === 0) {
+                    res.send(toSend);
+                }
+                console.log("About to send:\n" + JSON.stringify(toSend[1]));
+                res.send(toSend[1]);
             }
-            console.log("Done.\n");
-            // res.render('home.ejs', {layout: false, locals: { user_name: result.user_array, title: result.title_array }});
+
             if (con) {
                 con.end();
             }
+            console.log("Done.\n");
         };
 
         // TODO convert all accents to normal letters
@@ -296,41 +311,59 @@ module.exports = function(app, mysql) {
 
         // TODO Limit search keywords that might query too much
 
-        var alumSearchTask = function(fn) {
-            var queryString;
-            switch (searchType) {
+        let alumSearchTask = async function(field, keyword) {
+            let queryString;
+            switch (field) {
                 case "DISCIPLINE":
                     queryString =
                         "SELECT * FROM necawards.alum " +
                         "WHERE alum.discipline LIKE '%" + keyword + "%';";
                     break;
-                case "ALUM":
+                case "NAME":
                     queryString =
                         "SELECT * FROM necawards.alum " +
                         "WHERE alum.firstName LIKE '%" + keyword + "%' OR alum.lastName LIKE '%" + keyword + "%';";
                     break;
+                default:
+                    console.log("An alumSearchTask does not support search by '" + field + "' field yet!");
+                    return Promise.reject();
             }
 
             console.log(queryString);
-            con.query(
-                queryString,
-                function (err, rows, fields) {
-                    if (err) {
-                        console.error(err);
-                        fn(true);
-                        return;
-                    }
-
-                    for (var i in rows) {
-                        var resultItem = {"alum": rows[i]};
-                        result.push(resultItem);
-                    }
-
-                    fn(null, result);
-                });
+            try {
+                const alumObjList = await sqlQuery(con, queryString);
+                return Promise.resolve(alumObjList);
+            } catch (e) {
+                return Promise.reject(e);
+            }
         };
 
-        var searchTask = function(fn) {
+
+
+        // For each alum, add their awards
+        async function searchInAward_UsingAlumsTask(alumList) {
+            let newResults = [];
+            for (let alumObj of alumList) {
+                let queryString =
+                    "SELECT * FROM necawards.awards " +
+                    "WHERE awards.alumId = '" + alumObj.alumId + "';";
+
+                console.log(queryString);
+                try {
+                    const rows = await sqlQuery(con, queryString);
+                    rows.forEach((awardObj) => {
+                        console.log("got awardObj" + awardObj);
+                        let resultItem = {"award": awardObj, "winner": convertAlum(alumObj)};
+                        newResults.push(resultItem);
+                    });
+                } catch (e) {
+                    return Promise.reject(e);
+                }
+            }
+            return Promise.resolve(newResults);
+        }
+
+        var searchInAwardTask = function(fn) {
             var queryString;
             switch (searchType) {
                 case "YEAR":
@@ -343,6 +376,10 @@ module.exports = function(app, mysql) {
                         "SELECT * FROM necawards.awards " +
                         "WHERE awards.compName LIKE '%" + keyword + "%';";
                     break;
+                default:
+                    console.log("searchInAwardTask currently only supports YEAR, AWARD!");
+                    fn(true);
+                    return;
             }
 
             console.log(queryString);
@@ -364,37 +401,6 @@ module.exports = function(app, mysql) {
                 });
         };
 
-        function toFullDegree(shortDegree) {
-            switch (shortDegree) {
-                case "BM":
-                    return "Bachelor of Music";
-                case "MM":
-                    return "Master of Music";
-                case "DP":
-                    return "Undergraduate Diploma";
-                case "GD":
-                    return "Graduate Diploma";
-                case "Tufts/NEC":
-                    return "Tufts/NEC Dual Degree";
-                case "Harvard/NEC":
-                    return "Harvard/NEC Dual Degree";
-                case "DMA":
-                    return "Doctor of Musical Arts";
-                case "Honorary Diploma":
-                    return "Honorary Diploma";
-                case "NEC Prep":
-                    return "NEC Preparatory School";
-                case "AD":
-                    return "Artist Diploma";
-                case "CE":
-                    return "Continuing Education";
-                case "TMI":
-                    return "Thelonious Monk Institute";
-                default:
-                    return shortDegree;
-            }
-        }
-
         function prepareAlum(alumId, returnResult) {
             var alumQueryString = "SELECT * FROM necawards.alum WHERE alumId = '" + alumId + "'";
             console.log(alumQueryString);
@@ -406,8 +412,6 @@ module.exports = function(app, mysql) {
                         returnResult(null);
                         return;
                     }
-                    // console.log(rows[0]);
-
                     var foundAlum = rows[0];
 
                     // Parse discipline
@@ -525,24 +529,22 @@ module.exports = function(app, mysql) {
             }
         }
 
-        if (searchType === "ALUM") {
-            async.series([
-                taskConnectToDB,
-                alumSearchTask
-            ], function(err, r) {
-                finishRequest(r);
-            });
-        } else if (searchType === "DISCIPLINE") {
-            async.series([
-                taskConnectToDB,
-                alumSearchTask
-            ], function(err, r) {
-                finishRequest(r);
-            });
+
+        let searchType = incomingData.type;
+        let keyword = incomingData.keyword;
+
+        if (keyword.length < 3) {
+            finishRequest([]);
+            return;
+        }
+
+        if (searchType === "NAME" || searchType === "DISCIPLINE") {
+            const matchedAlums = await alumSearchTask(searchType, keyword);
+            const matchedAwards = await searchInAward_UsingAlumsTask(matchedAlums);
+            finishRequest(matchedAwards);
         } else {
             async.series([
-                taskConnectToDB,
-                searchTask,
+                searchInAwardTask,
                 getAwardAlumTask,
                 getEnsembleTask
             ], function(err, r) {

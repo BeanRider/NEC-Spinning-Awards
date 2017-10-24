@@ -1,4 +1,4 @@
-// Depends on Timer.js, cardManager.js, playRandomGesture()
+// Depends on Timer.js, cardManager.js, playRandomGesture(), main.js
 
 class IdleTimeoutConstants {}
 IdleTimeoutConstants.LONG_IDLE_TIMEOUT = 90000;
@@ -20,20 +20,7 @@ class IdleActivationTimer extends TimerLoop {
 
             // Flip all cards
             this.setShortTimerEnabled(true);
-            let cardIdx = 0;
-            for (cardIdx; cardIdx < CARD_MANAGER.NUM_CARDS; ++cardIdx) {
-                let lastRowCol = CardManager.getCardRowCol(cardIdx);
-                let lR = lastRowCol.r;
-                let lC = lastRowCol.c;
-
-                let $toFlip = $(".r" + lR + " li .c" + lC + ".front");
-                let offset = $toFlip.offset();
-
-                if (offset) {
-                    let added = Math.random() * 70 + 230;
-                    activateFlipGesture($toFlip, offset.left + added, offset.top + added);
-                }
-            }
+            flipAllCards();
 
             // Reset card to beginning
             CARD_MANAGER.getSearchCard().flowPath = [0];
