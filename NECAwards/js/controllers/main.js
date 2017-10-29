@@ -717,6 +717,12 @@ function updateHTMLCard_Search() {
     let $field = $(".searchField");
     $field.val("");
 
+    if (SEARCH_FLOW_INACTIVE ===  state) {
+        $(".search").removeClass("active");
+    } else {
+        $(".search").addClass("active");
+    }
+
     if (SEARCH_FLOW_INPUT_YEAR === state) {
         $searchCardFront.find("." + SEARCH_FLOW_INPUT_YEAR).show();
     } else if (SEARCH_FLOW_INPUT_ALUM === state

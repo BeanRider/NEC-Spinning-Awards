@@ -151,8 +151,34 @@ p { margin-bottom: 2px; }
 
 .search {
     background-color: #e17c26;
-    position: relative;
+    -webkit-transition-property: -webkit-transform, width;
+    -webkit-transition-delay: 1s, 0s;
+
+    transition-property: transform, width;
+    transition-delay: 1s, 0s;
 }
+
+.search.active {
+    position: relative;
+
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    -ms-transition: 1s;
+    -o-transition: 1s;
+    transition: 1s;
+
+    -webkit-transition-property: -webkit-transform, width;
+    -webkit-transition-delay: 0s, 1s;
+
+    transition-property: transform, width;
+    transition-delay: 0s, 1s;
+
+    transform: translateX(-417px);
+    -webkit-transform: translateX(-417px);
+
+    width: 783px;
+}
+
 
 .searchBackNavIcon {
     padding-top: 22px;
@@ -161,6 +187,17 @@ p { margin-bottom: 2px; }
 
 .searchBackNavButton {
     display: inline-block;
+    font-size: 40px;
+}
+
+.closeButtonIcon {
+    padding-top: 22px;
+    padding-right: 30px;
+}
+
+.closeButton {
+    display: inline-block;
+    float: right;
     font-size: 40px;
 }
 
@@ -202,19 +239,44 @@ p { margin-bottom: 2px; }
     line-height: 43px;
 }
 
+.searchFieldContainer {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.seventy {
+    width: 70%;
+}
+
+.thirty {
+    width: 30%;
+}
+
+.twenty {
+    width: 20%;
+}
+
 .searchField {
     display: block;
+    float: left;
     background-color: transparent;
     border: solid white 6px;
     color: transparent;
     text-shadow: 0 0 0 white;
     font-size: 23px;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
+    margin-top: 15px;
     padding: 3px;
     text-transform: uppercase;
+}
+
+.searchButton {
+    float: right;
+    text-align: center;
+    font-size: 24px;
+    height: 35px;
+    line-height: 50%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 input:focus {
@@ -222,19 +284,21 @@ input:focus {
 }
 
 .keyboard {
-    margin-top: 15px;
-    width: 100%;
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+    /*width: 100%;*/
     text-align: center;
     font-size: 28px;
 }
 
 .keyboard > div {
-    height: 55px;
+    height: 60px;
 }
 
 .keyboard > div > span {
     display: inline-block;
-    padding: 4px;
+    padding: 14px 25px;
     /*width: 18px;*/
 }
 
@@ -250,24 +314,16 @@ input:focus {
     opacity: 0.5;
 }
 
-.searchButton {
-    text-align: center;
-    font-size: 24px;
-    height: 35px;
-    margin-top: 10px;
-    width: 40%;
-    margin-left: auto;
-    margin-right: auto;
-}
+
 
 .keyboard > div.numberKeys {
-    height: 52px;
+    height: 60px;
 }
 
 .keyboard > div.numberKeys > span {
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 10px;
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 25px;
     padding-bottom: 10px;
 }
 
