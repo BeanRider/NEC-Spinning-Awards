@@ -3,6 +3,17 @@ var sql = require("./customsql.js");
 
 module.exports = function(app, mysql) {
 
+    class WinnerType {
+        constructor(name) {
+            this.name = name;
+        }
+        toString() {
+            return `WinnerType.${this.name}`;
+        }
+    }
+    WinnerType.ALUM = new WinnerType('ALUM');
+    WinnerType.ENSEMBLE = new WinnerType('ENSEMBLE');
+
     function toFullDegree(shortDegree) {
         switch (shortDegree) {
             case "BM":
@@ -36,7 +47,7 @@ module.exports = function(app, mysql) {
 
     // Takes an existing list of awards and returns new awards that is not currently in that list of awards.
     function randomAward(req, res, next) {
-        var con = null;
+        let con = null;
         function taskConnectToDB(fn) {
             sql.connectToDB(function (connection, isSuccess) {
                 if (isSuccess) {
@@ -50,22 +61,22 @@ module.exports = function(app, mysql) {
             });
         }
 
-        var incomingData = req.body;
-        var numAwards = incomingData.numAwards;
-        var currentAwards = incomingData.currentAwards;
+        let incomingData = req.body;
+        let numAwards = incomingData.numAwards;
+        let currentAwards = incomingData.currentAwards;
         console.log("incomingData = " + JSON.stringify(incomingData));
 
-        var currentAwardsStringify = "";
-        for (var i in currentAwards) {
+        let currentAwardsStringify = "";
+        for (let i in currentAwards) {
             currentAwardsStringify += "'" + currentAwards[i] + "'";
             if (i < currentAwards.length - 1) {
                 currentAwardsStringify += ", "
             }
         }
 
-        var result = [];
+        let result = [];
 
-        var finishRequest = function(result) {
+        let finishRequest = function(result) {
             if (!result || (result && !result[3])) {
                 res.send(500);
                 return;
@@ -81,8 +92,8 @@ module.exports = function(app, mysql) {
             }
         };
 
-        var getRandomAwardTask = function(fn) {
-            var queryString =
+        let getRandomAwardTask = function(fn) {
+            let queryString =
                 "SELECT * FROM necawards.awards " +
                 (currentAwardsStringify.length === 0 ? "" : "WHERE awards.awardId NOT IN (" + currentAwardsStringify + ") ") +
                 "ORDER BY RAND() " +
@@ -97,8 +108,8 @@ module.exports = function(app, mysql) {
                         return;
                     }
 
-                    for (var i in rows) {
-                        var resultItem = {"award": rows[i]};
+                    for (let i in rows) {
+                        let resultItem = {"award": rows[i]};
                         result.push(resultItem);
                     }
 
@@ -235,6 +246,62 @@ module.exports = function(app, mysql) {
         });
     }
 
+    function convertAlumOrEnsemble_ToWinner(winnerType, obj) {
+        switch (winnerType) {
+            case WinnerType.ALUM:
+                return [convertAlum(obj)];
+            case WinnerType.ENSEMBLE:
+                return [convertEnsemble(obj), convertEnsembleAlums(obj)];
+            default:
+                throw 'Bad winner type! + ' + winnerType;
+        }
+    }
+
+    async function queryAlum_ById(con, alumId) {
+        if (!alumId || !con) {
+            return Promise.resolve([]);
+        }
+        const alumQueryString = "SELECT * FROM necawards.alum WHERE alumId = '" + alumId + "'";
+
+        console.log(alumQueryString);
+        try {
+            const alumObjList = await sqlQuery(con, alumQueryString);
+            return Promise.resolve(alumObjList[0]);
+        } catch (e) {
+            return Promise.reject(e);
+        }
+    }
+
+    async function queryEnsemble_ById(con, ensembleId) {
+        if (!ensembleId || !con) {
+            return Promise.resolve([]);
+        }
+        const queryString = "SELECT * FROM necawards.ensemble WHERE ensembleId = '" + ensembleId + "'";
+
+        console.log(queryString);
+        try {
+            const ensembleList = await sqlQuery(con, queryString);
+            return Promise.resolve(ensembleList[0]);
+        } catch (e) {
+            return Promise.reject(e);
+        }
+    }
+
+    function convertEnsembleAlums(ensembleObj) {
+        let ensembleAlumIds = ensembleObj.alumIds.split(",").map(function (d) {
+            return d.trim();
+        });
+        const toReturn = [];
+        ensembleAlumIds.forEach(function(alumId) {
+            toReturn.push(convertAlum(alumId));
+        });
+        return toReturn;
+    }
+
+    function convertEnsemble(ensembleObj) {
+        return ensembleObj;
+    }
+
     function convertAlum(alumObj) {
         // Parse discipline
         if (alumObj.discipline) {
@@ -279,25 +346,24 @@ module.exports = function(app, mysql) {
         const incomingData = req.body;
         console.log("incomingData = " + JSON.stringify(incomingData));
 
-        let result = [];
+        const finishRequestError = function(error) {
+            console.log("finishError: " + error);
+            res.send(500);
+            if (con) {
+                con.end();
+            }
+            console.log("Done.\n");
+        };
 
         const finishRequest = function(toSend) {
-            // TODO reenable this
-            // if (!result || (result && !result[3])) {
-            //     res.send(500);
-            //     return;
-            // }
 
             console.log("finishRequest:");
-            if (searchType === "NAME" || searchType === "DISCIPLINE") {
+            if (toSend === null) {
+                console.log("Got a null... sending empty response [].");
+                res.send([]);
+            } else {
                 console.log("About to send:\n" + JSON.stringify(toSend));
                 res.send(toSend);
-            } else {
-                if (toSend.length === 0) {
-                    res.send(toSend);
-                }
-                console.log("About to send:\n" + JSON.stringify(toSend[1]));
-                res.send(toSend[1]);
             }
 
             if (con) {
@@ -306,12 +372,7 @@ module.exports = function(app, mysql) {
             console.log("Done.\n");
         };
 
-        // TODO convert all accents to normal letters
-        // TODO split keyword when searching by space
-
-        // TODO Limit search keywords that might query too much
-
-        let alumSearchTask = async function(field, keyword) {
+        const alumSearchTask = async function(field, keyword) {
             let queryString;
             let keywords = keyword.split(" ");
             switch (field) {
@@ -352,218 +413,205 @@ module.exports = function(app, mysql) {
             }
         };
 
+        const ensembleSearchTask = async function(alumObjList) {
+            if (!alumObjList || alumObjList.length === 0) {
+                return Promise.resolve([]);
+            }
 
+            let queryString =
+                "SELECT * FROM necawards.ensemble WHERE ";
+            alumObjList.forEach((alumObj, i) => {
+                queryString += "ensemble.alumIds LIKE '%" + alumObj.alumId + "%'";
+                if (i < (alumObjList.length - 1)) {
+                    queryString += " OR "
+                }
+            });
+            queryString += ";";
+            console.log(queryString);
 
-        // For each alum, add their awards
-        async function searchInAward_UsingAlumsTask(alumList) {
-            let newResults = [];
-            for (let alumObj of alumList) {
-                let queryString =
-                    "SELECT * FROM necawards.awards " +
-                    "WHERE awards.alumId = '" + alumObj.alumId + "';";
+            let ensembleObjList = [];
+            try {
+                ensembleObjList = await sqlQuery(con, queryString);
+            } catch (e) {
+                return Promise.reject(e);
+            }
+            return Promise.resolve(ensembleObjList);
+        };
+
+        const awardSearchTask = async function(field, keyword, isOutstanding) {
+            let queryString;
+            switch (field) {
+                case "YEAR":
+                    queryString =
+                        "SELECT * FROM necawards.awards " +
+                        "WHERE awards.compDate LIKE '%" + keyword + "%' " +
+                        (isOutstanding ? "AND awards.outstanding = 1" : "") + ";";
+                    break;
+                case "AWARD":
+                    queryString =
+                        "SELECT * FROM necawards.awards " +
+                        "WHERE awards.compName LIKE '%" + keyword + "%' " +
+                        (isOutstanding ? "AND awards.outstanding = 1" : "") + ";";
+                    break;
+                default:
+                    console.log("awardSearchTask currently only supports by YEAR, AWARD!");
+                    return Promise.reject("awardSearchTask currently only supports by YEAR, AWARD!");
+            }
+
+            console.log(queryString);
+            try {
+                const awardObjs = await sqlQuery(con, queryString);
+                let toReturn = [];
+                awardObjs.forEach((awardObj) => {
+                    toReturn.push(awardObj);
+                });
+                return Promise.resolve(toReturn)
+            } catch (e) {
+                return Promise.reject(e);
+            }
+        };
+
+        // For each winner, add their awards
+        const prepareCardList_UsingWinners = async function(winnerObjs, isOutstanding) {
+            let cardObjList = [];
+            for (let winnerObj of winnerObjs) {
+                let queryString;
+                let winnerType;
+                if (winnerObj.ensembleId) {
+                    // Ensemble
+                    winnerType = WinnerType.ENSEMBLE;
+                    queryString =
+                        "SELECT * FROM necawards.awards " +
+                        "WHERE awards.ensembleId = '" + winnerObj.ensembleId + "' " +
+                        (isOutstanding ? "AND awards.outstanding = 1" : "") + ";";
+                } else {
+                    // Alum
+                    winnerType = WinnerType.ALUM;
+                    queryString =
+                        "SELECT * FROM necawards.awards " +
+                        "WHERE awards.ensembleId IS NULL AND awards.alumId LIKE '%" + winnerObj.alumId + "%' " +
+                        (isOutstanding ? "AND awards.outstanding = 1" : "") + ";";
+                }
 
                 console.log(queryString);
                 try {
-                    const rows = await sqlQuery(con, queryString);
-                    rows.forEach((awardObj) => {
+                    const awardObjList = await sqlQuery(con, queryString);
+                    awardObjList.forEach((awardObj) => {
                         console.log("got awardObj" + awardObj);
-                        let resultItem = {"award": awardObj, "winner": convertAlum(alumObj)};
-                        newResults.push(resultItem);
+
+                        let convertedWinnerData = convertAlumOrEnsemble_ToWinner(winnerType, winnerObj);
+                        let cardObj = {"award": awardObj, "winner": convertedWinnerData[0]};
+
+                        if (winnerType === WinnerType.ENSEMBLE) {
+                            cardObj["ensembleAlums"] = convertedWinnerData[1];
+                        }
+
+                        cardObjList.push(cardObj);
                     });
                 } catch (e) {
                     return Promise.reject(e);
                 }
             }
-            return Promise.resolve(newResults);
-        }
-
-        var searchInAwardTask = function(fn) {
-            var queryString;
-            switch (searchType) {
-                case "YEAR":
-                    queryString =
-                        "SELECT * FROM necawards.awards " +
-                        "WHERE awards.compDate LIKE '%" + keyword + "%';";
-                    break;
-                case "AWARD":
-                    queryString =
-                        "SELECT * FROM necawards.awards " +
-                        "WHERE awards.compName LIKE '%" + keyword + "%';";
-                    break;
-                default:
-                    console.log("searchInAwardTask currently only supports YEAR, AWARD!");
-                    fn(true);
-                    return;
-            }
-
-            console.log(queryString);
-            con.query(
-                queryString,
-                function (err, rows, fields) {
-                    if (err) {
-                        console.error(err);
-                        fn(true);
-                        return;
-                    }
-
-                    for (var i in rows) {
-                        var resultItem = {"award": rows[i]};
-                        result.push(resultItem);
-                    }
-
-                    fn();
-                });
+            return Promise.resolve(cardObjList);
         };
 
-        function prepareAlum(alumId, returnResult) {
-            var alumQueryString = "SELECT * FROM necawards.alum WHERE alumId = '" + alumId + "'";
-            console.log(alumQueryString);
-            con.query(
-                alumQueryString,
-                function (err, rows, fields) {
-                    if (err) {
-                        console.error(err);
-                        returnResult(null);
-                        return;
-                    }
-                    var foundAlum = rows[0];
+        const prepareAlum = async function(alumId) {
+            try {
+                let alumObj = await queryAlum_ById(con, alumId);
+                if (!alumObj) {
+                    return Promise.reject("No alums found with ID = " + alumId);
+                }
+                let alumObjConverted = convertAlum(alumObj);
+                return Promise.resolve(alumObjConverted);
+            } catch (e) {
+                return Promise.reject(e)
+            }
+        };
 
-                    // Parse discipline
-                    if (foundAlum.discipline) {
-                        foundAlum.disciplines = foundAlum.discipline.split("/").map(function (d) {
-                            return d.trim();
-                        });
-                        delete foundAlum["discipline"];
-                    }
+        const prepareCardList_UsingAwards = async function(awardObjList) {
+            let cardObjList = [];
+            for (let awardObj of awardObjList) {
+                const cardObj = {"award": awardObj};
 
-                    if (foundAlum.gradYear) {
-                        if (foundAlum.gradYear === "Faculty") {
-                            // DO NOTHING
-                        } else {
-                            // Only non-faculty has grad year(s)
-                            foundAlum.gradYears = foundAlum.gradYear.split(",").map(function (d) {
-                                return d.trim();
-                            });
-                            // Don't delete gradYear because it might contain "Faculty" which is used for more logic
-
-                            // Only non-faculty has degree(s)
-                            if (foundAlum.degree) {
-                                foundAlum.degrees = foundAlum.degree.split(",").map(function (d) {
-                                    return toFullDegree(d.trim());
-                                });
-                                delete foundAlum["degree"];
-                            }
-                        }
-                    }
-
-                    if (foundAlum.studioTeacher) {
-                        foundAlum.studioTeachers = foundAlum.studioTeacher.split("/").map(function(t) {
-                            return t.trim();
-                        });
-                        delete foundAlum["studioTeacher"];
-                    }
-
-                    returnResult(foundAlum);
-                });
-        }
-
-        var getAwardAlumTask = function(fn) {
-            var totalTasks = result.length;
-            for (var i in result) {
-                const r = result[i];
-                var ensembleId = r.award.ensembleId;
-
+                let ensembleId = awardObj.ensembleId;
                 if (ensembleId === null) {
-                    var alumIds = r.award.alumId.split(",");
-                    var alumId =  alumIds[Math.floor(alumIds.length * Math.random())].replace(/\s/g, '');
-                    prepareAlum(alumId, function (alumResult) {
-                        r.winner = alumResult;
-
-                        totalTasks--;
-                        // console.log("totalTask left (no ens) " + totalTasks);
-                        if (totalTasks <= 0) {
-                            fn(null, result);
-                        }
-                    });
+                    let alumIds = awardObj.alumId.split(",");
+                    let alumId =  alumIds[Math.floor(alumIds.length * Math.random())].replace(/\s/g, '');
+                    try {
+                        cardObj.winner = await prepareAlum(alumId);
+                    } catch (e) {
+                        return Promise.reject(e);
+                    }
                 } else {
-
-                    var ensembleAlumIds = r.award.alumId.split(",").map(function (d) {
+                    // Ensemble
+                    let ensembleAlumIds = awardObj.alumId.split(",").map(function (d) {
                         return d.trim();
                     });
-                    const lastIndex = ensembleAlumIds.length - 1;
-                    ensembleAlumIds.forEach(function(a, i) {
-                        prepareAlum(a, function (alumResult) {
-                            if (!r.ensembleAlums) {
-                                r.ensembleAlums = [];
-                            }
-                            r.ensembleAlums.push(alumResult);
+                    cardObj.ensembleAlums = [];
+                    for (let ensembleAlumId of ensembleAlumIds) {
+                        try {
+                            const alumObj = await prepareAlum(ensembleAlumId);
+                            cardObj.ensembleAlums.push(alumObj);
 
-                            if (i >= lastIndex) {
-                                totalTasks--;
-                                // console.log("totalTask left (ens) " + totalTasks);
-                                if (totalTasks <= 0) {
-                                    fn(null, result);
-                                }
-                            }
-                        });
-                    });
-                }
-            }
-        };
-
-        function getEnsembleTask(fn) {
-            var todo = result.length;
-            for (var i in result) {
-                const const_i = i;
-                const r = result[i];
-                // console.log(r);
-                var ensembleId = r.award.ensembleId;
-                if (ensembleId) {
-                    con.query(
-                        "SELECT * FROM necawards.ensemble WHERE ensembleId = '" + ensembleId + "'",
-                        function (err, rows, fields) {
-                            if (err) {
-                                console.error(err);
-                                fn(true);
-                                return;
-                            }
-                            r.winner = rows[0];
-
-                            todo--;
-                            if (todo <= 0) {
-                                fn(null, result);
-                            }
-                        });
-                } else {
-                    todo--;
-                    if (todo <= 0) {
-                        fn(null, result);
+                            cardObj.winner = await queryEnsemble_ById(con, ensembleId);
+                        } catch (e) {
+                            return Promise.reject(e);
+                        }
                     }
                 }
+                cardObjList.push(cardObj);
             }
-        }
-
+            return Promise.resolve(cardObjList);
+        };
 
         let searchType = incomingData.type;
         let keyword = incomingData.keyword;
+        let outstanding = incomingData.outstanding;
 
-        if (keyword.length < 3) {
-            finishRequest([]);
+        // Validation: make sure only alpha-numeric characters
+        if (keyword.length < 3 || !/^[a-zA-Z0-9\-\s]+$/.test(keyword)) {
+
+
+
+            // TODO convert all accents to normal letters
+
+            finishRequestError("Failed input validation!");
             return;
         }
 
+        for (let k of keyword.split(" ")) {
+            if (k.length < 3) {
+                finishRequestError("Failed input validation!");
+                return;
+            }
+        }
+
         if (searchType === "NAME" || searchType === "DISCIPLINE") {
-            const matchedAlums = await alumSearchTask(searchType, keyword);
-            const matchedAwards = await searchInAward_UsingAlumsTask(matchedAlums);
-            finishRequest(matchedAwards);
+            // Searching by winner
+            try {
+                const alumObjList = await alumSearchTask(searchType, keyword);
+                const ensembleObjList = await ensembleSearchTask(alumObjList);
+
+                // Both alum and ensemble winners
+                const winnerObjList = alumObjList.concat(ensembleObjList);
+
+                // Search awards that has either alums or ensemble
+                const cardObjList = await prepareCardList_UsingWinners(winnerObjList, outstanding);
+                finishRequest(cardObjList);
+            } catch (e) {
+                finishRequestError(e);
+            }
+        } else if (searchType === "YEAR" || searchType === "AWARD") {
+            // Searching by award
+            try {
+                const awardObjList = await awardSearchTask(searchType, keyword, outstanding);
+                const cardObjList = await prepareCardList_UsingAwards(awardObjList);
+                finishRequest(cardObjList);
+            } catch (e) {
+                finishRequestError(e);
+            }
         } else {
-            async.series([
-                searchInAwardTask,
-                getAwardAlumTask,
-                getEnsembleTask
-            ], function(err, r) {
-                finishRequest(r);
-            });
+            finishRequestError("Unknown searchType: " + searchType);
         }
     }
 
@@ -635,61 +683,3 @@ module.exports = function(app, mysql) {
     module.exports.allIdsWithPhotos = allIdsWithPhotos;
     module.exports.searchAward = searchAward;
 };
-
-// app.get('/home', function (req,res) {
-//     var lock = 2;
-//     var result = {};
-//     result.user_array = [];
-//     result.title_array = [];
-//
-//
-//
-//     // first query
-//     var q1 = function(fn) {
-//         var sql = 'SELECT * FROM necawards.awards ORDER BY RAND() LIMIT 1';
-//         db.execute(sql)
-//             .addListener('row', function(r) {
-//                 result.user_array.push( { user_name: r.user_name } );
-//             })
-//             .addListener('result', function(r) {
-//                 return fn && fn(null, result);
-//             });
-//     };
-//
-//     // second query
-//     var q2 = function(fn) {
-//
-//         var sql = 'SELECT * FROM necawards.awards ORDER BY RAND() LIMIT 1';
-//         db.execute(sql)
-//             .addListener('row', function(r) {
-//                 result.title_array.push( { title: r.title } );
-//             })
-//             .addListener('result', function(r) {
-//                 return fn && fn(null, result);
-//             });
-//     };
-//
-//     //Standard nested callbacks
-//     // q1(function (err, result) {
-//     //     if (err) {
-//     //         return; //do something
-//     //     }
-//     //
-//     //     q2(function (err, result) {
-//     //         if (err) {
-//     //             return; //do something
-//     //         }
-//     //
-//     //         finishRequest(result);
-//     //     });
-//     // });
-//
-//     //Using async.js
-//     async.list([
-//         q1,
-//         q2
-//     ]).call().end(function(err, result) {
-//         finishRequest(result);
-//     });
-//
-// });

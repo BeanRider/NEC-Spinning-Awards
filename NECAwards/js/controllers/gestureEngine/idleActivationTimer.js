@@ -29,16 +29,19 @@ class IdleActivationTimer extends TimerLoop {
         }
 
         if (this.runningShortTimer) {
-            if (this.elapsedTime >= this.shortIdleTimeout) {
-                let numToPlay = Math.floor((Math.random() * 3) + 1);
-                for (let i = 0; i < numToPlay; ++i) {
-                    playRandomGesture();
+            // Only automate flip when the search is not active.
+            if (CARD_MANAGER.getSearchCard().flowPath[0] === 0) {
+                if (this.elapsedTime >= this.shortIdleTimeout) {
+                    let numToPlay = Math.floor((Math.random() * 3) + 1);
+                    for (let i = 0; i < numToPlay; ++i) {
+                        playRandomGesture();
+                    }
+                    this.elapsedTime = 0;
+                    this.shortIdleTimeout = Math.floor((Math.random() * 30) + 30) * 1000;
+                    console.log("setting next idle delay to: " + this.shortIdleTimeout);
+                } else {
+                    this.elapsedTime += 1000;
                 }
-                this.elapsedTime = 0;
-                this.shortIdleTimeout = Math.floor((Math.random() * 30) + 30) * 1000;
-                console.log("setting next idle delay to: " + this.shortIdleTimeout);
-            } else {
-                this.elapsedTime += 1000;
             }
         }
     };

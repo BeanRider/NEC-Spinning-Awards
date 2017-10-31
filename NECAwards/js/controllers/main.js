@@ -53,6 +53,18 @@ let startTime = Date.now();
 let touchDown = false;
 let touchDragging = false;
 function touchHandler(event) {
+
+    if (!isInitDone) {
+        return;
+    }
+
+    idleActivationTimer.resetValues();
+
+    // No drag in search mode.
+    if (CARD_MANAGER.getSearchCard().isActive()) {
+        return;
+    }
+
     let touches = event.changedTouches,
         first = touches[0];
     let mouseX = first.pageX;
@@ -63,7 +75,6 @@ function touchHandler(event) {
             touchDown = true;
             currentDragGesture = [];
             startTime = Date.now();
-            idleActivationTimer.resetValues();
             break;
         case "touchmove":
 
@@ -258,12 +269,31 @@ let isDragging = false;
 let mouseDown = false;
 $(document)
     .mousedown(function() {
+        if (!isInitDone) {
+            return;
+        }
+
+        idleActivationTimer.resetValues();
+
+        // No drag in search mode.
+        if (CARD_MANAGER.getSearchCard().isActive()) {
+            return;
+        }
         mouseDown = true;
         currentDragGesture = [];
         startTime = Date.now();
-        idleActivationTimer.resetValues();
     })
     .mousemove(function(event) {
+        if (!isInitDone) {
+            return;
+        }
+
+        idleActivationTimer.resetValues();
+
+        // No drag in search mode.
+        if (CARD_MANAGER.getSearchCard().isActive()) {
+            return;
+        }
         if (mouseDown) {
             isDragging = true;
         } else {
@@ -282,6 +312,16 @@ $(document)
         }
     })
     .mouseup(function() {
+        if (!isInitDone) {
+            return;
+        }
+
+        idleActivationTimer.resetValues();
+
+        // No drag in search mode.
+        if (CARD_MANAGER.getSearchCard().isActive()) {
+            return;
+        }
         // Only if the drag gesture was long enough
         if (currentDragGesture.length > MIN_DRAG_AMOUNT) {
             let directionString;
@@ -290,10 +330,10 @@ $(document)
                 const gLen = currentDragGesture.length;
                 const lastPoint = currentDragGesture[gLen - 1].pos;
                 const secondLastPoint = currentDragGesture[gLen - 3].pos;
-                if (lastPoint.x == secondLastPoint.x) {
+                if (lastPoint.x === secondLastPoint.x) {
                     secondLastPoint.x += 0.0001;
                 }
-                if (lastPoint.y == secondLastPoint.y) {
+                if (lastPoint.y === secondLastPoint.y) {
                     secondLastPoint.y += 0.0001;
                 }
 
@@ -439,6 +479,7 @@ $(document)
 // =====================================================================================================================
 // Initialization
 // =====================================================================================================================
+let isInitDone = false;
 let idleActivationTimer;
 
 const CARD_MANAGER = new CardManager();
@@ -464,6 +505,12 @@ $(document).ready(async function() {
     (function initClickHandlers() {
         $('.SEARCH_FLOW_INACTIVE').click(() => {
             CARD_MANAGER.getSearchCard().flowPath = [1];
+            updateHTMLCard_Search();
+        });
+
+        $(".closeButton").click(() => {
+            CARD_MANAGER.getSearchCard().flowPath = [0];
+            flipAllCards();
             updateHTMLCard_Search();
         });
 
@@ -512,26 +559,34 @@ $(document).ready(async function() {
 
         $(".os-only").click(function() {
             let $toggle = $(".os-only");
+            let searchCard = CARD_MANAGER.getSearchCard();
+
             if ($toggle.hasClass("active")) {
                 $toggle.find('i').toggleClass("fa-square-o fa-square");
                 $toggle.removeClass("active");
+                searchCard.outstanding = false;
             } else {
                 $toggle.find('i').toggleClass("fa-square fa-square-o");
                 $toggle.addClass("active");
+                searchCard.outstanding = true;
             }
         });
 
-        $(".keyboard > div > span").click((e) => {
-           let $k = $(e.currentTarget);
-           let kChar = $k.text();
-           if (kChar === '⎵') {
-               kChar = " ";
-           }
+        const onKeyClick = function(e) {
+            let $k = $(e.currentTarget);
+            let kChar = $k.text();
+            if (kChar === '⎵') {
+                kChar = " ";
+            }
 
-           let $field = $(".searchField");
-           let fieldText = $field.val();
-           $field.val(fieldText + kChar);
-        });
+            let $field = $(".searchField");
+            let fieldText = $field.val();
+            $field.val(fieldText + kChar);
+        };
+        $(".zRow > span").click(onKeyClick);
+        $(".aRow > span").click(onKeyClick);
+        $(".qRow > span").click(onKeyClick);
+        $(".numberKeys > span").click(onKeyClick);
 
         $(".backspace").click(() => {
             let $field = $(".searchField");
@@ -542,7 +597,8 @@ $(document).ready(async function() {
         $(".searchButton").click(() => {
             let body = {
                 "type": CARD_MANAGER.getSearchCard().searchType,
-                "keyword": $(".searchField").val()
+                "keyword": $(".searchField").val(),
+                "outstanding": CARD_MANAGER.getSearchCard().outstanding
             };
 
             postSearch(function(data) {
@@ -559,6 +615,9 @@ $(document).ready(async function() {
                     }
                 } catch(err) {
                     console.log(err);
+                    // Set nothing on screen.
+                    idleActivationTimer.setShortTimerEnabled(false);
+                    CARD_MANAGER.replaceAllWithOnly([]);
                 }
             }, body);
         });
@@ -613,6 +672,8 @@ $(document).ready(async function() {
 
     idleActivationTimer = new IdleActivationTimer();
     idleActivationTimer.start();
+
+    isInitDone = true;
 });
 
 // =====================================================================================================================
@@ -716,6 +777,18 @@ function updateHTMLCard_Search() {
     // Reset input field
     let $field = $(".searchField");
     $field.val("");
+
+    // Reset outstanding
+    let $os = $(".os-only");
+    if ($os.hasClass("active")) {
+        $os.find('i').removeClass("fa-square-o");
+        $os.find('i').addClass("fa-square");
+        CARD_MANAGER.getSearchCard().outstanding = true;
+    } else {
+        $os.find('i').addClass("fa-square-o");
+        $os.find('i').removeClass("fa-square");
+        CARD_MANAGER.getSearchCard().outstanding = false;
+    }
 
     if (SEARCH_FLOW_INACTIVE ===  state) {
         $(".search").removeClass("active");

@@ -210,13 +210,14 @@ p { margin-bottom: 2px; }
 }
 
 .searchOption, .os-only {
-    padding-left: 32px;
     height: 43px;
+    padding-left: 32px;
 }
 
 .searchOptionIcon, .os-only-icon {
     float: left;
     font-size: 30px;
+    padding-left: 18px
 }
 
 .searchOptionIcon > i, .os-only-icon {
@@ -230,18 +231,19 @@ p { margin-bottom: 2px; }
     height: 30px;
 }
 .os-only {
-    vertical-align: center;
+    vertical-align: middle;
     line-height: 43px;
 }
 .os-only > span {
     font-size: 17px;
-    vertical-align: center;
+    vertical-align: middle;
     line-height: 43px;
 }
 
 .searchFieldContainer {
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 15px;
 }
 
 .seventy {
@@ -264,7 +266,6 @@ p { margin-bottom: 2px; }
     color: transparent;
     text-shadow: 0 0 0 white;
     font-size: 23px;
-    margin-top: 15px;
     padding: 3px;
     text-transform: uppercase;
 }
@@ -273,8 +274,6 @@ p { margin-bottom: 2px; }
     float: right;
     text-align: center;
     font-size: 24px;
-    height: 35px;
-    line-height: 50%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -284,47 +283,62 @@ input:focus {
 }
 
 .keyboard {
-    float: left;
     margin-top: 10px;
-    margin-left: 10px;
-    /*width: 100%;*/
     text-align: center;
-    font-size: 28px;
+    font-size: 30px;
 }
 
-.keyboard > div {
-    height: 60px;
+.keyboard > .qRow,
+.keyboard > .aRow,
+.keyboard > .zRow {
+    height: 70px;
 }
 
-.keyboard > div > span {
+.keyboard > .qRow > span,
+.keyboard > .aRow > span,
+.keyboard > .zRow > span{
     display: inline-block;
     padding: 14px 25px;
     /*width: 18px;*/
 }
 
-.keyboard > div > div,
-.keyboard > div > span > div {
-    background-image: url(../img/backspaceIcon.png);
-    width: 34px;
-    height: 31px;
-    display: inline-block;
+.backspace {
+    background: url(../img/backspaceIcon.png) no-repeat center;
 }
 
-.keyboard > div > span:active, .keyboard > div > div:active {
+.zRow > .backspace {
+    display: inline-block;
+    width: 34px;
+    height: 31px;
+}
+
+.SEARCH_FLOW_INPUT_YEAR .backspace {
+    width: 46px;
+    height: 39px;
+    padding: 70px 30px;
+}
+
+.qRow > span:active,
+.aRow > span:active,
+.zRow > span:active,
+.numberKeys > span:active,
+.backspace:active {
     opacity: 0.5;
 }
 
 
-
-.keyboard > div.numberKeys {
-    height: 60px;
+.keyboard div.numberKeys {
+    width: auto;
+    height: 100px;
+    float: left;
 }
 
-.keyboard > div.numberKeys > span {
-    padding-left: 35px;
-    padding-right: 35px;
-    padding-top: 25px;
-    padding-bottom: 10px;
+.keyboard div.numberKeys span {
+    margin: 0 auto;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
 .fillRect {
@@ -344,14 +358,7 @@ input:focus {
 
     font-size: 71px;
     text-align: center;
-    /*padding-top: 10px;*/
-    /*padding-left: 10px;*/
-    /*padding-right: 10px;*/
-
-    /*position: relative;*/
-    /*display:table-cell; vertical-align:bottom;*/
 }
-
 
 .lastName {
     padding-left: 3px;
@@ -378,7 +385,6 @@ input:focus {
     padding-right: 4px;
     -webkit-transition: opacity 1s;
     -moz-transition: opacity 1s;
-    -ms-transition: opacity 1s;
     -o-transition: opacity 1s;
     transition: opacity 1s;
 }
@@ -407,4 +413,65 @@ input:focus {
     right: 0;
     width: 2000px;
     padding-right: 80px;
+}
+
+/* Flex allows it to fill up the box*/
+.NEC-row {
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+}
+
+.NEC-column {
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+}
+
+.size-1 {
+    flex: 1;
+}
+
+.size-2 {
+    flex: 2;
+}
+
+.size-3 {
+    flex: 3;
+}
+
+.size-4 {
+    flex: 4;
+}
+
+.size-5 {
+    flex: 5;
+}
+
+.size-6 {
+    flex: 6;
+}
+
+.size-7 {
+    flex: 7;
+}
+
+
+/* Clearfix method to allow containers to wrap floated contents correctly */
+.wrap-contents::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.match-height-flex {
+    flex: 1;
+}
+
+.center-parent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -80,8 +80,16 @@ class SearchCard extends Card {
         // [] or [-1] or [100] == error
         this.flowPath = [0];
         this.searchType = "NAME";
+        this.outstanding = false;
         this.pages = 0;
         this.pageIdx = 0;
+    }
+
+    isActive() {
+        if (this.flowPath.length >= 1) {
+            return this.flowPath[0] !== 0;
+        }
+        return false;
     }
 
     // Returns the current search flow state.
