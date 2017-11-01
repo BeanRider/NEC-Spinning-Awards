@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="178e5385-f743-4822-84ac-85b595ecc810" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NECAwards/.idea/inspectionProfiles/Project_Default.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/.idea/workspace.xml" afterPath="$PROJECT_DIR$/NECAwards/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/css/style.css" afterPath="$PROJECT_DIR$/NECAwards/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/index2.html" afterPath="$PROJECT_DIR$/NECAwards/index2.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/js/controllers/card.js" afterPath="$PROJECT_DIR$/NECAwards/js/controllers/card.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/js/controllers/gestureEngine/idleActivationTimer.js" afterPath="$PROJECT_DIR$/NECAwards/js/controllers/gestureEngine/idleActivationTimer.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/js/controllers/main.js" afterPath="$PROJECT_DIR$/NECAwards/js/controllers/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/app.js" afterPath="$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/award.service.server.js" afterPath="$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/award.service.server.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -71,8 +66,8 @@
       <file leaf-file-name="award.service.server.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/award.service.server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="326">
-              <caret line="585" column="13" lean-forward="true" selection-start-line="585" selection-start-column="13" selection-end-line="585" selection-end-column="13" />
+            <state relative-caret-position="146">
+              <caret line="573" column="0" lean-forward="true" selection-start-line="573" selection-start-column="0" selection-end-line="573" selection-end-column="0" />
               <folding>
                 <element signature="e#423#1398#0" expanded="false" />
                 <element signature="e#1550#7691#0" expanded="false" />
@@ -319,7 +314,7 @@
       <workItem from="1508820400755" duration="10593000" />
       <workItem from="1509129831697" duration="1262000" />
       <workItem from="1509222054534" duration="1322000" />
-      <workItem from="1509244248251" duration="21141000" />
+      <workItem from="1509244248251" duration="25053000" />
     </task>
     <task id="LOCAL-00001" summary="Deleted a lot of un-used libraries and code.">
       <created>1506055543379</created>
@@ -349,11 +344,18 @@
       <option name="project" value="LOCAL" />
       <updated>1509245352252</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added WinnerType enum, converted search query to use ES6 promises.&#10;Added support for ensemble search results. Added search input &#10;validation. Added support &quot;outstanding&quot; awards filter on search results.">
+      <created>1509434838114</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1509434838114</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69469000" />
+    <option name="totallyTimeSpent" value="73381000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="952" extended-state="6" />
@@ -423,7 +425,8 @@
     <MESSAGE value="Started working on upgrading NodeJS server to use ES6 style promises.&#10;Updated search card features." />
     <MESSAGE value="Fixed issue with timer loop not binding this to the actual timer object." />
     <MESSAGE value="In the process of modifying the search function... &#10;- close button placed&#10;- search button is now being relocated&#10;- search card now animates to span two cards now" />
-    <option name="LAST_COMMIT_MESSAGE" value="In the process of modifying the search function... &#10;- close button placed&#10;- search button is now being relocated&#10;- search card now animates to span two cards now" />
+    <MESSAGE value="Added WinnerType enum, converted search query to use ES6 promises.&#10;Added support for ensemble search results. Added search input &#10;validation. Added support &quot;outstanding&quot; awards filter on search results." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added WinnerType enum, converted search query to use ES6 promises.&#10;Added support for ensemble search results. Added search input &#10;validation. Added support &quot;outstanding&quot; awards filter on search results." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -849,8 +852,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/award.service.server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="585" column="13" lean-forward="true" selection-start-line="585" selection-start-column="13" selection-end-line="585" selection-end-column="13" />
+        <state relative-caret-position="146">
+          <caret line="573" column="0" lean-forward="true" selection-start-line="573" selection-start-column="0" selection-end-line="573" selection-end-column="0" />
           <folding>
             <element signature="e#423#1398#0" expanded="false" />
             <element signature="e#1550#7691#0" expanded="false" />

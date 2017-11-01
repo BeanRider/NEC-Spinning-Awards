@@ -562,11 +562,11 @@ $(document).ready(async function() {
             let searchCard = CARD_MANAGER.getSearchCard();
 
             if ($toggle.hasClass("active")) {
-                $toggle.find('i').toggleClass("fa-square-o fa-square");
+                $toggle.find('i').toggleClass("fa-circle-o  fa-check-circle-o");
                 $toggle.removeClass("active");
                 searchCard.outstanding = false;
             } else {
-                $toggle.find('i').toggleClass("fa-square fa-square-o");
+                $toggle.find('i').toggleClass("fa-check-circle-o fa-circle-o");
                 $toggle.addClass("active");
                 searchCard.outstanding = true;
             }
@@ -781,12 +781,12 @@ function updateHTMLCard_Search() {
     // Reset outstanding
     let $os = $(".os-only");
     if ($os.hasClass("active")) {
-        $os.find('i').removeClass("fa-square-o");
-        $os.find('i').addClass("fa-square");
+        $os.find('i').removeClass("fa-circle-o");
+        $os.find('i').addClass("fa-check-circle-o");
         CARD_MANAGER.getSearchCard().outstanding = true;
     } else {
-        $os.find('i').addClass("fa-square-o");
-        $os.find('i').removeClass("fa-square");
+        $os.find('i').addClass("fa-circle-o");
+        $os.find('i').removeClass("fa-check-circle-o");
         CARD_MANAGER.getSearchCard().outstanding = false;
     }
 

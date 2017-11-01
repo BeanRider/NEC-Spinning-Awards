@@ -209,9 +209,20 @@ p { margin-bottom: 2px; }
     padding-top: 32px;
 }
 
-.searchOption, .os-only {
+.os-only {
     height: 43px;
     padding-left: 32px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.searchOption {
+    /*height: 43px;*/
+    padding-left: 5%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 40%;
+    padding-right: 5%;
 }
 
 .searchOptionIcon, .os-only-icon {
@@ -422,6 +433,11 @@ input:focus {
     display: flex;
     flex-direction: row;
 }
+
+.wrap {
+    flex-wrap: wrap;
+}
+
 
 .NEC-column {
     display: -ms-flex;

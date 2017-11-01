@@ -23,8 +23,8 @@
       <file leaf-file-name="index2.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index2.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="1949" column="32" lean-forward="false" selection-start-line="1949" selection-start-column="31" selection-end-line="1949" selection-end-column="32" />
+            <state relative-caret-position="260">
+              <caret line="1859" column="62" lean-forward="false" selection-start-line="1859" selection-start-column="62" selection-end-line="1859" selection-end-column="62" />
               <folding>
                 <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -37,8 +37,8 @@
       <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1490">
-              <caret line="300" column="23" lean-forward="true" selection-start-line="300" selection-start-column="23" selection-end-line="300" selection-end-column="23" />
+            <state relative-caret-position="424">
+              <caret line="218" column="13" lean-forward="false" selection-start-line="218" selection-start-column="13" selection-end-line="218" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -47,8 +47,8 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/controllers/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="603" column="20" lean-forward="false" selection-start-line="603" selection-start-column="20" selection-end-line="603" selection-end-column="20" />
+            <state relative-caret-position="245">
+              <caret line="564" column="0" lean-forward="false" selection-start-line="564" selection-start-column="0" selection-end-line="564" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -99,10 +99,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>closeButton</find>
-      <find>inactiv</find>
-      <find>.search</find>
-      <find>transit</find>
       <find>transi</find>
       <find>padding</find>
       <find>input</find>
@@ -123,12 +119,16 @@
       <find>// reset</find>
       <find>outstanding</find>
       <find>`\</find>
-      <find>backspace</find>
       <find>drag</find>
       <find>searchCard</find>
       <find>flowPath</find>
       <find>idleActi</find>
+      <find>backspace</find>
       <find>searchBu</find>
+      <find>fa-sq</find>
+      <find>searchoption</find>
+      <find>optiion</find>
+      <find>square</find>
     </findStrings>
     <replaceStrings>
       <replace>this.img2</replace>
@@ -166,11 +166,11 @@
         <option value="$PROJECT_DIR$/js/utils/custommath.js" />
         <option value="$PROJECT_DIR$/js/controllers/cardManager.js" />
         <option value="$PROJECT_DIR$/js/controllers/timer.js" />
-        <option value="$PROJECT_DIR$/css/style.css" />
-        <option value="$PROJECT_DIR$/index2.html" />
         <option value="$PROJECT_DIR$/js/controllers/gestureEngine/idleActivationTimer.js" />
         <option value="$PROJECT_DIR$/js/controllers/card.js" />
         <option value="$PROJECT_DIR$/js/controllers/main.js" />
+        <option value="$PROJECT_DIR$/index2.html" />
+        <option value="$PROJECT_DIR$/css/style.css" />
       </list>
     </option>
   </component>
@@ -432,12 +432,12 @@
       <workItem from="1508808920324" duration="7467000" />
       <workItem from="1508820404063" duration="10476000" />
       <workItem from="1509129811823" duration="4199000" />
-      <workItem from="1509244934926" duration="19754000" />
+      <workItem from="1509244934926" duration="23186000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="417210000" />
+    <option name="totallyTimeSpent" value="420642000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="841" y="23" width="839" height="951" extended-state="0" />
@@ -863,18 +863,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index2.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="1949" column="32" lean-forward="false" selection-start-line="1949" selection-start-column="31" selection-end-line="1949" selection-end-column="32" />
-          <folding>
-            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/controllers/timer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -899,16 +887,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="603" column="20" lean-forward="false" selection-start-line="603" selection-start-column="20" selection-end-line="603" selection-end-column="20" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/services/award.client.service.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -927,10 +905,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/controllers/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="564" column="0" lean-forward="false" selection-start-line="564" selection-start-column="0" selection-end-line="564" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="1859" column="62" lean-forward="false" selection-start-line="1859" selection-start-column="62" selection-end-line="1859" selection-end-column="62" />
+          <folding>
+            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#2;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1490">
-          <caret line="300" column="23" lean-forward="true" selection-start-line="300" selection-start-column="23" selection-end-line="300" selection-end-column="23" />
+        <state relative-caret-position="424">
+          <caret line="218" column="13" lean-forward="false" selection-start-line="218" selection-start-column="13" selection-end-line="218" selection-end-column="13" />
           <folding />
         </state>
       </provider>
