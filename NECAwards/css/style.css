@@ -1,10 +1,5 @@
 /* Font Faces*/
 @font-face {
-    font-family: 'Montserrat';
-    src: url("../js/data/Montserrat-Bold.woff") format('woff');
-}
-
-@font-face {
     font-family: 'Lato-Light';
     src: url("../js/data/Lato-Light.woff") format('woff');
 }
@@ -33,11 +28,12 @@ ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input{
 /* HTML ELEMENTS */
 body {
     width: 3840px;  height: 2160px;
-
-    font-family: "Lato-Light";
+    font-family: "Lato-Light", sans-serif;
     font-size:14px;
-    color:#eee; }
+    color:#eee;
+}
 
+/* Disables scrolling */
 /*body, html {  overflow-x: hidden;  overflow-y: hidden;  }*/
 
 p { margin-bottom: 2px; }
@@ -146,20 +142,44 @@ p { margin-bottom: 2px; }
 }
 
 .year, .lastName {
-    font-family:"Lato-Bold";
+    font-family: "Lato-Bold", sans-serif;
 }
 
+/*
+=======================================================================================
+Search Card Styles
+=======================================================================================
+*/
+
 .search {
+    position:absolute;
+    right: 79px;
+    bottom: 70px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    -ms-transition: 1s;
+    -o-transition: 1s;
+    transition: 1s;
+
     background-color: #e17c26;
     -webkit-transition-property: -webkit-transform, width;
-    -webkit-transition-delay: 1s, 0s;
+    -webkit-transition-delay: 0s, 0s;
+    /*-webkit-transition-delay: 1s, 0s;*/
 
     transition-property: transform, width;
-    transition-delay: 1s, 0s;
+    /*transition-delay: 1s, 0s;*/
+    transition-delay: 0s, 0s;
 }
 
 .search.active {
-    position: relative;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    /*position: relative;*/
+    position:absolute;
+    right: 79px;
+    bottom: 70px;
 
     -webkit-transition: 1s;
     -moz-transition: 1s;
@@ -168,15 +188,18 @@ p { margin-bottom: 2px; }
     transition: 1s;
 
     -webkit-transition-property: -webkit-transform, width;
-    -webkit-transition-delay: 0s, 1s;
+    /*-webkit-transition-delay: 0s, 1s;*/
+    -webkit-transition-delay: 0s, 0s;
+
 
     transition-property: transform, width;
-    transition-delay: 0s, 1s;
+    /*transition-delay: 0s, 1s;*/
+    transition-delay: 0s, 0s;
 
-    transform: translateX(-417px);
-    -webkit-transform: translateX(-417px);
+    /*transform: translateX(-417px);*/
+    /*-webkit-transform: translateX(-417px);*/
 
-    width: 783px;
+    width: 786px;
 }
 
 
@@ -206,23 +229,20 @@ p { margin-bottom: 2px; }
 }
 
 .searchOptions {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    min-width: 783px;
     padding-top: 32px;
 }
 
 .os-only {
     height: 43px;
-    padding-left: 39px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 5px 39px;
 }
 
 .searchOption {
-    /*height: 43px;*/
-    padding-left: 5%;
-    padding-top: 20px;
-    padding-bottom: 20px;
     width: 40%;
-    padding-right: 5%;
+    padding: 20px 5%;
 }
 
 .os-only-icon {
@@ -255,18 +275,6 @@ p { margin-bottom: 2px; }
     margin-left: 10%;
     margin-right: 10%;
     margin-top: 15px;
-}
-
-.seventy {
-    width: 70%;
-}
-
-.thirty {
-    width: 30%;
-}
-
-.twenty {
-    width: 20%;
 }
 
 .searchField {
@@ -310,7 +318,6 @@ input:focus {
 .keyboard > .zRow > span{
     display: inline-block;
     padding: 14px 25px;
-    /*width: 18px;*/
 }
 
 .backspace {
@@ -346,10 +353,7 @@ input:focus {
 
 .keyboard div.numberKeys span {
     margin: 0 auto;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding: 30px 50px;
 }
 
 .fillRect {

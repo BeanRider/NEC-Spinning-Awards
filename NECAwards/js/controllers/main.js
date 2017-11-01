@@ -778,19 +778,14 @@ function updateHTMLCard_Search() {
     let $field = $(".searchField");
     $field.val("");
 
-    // Reset outstanding
+    // Reset outstanding to false
     let $os = $(".os-only");
-    if ($os.hasClass("active")) {
-        $os.find('i').removeClass("fa-circle-o");
-        $os.find('i').addClass("fa-check-circle-o");
-        CARD_MANAGER.getSearchCard().outstanding = true;
-    } else {
-        $os.find('i').addClass("fa-circle-o");
-        $os.find('i').removeClass("fa-check-circle-o");
-        CARD_MANAGER.getSearchCard().outstanding = false;
-    }
+    $os.removeClass("active");
+    $os.find('i').addClass("fa-circle-o");
+    $os.find('i').removeClass("fa-check-circle-o");
+    CARD_MANAGER.getSearchCard().outstanding = false;
 
-    if (SEARCH_FLOW_INACTIVE ===  state) {
+    if (SEARCH_FLOW_INACTIVE === state) {
         $(".search").removeClass("active");
     } else {
         $(".search").addClass("active");
