@@ -211,7 +211,7 @@ p { margin-bottom: 2px; }
 
 .os-only {
     height: 43px;
-    padding-left: 32px;
+    padding-left: 39px;
     padding-top: 5px;
     padding-bottom: 5px;
 }
@@ -225,13 +225,13 @@ p { margin-bottom: 2px; }
     padding-right: 5%;
 }
 
-.searchOptionIcon, .os-only-icon {
+.os-only-icon {
     float: left;
     font-size: 30px;
     padding-left: 18px
 }
 
-.searchOptionIcon > i, .os-only-icon {
+.os-only-icon {
     vertical-align: middle;
 }
 
@@ -317,17 +317,17 @@ input:focus {
     background: url(../img/backspaceIcon.png) no-repeat center;
 }
 
-.zRow > .backspace {
-    display: inline-block;
-    width: 34px;
-    height: 31px;
-}
+/*.zRow > .backspace {*/
+    /*display: inline-block;*/
+    /*width: 34px;*/
+    /*height: 31px;*/
+/*}*/
 
-.SEARCH_FLOW_INPUT_YEAR .backspace {
-    width: 46px;
-    height: 39px;
-    padding: 70px 30px;
-}
+/*.SEARCH_FLOW_INPUT_YEAR .backspace {*/
+    /*width: 46px;*/
+    /*height: 39px;*/
+    /*padding: 70px 30px;*/
+/*}*/
 
 .qRow > span:active,
 .aRow > span:active,

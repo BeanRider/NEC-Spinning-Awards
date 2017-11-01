@@ -6,7 +6,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/.idea/workspace.xml" afterPath="$PROJECT_DIR$/NECAwards/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/css/style.css" afterPath="$PROJECT_DIR$/NECAwards/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/index2.html" afterPath="$PROJECT_DIR$/NECAwards/index2.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/js/controllers/main.js" afterPath="$PROJECT_DIR$/NECAwards/js/controllers/main.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -28,7 +27,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="194">
               <caret line="1853" column="42" lean-forward="false" selection-start-line="1853" selection-start-column="41" selection-end-line="1853" selection-end-column="42" />
-              <folding />
+              <folding>
+                <marker date="1509510320000" expanded="true" signature="81896:82007" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -314,7 +315,7 @@
       <workItem from="1508820400755" duration="10593000" />
       <workItem from="1509129831697" duration="1262000" />
       <workItem from="1509222054534" duration="1322000" />
-      <workItem from="1509244248251" duration="25053000" />
+      <workItem from="1509244248251" duration="25832000" />
     </task>
     <task id="LOCAL-00001" summary="Deleted a lot of un-used libraries and code.">
       <created>1506055543379</created>
@@ -351,11 +352,18 @@
       <option name="project" value="LOCAL" />
       <updated>1509434838114</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Modified layout of search options from list to wrapped list.&#10;Changed icon for outstanding only to a check icon.">
+      <created>1509509839888</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1509509839888</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73381000" />
+    <option name="totallyTimeSpent" value="74160000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="952" extended-state="6" />
@@ -426,7 +434,8 @@
     <MESSAGE value="Fixed issue with timer loop not binding this to the actual timer object." />
     <MESSAGE value="In the process of modifying the search function... &#10;- close button placed&#10;- search button is now being relocated&#10;- search card now animates to span two cards now" />
     <MESSAGE value="Added WinnerType enum, converted search query to use ES6 promises.&#10;Added support for ensemble search results. Added search input &#10;validation. Added support &quot;outstanding&quot; awards filter on search results." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added WinnerType enum, converted search query to use ES6 promises.&#10;Added support for ensemble search results. Added search input &#10;validation. Added support &quot;outstanding&quot; awards filter on search results." />
+    <MESSAGE value="Modified layout of search options from list to wrapped list.&#10;Changed icon for outstanding only to a check icon." />
+    <option name="LAST_COMMIT_MESSAGE" value="Modified layout of search options from list to wrapped list.&#10;Changed icon for outstanding only to a check icon." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -461,7 +470,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="20" column="61" lean-forward="false" selection-start-line="20" selection-start-column="61" selection-end-line="20" selection-end-column="61" />
-          <folding />
+          <folding>
+            <marker date="1509510320000" expanded="true" signature="81896:82007" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -523,7 +534,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="20" column="61" lean-forward="false" selection-start-line="20" selection-start-column="61" selection-end-line="20" selection-end-column="61" />
-          <folding />
+          <folding>
+            <marker date="1509510320000" expanded="true" signature="81896:82007" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -585,7 +598,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="19" column="61" lean-forward="false" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="61" />
-          <folding />
+          <folding>
+            <marker date="1509510320000" expanded="true" signature="81896:82007" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -647,7 +662,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1509510320000" expanded="true" signature="81896:82007" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -663,7 +680,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1509510320000" expanded="true" signature="81896:82007" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -740,7 +759,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="18" column="14" lean-forward="false" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
-          <folding />
+          <folding>
+            <marker date="1509510320000" expanded="true" signature="81896:82007" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -806,7 +827,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="1853" column="42" lean-forward="false" selection-start-line="1853" selection-start-column="41" selection-end-line="1853" selection-end-column="42" />
-          <folding />
+          <folding>
+            <marker date="1509510320000" expanded="true" signature="81896:82007" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
