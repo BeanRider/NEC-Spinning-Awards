@@ -570,11 +570,6 @@ module.exports = function(app, mysql) {
 
         // Validation: make sure only alpha-numeric characters
         if (keyword.length < 3 || !/^[a-zA-Z0-9\-\s]+$/.test(keyword)) {
-
-
-
-            // TODO convert all accents to normal letters
-
             finishRequestError("Failed input validation!");
             return;
         }
@@ -584,6 +579,25 @@ module.exports = function(app, mysql) {
                 finishRequestError("Failed input validation!");
                 return;
             }
+        }
+
+        // returns {pageNumber: [], pageNumber: [], ...}
+        function paginateList(itemsPerPage, listOfItems) {
+            let numItems = listOfItems.length;
+            let paginatedResult = {};
+            let numPages = Math.ceil(numItems * 1.0 / itemsPerPage);
+
+            for (let pageNum = 0; pageNum < numPages; pageNum++) {
+                paginatedResult[pageNum] = [];
+                for (let itemNum = 0; itemNum < itemsPerPage; itemNum++) {
+                    let idx = pageNum * itemsPerPage + itemNum;
+                    if (idx >= numItems) {
+                        break;
+                    }
+                    paginatedResult[pageNum].push(listOfItems[idx]);
+                }
+            }
+            return paginatedResult;
         }
 
         if (searchType === "NAME" || searchType === "DISCIPLINE") {
@@ -597,7 +611,11 @@ module.exports = function(app, mysql) {
 
                 // Search awards that has either alums or ensemble
                 const cardObjList = await prepareCardList_UsingWinners(winnerObjList, outstanding);
-                finishRequest(cardObjList);
+
+                // Split the list into pages
+                const paginatedList = paginateList(43, cardObjList);
+
+                finishRequest(paginatedList);
             } catch (e) {
                 finishRequestError(e);
             }
@@ -606,6 +624,8 @@ module.exports = function(app, mysql) {
             try {
                 const awardObjList = await awardSearchTask(searchType, keyword, outstanding);
                 const cardObjList = await prepareCardList_UsingAwards(awardObjList);
+
+                // TODO Paginate results:
                 finishRequest(cardObjList);
             } catch (e) {
                 finishRequestError(e);

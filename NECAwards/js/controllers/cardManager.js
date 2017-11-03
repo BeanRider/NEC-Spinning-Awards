@@ -112,7 +112,7 @@ class CardManager {
             } else {
                 // Post for a new random card data
                 const data = await postForRandomAwards(1, this.getCurrentAwardIds());
-                return new AwardCard(JSON.parse(data.response)[0]);
+                return new AwardCard(data.data);
             }
         }
     }
