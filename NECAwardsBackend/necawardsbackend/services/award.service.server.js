@@ -569,6 +569,11 @@ module.exports = function(app, mysql) {
         let outstanding = incomingData.outstanding;
 
         // Validation: make sure only alpha-numeric characters
+        if (searchType === "YEAR" && keyword.length < 4) {
+            finishRequestError("Failed input validation!");
+            return;
+        }
+
         if (keyword.length < 3 || !/^[a-zA-Z0-9\-\s]+$/.test(keyword)) {
             finishRequestError("Failed input validation!");
             return;
@@ -625,8 +630,10 @@ module.exports = function(app, mysql) {
                 const awardObjList = await awardSearchTask(searchType, keyword, outstanding);
                 const cardObjList = await prepareCardList_UsingAwards(awardObjList);
 
-                // TODO Paginate results:
-                finishRequest(cardObjList);
+                // Split the list into pages
+                const paginatedList = paginateList(43, cardObjList);
+
+                finishRequest(paginatedList);
             } catch (e) {
                 finishRequestError(e);
             }
