@@ -607,9 +607,8 @@ $(document).ready(async function() {
                         } else if (_.has(searchResults, '0')) {
                             CARD_MANAGER.replaceAllWithOnly(searchResults["0"]);
                             searchCard.flowPath = [3];
-                            searchCard.pages = Object.keys(searchResults).length;
+                            searchCard.searchResults = searchResults;
                         }
-
                         searchCard.pageIdx = 0;
                     } else {
                         console.log("Did not get a result!");
@@ -796,7 +795,8 @@ function updateHTMLCard_Search() {
     $os.removeClass("active");
     $os.find('i').addClass("fa-circle-o");
     $os.find('i').removeClass("fa-check-circle-o");
-    CARD_MANAGER.getSearchCard().outstanding = false;
+    let searchCard = CARD_MANAGER.getSearchCard();
+    searchCard.outstanding = false;
 
     if (SEARCH_FLOW_INACTIVE === state) {
         $(".search").removeClass("active");
@@ -812,22 +812,39 @@ function updateHTMLCard_Search() {
         $searchCardFront.find(".SEARCH_FLOW_INPUT_ALPHA").show();
     } else if (SEARCH_FLOW_RESULT_PAGES === state) {
         let $pageWrapper = $searchCardFront.find(".page-numbers-wrapper");
+
         $pageWrapper.empty();
 
-        let numPages = CARD_MANAGER.getSearchCard().pages;
-        let onPage = CARD_MANAGER.getSearchCard().pageIdx;
+        let numPages = Object.keys(searchCard.searchResults).length;
+        let onPage = searchCard.pageIdx;
         for (let i = 0; i < numPages; ++i) {
             if (onPage === i) {
                 $pageWrapper.append(`<span class="bold">${i + 1}</span>`);
             } else {
-                $pageWrapper.append(`<span>${i + 1}</span>`);
+                $pageWrapper.append(`<span class="lower-focus activatable">${i + 1}</span>`);
             }
         }
+        attachPageButtonListeners();
         $searchCardFront.find("." + state).show();
     } else {
         $searchCardFront.find("." + state).show();
 
     }
+}
+
+function attachPageButtonListeners() {
+    let $pageWrapper = $searchCardFront.find(".page-numbers-wrapper");
+
+    $pageWrapper.find("span").click(function() {
+        if ($(this).hasClass("activatable")) {
+            const pageIdx = (parseInt($(this).text()) - 1);
+            const searchCard = CARD_MANAGER.getSearchCard();
+            CARD_MANAGER.replaceAllWithOnly(
+                searchCard.searchResults[pageIdx + ""]);
+            searchCard.pageIdx = pageIdx;
+            updateHTMLCard_Search();
+        }
+    });
 }
 
 function updateHTMLCard_OverlayVisible($card, show) {

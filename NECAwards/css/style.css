@@ -361,6 +361,19 @@ input:focus {
     height: 100%;
 }
 
+.fillWidth {
+    width: 100%;
+}
+
+.fillHeight {
+    width: 100%;
+}
+
+.page-numbers-wrapper > span {
+    font-size: 64px;
+    padding: 50px
+}
+
 .SEARCH_FLOW_INACTIVE > span {
     position: absolute;
     top: 0;
@@ -478,7 +491,6 @@ input:focus {
     flex: 7;
 }
 
-
 /* Clearfix method to allow containers to wrap floated contents correctly */
 .wrap-contents::after {
     content: "";
@@ -486,12 +498,31 @@ input:focus {
     clear: both;
 }
 
-.match-height-flex {
+.max-flex {
     flex: 1;
 }
 
-.center-parent {
+.nav-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.center-children {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.self-align-top {
+    align-self: flex-start;
+}
+
+.self-align-bot {
+    align-self: flex-end;
+}
+
+.lower-focus {
+    opacity: 0.70;
 }

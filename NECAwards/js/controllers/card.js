@@ -82,7 +82,7 @@ class SearchCard extends Card {
         this.flowPath = [0];
         this.searchType = "NAME";
         this.outstanding = false;
-        this.pages = 0;
+        this.searchResults = {};
         this.pageIdx = 0;
     }
 
