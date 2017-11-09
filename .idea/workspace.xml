@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="178e5385-f743-4822-84ac-85b595ecc810" name="Default" comment="">
+    <list default="true" id="178e5385-f743-4822-84ac-85b595ecc810" name="Default" comment="Started refactoring ajax calls to axios calls. Added initial pagination logic to the backend.">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NECAwards/js/vendor/lodash.core.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/.idea/workspace.xml" afterPath="$PROJECT_DIR$/NECAwards/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/index2.html" afterPath="$PROJECT_DIR$/NECAwards/index2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/js/controllers/card.js" afterPath="$PROJECT_DIR$/NECAwards/js/controllers/card.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/js/controllers/cardManager.js" afterPath="$PROJECT_DIR$/NECAwards/js/controllers/cardManager.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/js/controllers/main.js" afterPath="$PROJECT_DIR$/NECAwards/js/controllers/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NECAwards/js/services/award.client.service.js" afterPath="$PROJECT_DIR$/NECAwards/js/services/award.client.service.js" />
@@ -35,10 +37,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gesture.service.server.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="gesture.service.server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/gesture.service.server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
+            <state relative-caret-position="369">
               <caret line="113" column="24" lean-forward="false" selection-start-line="113" selection-start-column="24" selection-end-line="113" selection-end-column="24" />
               <folding />
             </state>
@@ -65,17 +67,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="award.service.server.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="award.service.server.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/award.service.server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="615" column="44" lean-forward="false" selection-start-line="615" selection-start-column="44" selection-end-line="615" selection-end-column="44" />
+            <state relative-caret-position="408">
+              <caret line="235" column="49" lean-forward="true" selection-start-line="235" selection-start-column="49" selection-end-line="235" selection-end-column="49" />
               <folding>
-                <element signature="e#423#1398#0" expanded="false" />
-                <element signature="e#1550#7691#0" expanded="false" />
-                <element signature="e#8927#9356#0" expanded="false" />
-                <element signature="e#11842#12030#0" expanded="false" />
-                <element signature="e#23311#25150#0" expanded="false" />
+                <element signature="e#427#1402#0" expanded="false" />
+                <element signature="e#1554#7695#0" expanded="false" />
+                <element signature="e#8931#9360#0" expanded="false" />
+                <element signature="e#11846#12034#0" expanded="false" />
+                <element signature="e#23315#25154#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -177,13 +179,20 @@
             <path>
               <item name="necawards-master" type="b2602c69:ProjectViewProjectNode" />
               <item name="necawards-master" type="462c0819:PsiDirectoryNode" />
-              <item name="NECAwardsBackend" type="462c0819:PsiDirectoryNode" />
+              <item name="NECAwards" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="necawards-master" type="b2602c69:ProjectViewProjectNode" />
               <item name="necawards-master" type="462c0819:PsiDirectoryNode" />
-              <item name="NECAwardsBackend" type="462c0819:PsiDirectoryNode" />
-              <item name="necawardsbackend" type="462c0819:PsiDirectoryNode" />
+              <item name="NECAwards" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="necawards-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="necawards-master" type="462c0819:PsiDirectoryNode" />
+              <item name="NECAwards" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -316,7 +325,7 @@
       <workItem from="1509129831697" duration="1262000" />
       <workItem from="1509222054534" duration="1322000" />
       <workItem from="1509244248251" duration="31951000" />
-      <workItem from="1509739772407" duration="2181000" />
+      <workItem from="1509739772407" duration="9185000" />
     </task>
     <task id="LOCAL-00001" summary="Deleted a lot of un-used libraries and code.">
       <created>1506055543379</created>
@@ -374,18 +383,35 @@
       <option name="project" value="LOCAL" />
       <updated>1509513592870</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Started refactoring ajax calls to axios calls. Added initial pagination logic to the backend.">
+      <created>1509742564506</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1509742564506</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="82460000" />
+    <option name="totallyTimeSpent" value="89464000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="952" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24954791" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905483" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32905483" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905483" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24954791" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -397,7 +423,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -452,7 +477,8 @@
     <MESSAGE value="Modified layout of search options from list to wrapped list.&#10;Changed icon for outstanding only to a check icon." />
     <MESSAGE value="Move backspace button to beside the input bar." />
     <MESSAGE value="Modified search card expansion animation to only expand width." />
-    <option name="LAST_COMMIT_MESSAGE" value="Modified search card expansion animation to only expand width." />
+    <MESSAGE value="Started refactoring ajax calls to axios calls. Added initial pagination logic to the backend." />
+    <option name="LAST_COMMIT_MESSAGE" value="Started refactoring ajax calls to axios calls. Added initial pagination logic to the backend." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -473,11 +499,11 @@
         <state relative-caret-position="5025">
           <caret line="335" column="10" lean-forward="true" selection-start-line="335" selection-start-column="10" selection-end-line="335" selection-end-column="10" />
           <folding>
-            <element signature="e#423#1398#0" expanded="false" />
-            <element signature="e#1550#7691#0" expanded="false" />
-            <element signature="e#8927#9356#0" expanded="false" />
-            <element signature="e#11842#12030#0" expanded="false" />
-            <element signature="e#23311#25150#0" expanded="false" />
+            <element signature="e#427#1402#0" expanded="false" />
+            <element signature="e#1554#7695#0" expanded="false" />
+            <element signature="e#8931#9360#0" expanded="false" />
+            <element signature="e#11846#12034#0" expanded="false" />
+            <element signature="e#23315#25154#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -494,6 +520,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="840">
           <caret line="56" column="30" lean-forward="false" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -526,11 +553,11 @@
         <state relative-caret-position="120">
           <caret line="8" column="21" lean-forward="false" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
           <folding>
-            <element signature="e#423#1398#0" expanded="false" />
-            <element signature="e#1550#7691#0" expanded="false" />
-            <element signature="e#8927#9356#0" expanded="false" />
-            <element signature="e#11842#12030#0" expanded="false" />
-            <element signature="e#23311#25150#0" expanded="false" />
+            <element signature="e#427#1402#0" expanded="false" />
+            <element signature="e#1554#7695#0" expanded="false" />
+            <element signature="e#8931#9360#0" expanded="false" />
+            <element signature="e#11846#12034#0" expanded="false" />
+            <element signature="e#23315#25154#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -554,6 +581,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="840">
           <caret line="56" column="30" lean-forward="true" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -586,11 +614,11 @@
         <state relative-caret-position="120">
           <caret line="8" column="21" lean-forward="true" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
           <folding>
-            <element signature="e#423#1398#0" expanded="false" />
-            <element signature="e#1550#7691#0" expanded="false" />
-            <element signature="e#8927#9356#0" expanded="false" />
-            <element signature="e#11842#12030#0" expanded="false" />
-            <element signature="e#23311#25150#0" expanded="false" />
+            <element signature="e#427#1402#0" expanded="false" />
+            <element signature="e#1554#7695#0" expanded="false" />
+            <element signature="e#8931#9360#0" expanded="false" />
+            <element signature="e#11846#12034#0" expanded="false" />
+            <element signature="e#23315#25154#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -614,6 +642,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="840">
           <caret line="56" column="29" lean-forward="false" selection-start-line="56" selection-start-column="29" selection-end-line="56" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -646,11 +675,11 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#423#1398#0" expanded="false" />
-            <element signature="e#1550#7691#0" expanded="false" />
-            <element signature="e#8927#9356#0" expanded="false" />
-            <element signature="e#11842#12030#0" expanded="false" />
-            <element signature="e#23311#25150#0" expanded="false" />
+            <element signature="e#427#1402#0" expanded="false" />
+            <element signature="e#1554#7695#0" expanded="false" />
+            <element signature="e#8931#9360#0" expanded="false" />
+            <element signature="e#11846#12034#0" expanded="false" />
+            <element signature="e#23315#25154#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -674,6 +703,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="840">
           <caret line="56" column="29" lean-forward="false" selection-start-line="56" selection-start-column="29" selection-end-line="56" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -689,6 +719,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="840">
           <caret line="56" column="29" lean-forward="false" selection-start-line="56" selection-start-column="29" selection-end-line="56" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -711,6 +742,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -804,6 +836,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="363">
           <caret line="58" column="3" lean-forward="true" selection-start-line="58" selection-start-column="3" selection-end-line="58" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -826,6 +859,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
           <caret line="107" column="0" lean-forward="false" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -833,20 +867,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" column="23" lean-forward="false" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/award.service.server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="615" column="44" lean-forward="false" selection-start-line="615" selection-start-column="44" selection-end-line="615" selection-end-column="44" />
-          <folding>
-            <element signature="e#423#1398#0" expanded="false" />
-            <element signature="e#1550#7691#0" expanded="false" />
-            <element signature="e#8927#9356#0" expanded="false" />
-            <element signature="e#11842#12030#0" expanded="false" />
-            <element signature="e#23311#25150#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -868,9 +888,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/gesture.service.server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
+        <state relative-caret-position="369">
           <caret line="113" column="24" lean-forward="false" selection-start-line="113" selection-start-column="24" selection-end-line="113" selection-end-column="24" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NECAwardsBackend/necawardsbackend/services/award.service.server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="235" column="49" lean-forward="true" selection-start-line="235" selection-start-column="49" selection-end-line="235" selection-end-column="49" />
+          <folding>
+            <element signature="e#427#1402#0" expanded="false" />
+            <element signature="e#1554#7695#0" expanded="false" />
+            <element signature="e#8931#9360#0" expanded="false" />
+            <element signature="e#11846#12034#0" expanded="false" />
+            <element signature="e#23315#25154#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

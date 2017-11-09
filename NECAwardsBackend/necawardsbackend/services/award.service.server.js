@@ -1,5 +1,5 @@
-var async = require("async");
-var sql = require("./customsql.js");
+const async = require("async");
+const sql = require("./customsql.js");
 
 module.exports = function(app, mysql) {
 

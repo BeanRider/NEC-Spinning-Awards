@@ -1,10 +1,11 @@
+'use strict';
 const host = "localhost";
 const port = "8080";
 const baseUri = host + ":" + port;
 
 /*
- * numAwards:       number of awards to get back
- * currentAwards:   the list of award IDs we current have on display.
+ * numAwards:     number of awards to get back
+ * currentAwards: the list of award IDs we current have on display.
  */
 async function postForRandomAwards(numAwards, currentAwards) {
     return axios.post(
@@ -31,24 +32,7 @@ function postDragGesture(dragGesture, callback) {
     });
 }
 
-
 async function getWinnerIdsWithPhotos() {
-    // Post 1.9.0
-    // $.ajax({
-    //     url: "http://localhost:8080/api/award/all-with-photo",
-    //     method: "GET"
-    // }).then(callback);
-
-    // Pre 1.9.0
-    // return new Promise(
-    //     (resolve, reject) => {
-    //         $.ajax({
-    //             url: "http://localhost:8080/api/award/all-with-photo",
-    //             method: "GET",
-    //             complete: function(data) {if (data) {resolve(data);} else {reject(data)} }
-    //         });
-    //     }
-    // );
     return axios.get("http://" + baseUri + "/api/award/all-with-photo");
 }
 
@@ -75,14 +59,8 @@ function getRandomGesture(callback) {
     });
 }
 
-function postSearch(callback, body) {
-    $.ajax({
-        url: "http://localhost:8080/api/award/search",
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(body),
-        complete: callback
-    });
+function postSearch(body) {
+    return axios.post("http://" + baseUri + "/api/award/search", body);
 }
 
 function urlExists(url) {

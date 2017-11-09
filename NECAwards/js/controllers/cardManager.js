@@ -1,3 +1,4 @@
+'use strict';
 const CHANCE_FOR_GESTURE_CARD = 0.01;
 const CHANCE_FOR_FACT_CARD = 0.03;
 
@@ -111,8 +112,14 @@ class CardManager {
                 return new AwardCard(suppliedAwardData);
             } else {
                 // Post for a new random card data
-                const data = await postForRandomAwards(1, this.getCurrentAwardIds());
-                return new AwardCard(data.data);
+                try {
+                    const data = await postForRandomAwards(1, this.getCurrentAwardIds());
+                    return new AwardCard(data.data[0]);
+                } catch (e) {
+                    console.log(e);
+                }
+
+                // TODO try catch here
             }
         }
     }
@@ -138,6 +145,9 @@ class CardManager {
 
     async replaceCardOpposite(cardIdx, isFront) {
         const nCardData = await this.generateRandomInfoCardData();
+
+        // TODO prepare old card for garbage collection
+
         // Push new random card into data array
         if (isFront) {
             this.allCardDataBack[cardIdx] = nCardData;
@@ -154,6 +164,8 @@ class CardManager {
         let cardIdx;
         for (cardIdx = 0; cardIdx < this.NUM_CARDS; ++cardIdx) {
 
+            // TODO prepare old card for garbage collection
+            
             // Skip if we are on the search card.
             if (cardIdx === this.searchCardIndex) {
                 continue;

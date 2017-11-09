@@ -1,3 +1,4 @@
+'use strict';
 // =====================================================================================================================
 // Photo Retrieval
 // =====================================================================================================================
@@ -44,6 +45,10 @@ function onClickGestureClick(gestureType) {
             playbackLastGesture();
             break;
     }
+}
+
+function stringIncludes(a, b) {
+    return a.indexOf(b) !== -1;
 }
 
 const MIN_DRAG_AMOUNT = 10;
@@ -197,11 +202,6 @@ function touchHandler(event) {
 
                 numSwipes++;
                 if (numSwipes > numSwipesBeforeImprov) {
-
-                    function stringIncludes(a, b) {
-                        return a.indexOf(b) !== -1;
-                    }
-
                     numSwipes = 0;
                     numSwipesBeforeImprov = Math.floor((Math.random() * 8) + 2);
 
@@ -426,11 +426,6 @@ $(document)
 
             numSwipes++;
             if (numSwipes > numSwipesBeforeImprov) {
-
-                function stringIncludes(a, b) {
-                    return a.indexOf(b) !== -1;
-                }
-
                 numSwipes = 0;
                 numSwipesBeforeImprov = Math.floor((Math.random() * 8) + 2);
 
@@ -522,17 +517,7 @@ $(document).ready(async function() {
         });
 
         $(".searchOption").click(function(e) {
-            // let $allOptions = $(".searchOption");
-            // $allOptions.removeClass("activated");
-            // $allOptions.find("i").removeClass("fa-circle");
-            // $allOptions.find("i").addClass("fa-circle-o");
-
             let $newOption = $(e.currentTarget);
-            // $newOption.addClass("activated");
-            // let $activeI = $newOption.find("i");
-            // $activeI.removeClass("fa-circle-o");
-            // $activeI.addClass("fa-circle");
-
             let searchType = $newOption.find(".searchOptionText").text();
             let searchCard = CARD_MANAGER.getSearchCard();
             switch(searchType) {
@@ -595,26 +580,37 @@ $(document).ready(async function() {
             $field.val(fieldText.substring(0, fieldText.length - 1));
         });
 
-        $(".searchButton").click(() => {
-            let body = {
-                "type": CARD_MANAGER.getSearchCard().searchType,
-                "keyword": $(".searchField").val(),
-                "outstanding": CARD_MANAGER.getSearchCard().outstanding
-            };
 
-            postSearch(function(data) {
+
+        $(".searchButton").click(function() {
+            (async function doThis() {
+                let searchCard = CARD_MANAGER.getSearchCard();
+
+                let body = {
+                    "type": searchCard.searchType,
+                    "keyword": $(".searchField").val(),
+                    "outstanding": searchCard.outstanding
+                };
+
                 try {
-                    if (data.response) {
-                        console.log("Got search results: " + data.response);
-                        let searchResults = JSON.parse(data.response);
+                    const response = await postSearch(body);
+                    let data = response.data;
+                    if (data) {
+                        console.log("Got search results: " + data);
+                        let searchResults = data;
 
                         idleActivationTimer.setShortTimerEnabled(false);
 
                         if (_.isEmpty(searchResults)) {
                             CARD_MANAGER.replaceAllWithOnly([]);
+                            searchCard.pages = 1;
                         } else if (_.has(searchResults, '0')) {
                             CARD_MANAGER.replaceAllWithOnly(searchResults["0"]);
+                            searchCard.flowPath = [3];
+                            searchCard.pages = Object.keys(searchResults).length;
                         }
+
+                        searchCard.pageIdx = 0;
                     } else {
                         console.log("Did not get a result!");
                     }
@@ -624,7 +620,19 @@ $(document).ready(async function() {
                     idleActivationTimer.setShortTimerEnabled(false);
                     CARD_MANAGER.replaceAllWithOnly([]);
                 }
-            }, body);
+
+                // let flowPath = CARD_MANAGER.getSearchCard().flowPath;
+                // CARD_MANAGER.getSearchCard().flowPath = flowPath.push(0);
+
+                updateHTMLCard_Search();
+            })();
+        });
+
+        $(".SEARCH_FLOW_RESULT_PAGES > .searchBackNavButton").click(function() {
+            // let flowPath = CARD_MANAGER.getSearchCard().flowPath;
+            // CARD_MANAGER.getSearchCard().flowPath = flowPath.slice(0, flowPath - 1);
+            CARD_MANAGER.getSearchCard().flowPath = [2, 1];
+            updateHTMLCard_Search()
         });
 
         $(".SEARCH_FLOW_INPUT_YEAR > .searchBackNavButton").click(function() {
@@ -645,8 +653,8 @@ $(document).ready(async function() {
 
     // Initializes a dictionary variable containing all winnerId to image path
     async function initImages() {
-        const data = await getWinnerIdsWithPhotos();
-        let winnerIds = data.data;
+        const response = await getWinnerIdsWithPhotos();
+        let winnerIds = response.data;
 
         let imageLoadCounter = winnerIds.length;
         winnerIds.forEach(function(winnerId) {
@@ -802,8 +810,23 @@ function updateHTMLCard_Search() {
         || SEARCH_FLOW_INPUT_AWARD === state
         || SEARCH_FLOW_INPUT_DISCIPLINE === state) {
         $searchCardFront.find(".SEARCH_FLOW_INPUT_ALPHA").show();
+    } else if (SEARCH_FLOW_RESULT_PAGES === state) {
+        let $pageWrapper = $searchCardFront.find(".page-numbers-wrapper");
+        $pageWrapper.empty();
+
+        let numPages = CARD_MANAGER.getSearchCard().pages;
+        let onPage = CARD_MANAGER.getSearchCard().pageIdx;
+        for (let i = 0; i < numPages; ++i) {
+            if (onPage === i) {
+                $pageWrapper.append(`<span class="bold">${i + 1}</span>`);
+            } else {
+                $pageWrapper.append(`<span>${i + 1}</span>`);
+            }
+        }
+        $searchCardFront.find("." + state).show();
     } else {
         $searchCardFront.find("." + state).show();
+
     }
 }
 
