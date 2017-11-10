@@ -38,7 +38,7 @@ class IdleActivationTimer extends TimerLoop {
                     }
                     this.elapsedTime = 0;
                     this.shortIdleTimeout = Math.floor((Math.random() * 30) + 30) * 1000;
-                    console.log("setting next idle delay to: " + this.shortIdleTimeout);
+                    // console.log("setting next idle delay to: " + this.shortIdleTimeout);
                 } else {
                     this.elapsedTime += 1000;
                 }

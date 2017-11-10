@@ -51,7 +51,7 @@ module.exports = function(app, mysql) {
         function taskConnectToDB(fn) {
             sql.connectToDB(function (connection, isSuccess) {
                 if (isSuccess) {
-                    console.log("Connected!");
+                    // console.log("Connected!");
                     con = connection;
                     fn();
                 } else {
@@ -64,7 +64,7 @@ module.exports = function(app, mysql) {
         let incomingData = req.body;
         let numAwards = incomingData.numAwards;
         let currentAwards = incomingData.currentAwards;
-        console.log("incomingData = " + JSON.stringify(incomingData));
+        // console.log("incomingData = " + JSON.stringify(incomingData));
 
         let currentAwardsStringify = "";
         for (let i in currentAwards) {
@@ -82,10 +82,10 @@ module.exports = function(app, mysql) {
                 return;
             }
 
-            console.log("finishRequest:");
-            console.log("About to send:\n" + JSON.stringify(result[3]));
+            // console.log("finishRequest:");
+            // console.log("About to send:\n" + JSON.stringify(result[3]));
             res.send(result[3]); // send only the second task result.
-            console.log("Done.\n");
+            // console.log("Done.\n");
             // res.render('home.ejs', {layout: false, locals: { user_name: result.user_array, title: result.title_array }});
             if (con) {
                 con.end();
@@ -98,7 +98,7 @@ module.exports = function(app, mysql) {
                 (currentAwardsStringify.length === 0 ? "" : "WHERE awards.awardId NOT IN (" + currentAwardsStringify + ") ") +
                 "ORDER BY RAND() " +
                 "LIMIT " + numAwards + ";";
-            console.log(queryString);
+            // console.log(queryString);
             con.query(
                 queryString,
                 function (err, rows, fields) {
@@ -119,7 +119,7 @@ module.exports = function(app, mysql) {
 
         function getAlumTask(alumId, returnResult) {
             let alumQueryString = "SELECT * FROM necawards.alum WHERE alumId = '" + alumId + "'";
-            console.log(alumQueryString);
+            // console.log(alumQueryString);
             con.query(
                 alumQueryString,
                 function (err, rows, fields) {
@@ -236,7 +236,7 @@ module.exports = function(app, mysql) {
         return new Promise((resolve, reject) => {
             sql.connectToDB(function (connection, isSuccess) {
                 if (isSuccess) {
-                    console.log("Connected!");
+                    // console.log("Connected!");
                     resolve(connection);
                 } else {
                     console.error(connection);
@@ -263,7 +263,7 @@ module.exports = function(app, mysql) {
         }
         const alumQueryString = "SELECT * FROM necawards.alum WHERE alumId = '" + alumId + "'";
 
-        console.log(alumQueryString);
+        // console.log(alumQueryString);
         try {
             const alumObjList = await sqlQuery(con, alumQueryString);
             return Promise.resolve(alumObjList[0]);
@@ -278,7 +278,7 @@ module.exports = function(app, mysql) {
         }
         const queryString = "SELECT * FROM necawards.ensemble WHERE ensembleId = '" + ensembleId + "'";
 
-        console.log(queryString);
+        // console.log(queryString);
         try {
             const ensembleList = await sqlQuery(con, queryString);
             return Promise.resolve(ensembleList[0]);
@@ -344,32 +344,32 @@ module.exports = function(app, mysql) {
 
         const con = await taskConnectToDB();
         const incomingData = req.body;
-        console.log("incomingData = " + JSON.stringify(incomingData));
+        // console.log("incomingData = " + JSON.stringify(incomingData));
 
         const finishRequestError = function(error) {
-            console.log("finishError: " + error);
+            // console.log("finishError: " + error);
             res.send(500);
             if (con) {
                 con.end();
             }
-            console.log("Done.\n");
+            // console.log("Done.\n");
         };
 
         const finishRequest = function(toSend) {
 
-            console.log("finishRequest:");
+            // console.log("finishRequest:");
             if (toSend === null) {
-                console.log("Got a null... sending empty response [].");
+                // console.log("Got a null... sending empty response [].");
                 res.send([]);
             } else {
-                console.log("About to send:\n" + JSON.stringify(toSend));
+                // console.log("About to send:\n" + JSON.stringify(toSend));
                 res.send(toSend);
             }
 
             if (con) {
                 con.end();
             }
-            console.log("Done.\n");
+            // console.log("Done.\n");
         };
 
         const alumSearchTask = async function(field, keyword) {
@@ -400,11 +400,11 @@ module.exports = function(app, mysql) {
                     queryString += ";";
                     break;
                 default:
-                    console.log("An alumSearchTask does not support search by '" + field + "' field yet!");
+                    // console.log("An alumSearchTask does not support search by '" + field + "' field yet!");
                     return Promise.reject();
             }
 
-            console.log(queryString);
+            // console.log(queryString);
             try {
                 const alumObjList = await sqlQuery(con, queryString);
                 return Promise.resolve(alumObjList);
@@ -427,7 +427,7 @@ module.exports = function(app, mysql) {
                 }
             });
             queryString += ";";
-            console.log(queryString);
+            // console.log(queryString);
 
             let ensembleObjList = [];
             try {
@@ -454,11 +454,11 @@ module.exports = function(app, mysql) {
                         (isOutstanding ? "AND awards.outstanding = 1" : "") + ";";
                     break;
                 default:
-                    console.log("awardSearchTask currently only supports by YEAR, AWARD!");
+                    // console.log("awardSearchTask currently only supports by YEAR, AWARD!");
                     return Promise.reject("awardSearchTask currently only supports by YEAR, AWARD!");
             }
 
-            console.log(queryString);
+            // console.log(queryString);
             try {
                 const awardObjs = await sqlQuery(con, queryString);
                 let toReturn = [];
@@ -493,11 +493,11 @@ module.exports = function(app, mysql) {
                         (isOutstanding ? "AND awards.outstanding = 1" : "") + ";";
                 }
 
-                console.log(queryString);
+                // console.log(queryString);
                 try {
                     const awardObjList = await sqlQuery(con, queryString);
                     awardObjList.forEach((awardObj) => {
-                        console.log("got awardObj" + awardObj);
+                        // console.log("got awardObj" + awardObj);
 
                         let convertedWinnerData = convertAlumOrEnsemble_ToWinner(winnerType, winnerObj);
                         let cardObj = {"award": awardObj, "winner": convertedWinnerData[0]};
@@ -647,7 +647,7 @@ module.exports = function(app, mysql) {
         function taskConnectToDB(fn) {
             sql.connectToDB(function (connection, isSuccess) {
                 if (isSuccess) {
-                    console.log("Connected!");
+                    // console.log("Connected!");
                     con = connection;
                     fn();
                 } else {
@@ -660,10 +660,10 @@ module.exports = function(app, mysql) {
         var result = [];
 
         var finishRequest = function(result) {
-            console.log("finishRequest");
-            console.log("About to send:\n" + JSON.stringify(result[1]));
+            // console.log("finishRequest");
+            // console.log("About to send:\n" + JSON.stringify(result[1]));
             res.send(result[1]); // send only the first task result.
-            console.log("Done.\n");
+            // console.log("Done.\n");
             if (con) {
                 con.end();
             }
@@ -676,7 +676,7 @@ module.exports = function(app, mysql) {
                 "UNION ALL " +
                 "SELECT ensemble.ensembleId AS winner FROM necawards.ensemble WHERE hasPhoto = 1;";
 
-            console.log(queryString);
+            // console.log(queryString);
             con.query(
                 queryString,
                 function (err, rows, fields) {

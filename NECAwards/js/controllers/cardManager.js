@@ -206,7 +206,6 @@ class CardManager {
             card = this.allCardDataBack[index];
         }
         if (card) {
-            // console.log(card);
             card.destroy();
         }
     }

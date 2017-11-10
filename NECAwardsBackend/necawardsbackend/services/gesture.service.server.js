@@ -7,7 +7,7 @@ module.exports = function(app, mysql) {
         function taskConnectToDB(fn) {
             sql.connectToDB(function (connection, isSuccess) {
                 if (isSuccess) {
-                    console.log("Connected!");
+                    // console.log("Connected!");
                     con = connection;
                     fn();
                 } else {
@@ -19,9 +19,9 @@ module.exports = function(app, mysql) {
 
         var incomingData = req.body;
         var finishRequest = function(result) {
-            console.log("finishRequest: " + JSON.stringify(result));
-            console.log("Done.");
-            console.log("");
+            // console.log("finishRequest: " + JSON.stringify(result));
+            // console.log("Done.");
+            // console.log("");
             if (result[1]) {
                 res.send(200);
             } else {
@@ -52,7 +52,7 @@ module.exports = function(app, mysql) {
             }
             var queryString =
                 "INSERT INTO `necawards`.`gesture` (`values`) VALUES ('" + incomingDataAsString + "');";
-            console.log(queryString);
+            // console.log(queryString);
             con.query(
                 queryString,
                 function (err, rows, fields) {
@@ -80,7 +80,7 @@ module.exports = function(app, mysql) {
         function taskConnectToDB(fn) {
             sql.connectToDB(function (connection, isSuccess) {
                 if (isSuccess) {
-                    console.log("Connected!");
+                    // console.log("Connected!");
                     con = connection;
                     fn();
                 } else {
@@ -91,9 +91,9 @@ module.exports = function(app, mysql) {
         }
 
         function finishRequest(result) {
-            console.log("finishRequest: " + JSON.stringify(result));
-            console.log("Done.");
-            console.log("");
+            // console.log("finishRequest: " + JSON.stringify(result));
+            // console.log("Done.");
+            // console.log("");
             if (result[1] || result[1] === "") {
                 res.send(200, result[1]);
             } else {
@@ -106,7 +106,7 @@ module.exports = function(app, mysql) {
 
         function taskGetRandomGesture(fn) {
             var queryString = "SELECT gesture.values FROM necawards.gesture ORDER BY RAND() LIMIT 1;";
-            console.log(queryString);
+            // console.log(queryString);
             con.query(
                 queryString,
                 function (err, rows, fields) {

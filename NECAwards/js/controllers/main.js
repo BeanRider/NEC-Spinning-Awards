@@ -58,7 +58,7 @@ function selectEnd(isTouch) {
             let delta_y = lastPoint.y - secondLastPoint.y;
 
             const angle = degrees(Math.atan2(delta_y, delta_x));
-            console.log("angle %s", angle);
+            // console.log("angle %s", angle);
 
 
             const lastRowCol = CardManager.getCardRowCol(getCardIndex($lastAnimatedCard));
@@ -71,47 +71,47 @@ function selectEnd(isTouch) {
             if (150 <= angle && angle < 180) {
                 $next1 = $(".r"+ lR  + " li .c" + (lC - 1) +".front");
                 $next2 = $(".r"+ lR + " li .c" + (lC - 2) +".front");
-                console.log("left");
+                // console.log("left");
                 directionString = "left";
             } else if (120 <= angle && angle < 150) {
                 $next1 = $(".r"+ (lR + 1)  + " li .c" + (lC - 1) +".front");
                 $next2 = $(".r"+ (lR + 2) + " li .c" + (lC - 2) +".front");
-                console.log("bottom left");
+                // console.log("bottom left");
                 directionString = "bot left";
             } else if (60 <= angle && angle < 120) {
                 $next1 = $(".r"+ (lR + 1)  + " li .c" + lC +".front");
                 $next2 = $(".r"+ (lR + 2) + " li .c" + lC +".front");
-                console.log("bottom");
+                // console.log("bottom");
                 directionString = "bot";
             } else if (30 <= angle && angle < 60) {
                 $next1 = $(".r"+ (lR + 1) + " li .c" + (lC + 1) +".front");
                 $next2 = $(".r"+ (lR + 2) + " li .c" + (lC + 2) +".front");
-                console.log("bottom right");
+                // console.log("bottom right");
                 directionString = "bot right";
             } else if (-30 <= angle && angle < 30) {
                 $next1 = $(".r"+ lR  + " li .c" + (lC + 1) +".front");
                 $next2 = $(".r"+ lR + " li .c" + (lC + 2) +".front");
-                console.log("right");
+                // console.log("right");
                 directionString = "right";
             } else if (-60 <= angle && angle < -30) {
                 $next1 = $(".r"+ (lR - 1)  + " li .c" + (lC + 1) +".front");
                 $next2 = $(".r"+ (lR - 2) + " li .c" + (lC + 2) +".front");
-                console.log("right top");
+                // console.log("right top");
                 directionString = "right top";
             } else if (-120 <= angle && angle < -60) {
                 $next1 = $(".r"+ (lR - 1)  + " li .c" + lC +".front");
                 $next2 = $(".r"+ (lR - 2) + " li .c" + lC +".front");
-                console.log("top");
+                // console.log("top");
                 directionString = "top";
             } else if (-150 <= angle && angle < -120) {
                 $next1 = $(".r"+ (lR - 1)  + " li .c" + (lC - 1) +".front");
                 $next2 = $(".r"+ (lR - 1) + " li .c" + (lC - 2) +".front");
-                console.log("top left");
+                // console.log("top left");
                 directionString = "top left";
             } else if (-180 <= angle && angle < -150) {
                 $next1 = $(".r"+ lR  + " li .c" + (lC - 1) +".front");
                 $next2 = $(".r"+ lR + " li .c" + (lC - 2) +".front");
-                console.log("left");
+                // console.log("left");
                 directionString = "left";
             }
 
@@ -136,7 +136,7 @@ function selectEnd(isTouch) {
         }
 
         postDragGesture(currentDragGesture, function (data) {
-            console.log("after postDragGesture: " + data);
+            // console.log("after postDragGesture: " + data);
         });
         lastDragGesture = deepCopyArray(currentDragGesture);
 
@@ -415,14 +415,14 @@ function playRandomGesture() {
     getRandomGesture(function(data) {
         try {
             if (data.response) {
-                console.log("Got random gesture: " + data.response);
+                // console.log("Got random gesture: " + data.response);
                 let randGesture = JSON.parse(data.response);
                 playbackDragGesture(randGesture);
             } else {
-                console.log("Did not get a random gesture!");
+                // console.log("Did not get a random gesture!");
             }
         } catch(err) {
-            console.log(err);
+            // console.log(err);
         }
     });
 }
@@ -483,7 +483,7 @@ function activateFlipGesture(target, x, y) {
     }
 
     if ($card.hasClass("search")) {
-        console.log("Ignored, search card!");
+        // console.log("Ignored, search card!");
         return;
     }
 
