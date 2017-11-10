@@ -748,6 +748,8 @@ function updateHTMLCard_AddAlumDetails($c, alum, i) {
 }
 
 function updateHTMLCard_AwardText($card, awardInfo, ensembleAlums, winner) {
+
+
     // Header contents
     let year = awardInfo["compDate"];
     let card = $($card);
@@ -797,6 +799,24 @@ function updateHTMLCard_AwardText($card, awardInfo, ensembleAlums, winner) {
     }
 }
 
+const INFO_BG_TEMPLATE =
+    "<div class=\"info-bg\">\n" +
+    "        <span class=\"year\">1990</span>\n" +
+    "        <div class=\"name\">\n" +
+    "            <span class=\"firstName\">Red</span>\n" +
+    "            <span class=\"lastName\">&nbspSnow</span>\n" +
+    "        </div>\n" +
+    "        <div class=\"competitionName\"></div>\n" +
+    "        <div class=\"details hide\">\n" +
+    "            <p class=\"compPrize small bold\">N/A</p>\n" +
+    "            <p class=\"compInsti small\">N/A</p>\n" +
+    "            <p class=\"compLoc small\">N/A</p>\n" +
+    "\n" +
+    "            <br />\n" +
+    "            <!-- Student Details goes here-->\n" +
+    "        </div>\n" +
+    "    </div>"
+
 function updateHTMLCard_AllTypes(index, isFront, cardData) {
     let rc = CardManager.getCardRowCol(index);
     let r = rc.r;
@@ -810,11 +830,12 @@ function updateHTMLCard_AllTypes(index, isFront, cardData) {
     }
 
     // Empty card
+    $card.empty();
+    $card.css({
+        'background': 'black'
+    });
+
     if (!cardData) {
-        $card.find(".info-bg").hide();
-        $card.css({
-            'background': 'black'
-        });
         return;
     }
 
@@ -825,7 +846,7 @@ function updateHTMLCard_AllTypes(index, isFront, cardData) {
             let ensembleAlums = cardData.awardData.ensembleAlums;
             let winner = cardData.awardData.winner;
 
-            $card.find(".info-bg").show();
+            $card.append(INFO_BG_TEMPLATE);
             $card.css({
                 'background': randomBGColor() + ' url("' + cardData.imageUrl + '")',
                 'background-size': 'contain'
