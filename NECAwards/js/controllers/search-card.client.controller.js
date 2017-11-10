@@ -6,18 +6,18 @@ function initSearchCard() {
     $searchCardBack = $(".back.search");
 
     $('.SEARCH_FLOW_INACTIVE').click(() => {
-        CARD_MANAGER.getSearchCard().flowPath = [1];
+        CARD_MANAGER.getSearchCard().pushFlowPath(1);
         updateHTMLCard_Search();
     });
 
     $(".closeButton").click(() => {
-        CARD_MANAGER.getSearchCard().flowPath = [0];
+        CARD_MANAGER.getSearchCard().popAllFlowPath();
         flipAllCards();
         updateHTMLCard_Search();
     });
 
     $(".SEARCH_FLOW_SEARCH_OPTIONS > div.searchBackNavButton").click(() => {
-        CARD_MANAGER.getSearchCard().flowPath = [0];
+        CARD_MANAGER.getSearchCard().popFlowPath();
         flipAllCards();
         updateHTMLCard_Search();
     });
@@ -29,19 +29,19 @@ function initSearchCard() {
         switch(searchType) {
             case "NAME":
                 searchCard.searchType = searchType;
-                searchCard.flowPath = [2, 3];
+                searchCard.pushFlowPath([2, 3]);
                 break;
             case "YEAR":
                 searchCard.searchType = searchType;
-                searchCard.flowPath = [2, 0];
+                searchCard.pushFlowPath([2, 0]);
                 break;
             case "DISCIPLINE":
                 searchCard.searchType = searchType;
-                searchCard.flowPath = [2, 1];
+                searchCard.pushFlowPath([2, 1]);
                 break;
             case "AWARD":
                 searchCard.searchType = searchType;
-                searchCard.flowPath = [2, 2];
+                searchCard.pushFlowPath([2, 2]);
                 break;
             default:
             // DO NOTHING
@@ -110,7 +110,7 @@ function initSearchCard() {
                         searchCard.pages = 1;
                     } else if (_.has(searchResults, '0')) {
                         CARD_MANAGER.replaceAllWithOnly(searchResults["0"]);
-                        searchCard.flowPath = [3];
+                        searchCard.pushFlowPath(3);
                         searchCard.searchResults = searchResults;
                     }
                     searchCard.pageIdx = 0;
@@ -131,20 +131,8 @@ function initSearchCard() {
         })();
     });
 
-    $(".SEARCH_FLOW_RESULT_PAGES > .nav-wrapper > .searchBackNavButton").click(function() {
-        // let flowPath = CARD_MANAGER.getSearchCard().flowPath;
-        // CARD_MANAGER.getSearchCard().flowPath = flowPath.slice(0, flowPath - 1);
-        CARD_MANAGER.getSearchCard().flowPath = [2, 1];
-        updateHTMLCard_Search()
-    });
-
-    $(".SEARCH_FLOW_INPUT_YEAR > .searchBackNavButton").click(function() {
-        CARD_MANAGER.getSearchCard().flowPath = [1];
-        updateHTMLCard_Search()
-    });
-
-    $(".SEARCH_FLOW_INPUT_ALPHA > .searchBackNavButton").click(function() {
-        CARD_MANAGER.getSearchCard().flowPath = [1];
+    $(".searchBackNavButton").click(() => {
+        CARD_MANAGER.getSearchCard().popFlowPath();
         updateHTMLCard_Search()
     });
 }

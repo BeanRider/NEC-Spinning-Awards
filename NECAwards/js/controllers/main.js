@@ -4,26 +4,27 @@
 // Mouse / Touch Input Logic
 // =====================================================================================================================
 
+// Input gesture states:
 const INPUT_IS_TOUCH = true;
 const INPUT_IS_MOUSE = false;
 
-const MIN_DRAG_AMOUNT = 10;
-
-let currentDragGesture = [];
-let startTime = Date.now();
-
-let numSwipes = 0;
-let numSwipesBeforeImprov = 0;
-let transposedGesture;
-
-let $lastAnimatedCard = null;
-
-// Input gesture states:
 let touchDown = false;
 let touchDragging = false;
 
 let mouseDown = false;
 let mouseDragging = false;
+
+// For gesture recording
+const MIN_DRAG_AMOUNT = 10;
+let currentDragGesture = [];
+let dragStartTime = Date.now();
+
+// Improvisation states
+let numSwipes = 0;
+let numSwipesBeforeImprov = 0;
+let transposedGesture;
+
+let $lastAnimatedCard = null;
 
 function selectEnd(isTouch) {
     if (!isInitDone) {
@@ -137,7 +138,7 @@ function selectEnd(isTouch) {
         postDragGesture(currentDragGesture, function (data) {
             console.log("after postDragGesture: " + data);
         });
-        lastGesture = deepCopyArray(currentDragGesture);
+        lastDragGesture = deepCopyArray(currentDragGesture);
 
         numSwipes++;
         if (numSwipes > numSwipesBeforeImprov) {
@@ -217,7 +218,7 @@ function selectDown(isTouch) {
     }
 
     currentDragGesture = [];
-    startTime = Date.now();
+    dragStartTime = Date.now();
 }
 
 function touchHandler(event) {
@@ -250,7 +251,7 @@ function touchHandler(event) {
 
             if (touchDragging) {
                 currentDragGesture.push({
-                    "t": Date.now() - startTime,
+                    "t": Date.now() - dragStartTime,
                     "pos": {"x": mouseX, "y": mouseY}});
                 let selectedElement = document.elementFromAbsolutePoint(mouseX, mouseY);
                 if (selectedElement && currentDragGesture.length > 8) {
@@ -282,7 +283,7 @@ function mouseMoveDo(event) {
         const mouseX = event.pageX;
         const mouseY = event.pageY;
         currentDragGesture.push({
-            "t": Date.now() - startTime,
+            "t": Date.now() - dragStartTime,
             "pos": {"x": mouseX, "y": mouseY}});
         if (currentDragGesture.length > 8) {
             activateFlipGesture(event.target, mouseX, mouseY);
@@ -415,9 +416,9 @@ function playRandomGesture() {
     });
 }
 
-let lastGesture = [];
+let lastDragGesture = [];
 function playbackLastGesture() {
-    playbackDragGesture(lastGesture);
+    playbackDragGesture(lastDragGesture);
 }
 
 function playbackDragGesture(gesture) {

@@ -22,7 +22,7 @@ class IdleActivationTimer extends TimerLoop {
             flipAllCards();
 
             // Reset card to beginning
-            CARD_MANAGER.getSearchCard().flowPath = [0];
+            CARD_MANAGER.getSearchCard().popAllFlowPath();
             updateHTMLCard_Search();
         } else {
             this.elapsedLongIdleMS += 1000;
@@ -30,7 +30,7 @@ class IdleActivationTimer extends TimerLoop {
 
         if (this.runningShortTimer) {
             // Only automate flip when the search is not active.
-            if (CARD_MANAGER.getSearchCard().flowPath[0] === 0) {
+            if (!CARD_MANAGER.getSearchCard().isActive()) {
                 if (this.elapsedTime >= this.shortIdleTimeout) {
                     let numToPlay = Math.floor((Math.random() * 3) + 1);
                     for (let i = 0; i < numToPlay; ++i) {

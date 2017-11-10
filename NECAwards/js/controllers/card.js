@@ -86,9 +86,28 @@ class SearchCard extends Card {
         this.pageIdx = 0;
     }
 
+    pushFlowPath(newPointer) {
+        this.flowPath.push(newPointer);
+    }
+
+    popAllFlowPath() {
+        this.flowPath = [0];
+    }
+
+    popFlowPath() {
+        if (this.flowPath.length === 1) {
+            return;
+        }
+        this.flowPath = this.flowPath.slice(0, this.flowPath.length - 1);
+    }
+
+    peekFlowPath() {
+        return this.flowPath[this.flowPath.length - 1];
+    }
+
     isActive() {
         if (this.flowPath.length >= 1) {
-            return this.flowPath[0] !== 0;
+            return this.peekFlowPath() !== 0;
         }
         return false;
     }
@@ -96,13 +115,18 @@ class SearchCard extends Card {
     // Returns the current search flow state.
     getSearchState() {
         let currentFlowState = SEARCH_CARD_FLOW;
-        this.flowPath.forEach(function(branchIdx) {
-            if (branchIdx >= currentFlowState.length) {
-                throw "Invalid flow path led to index out of bounds!";
-            } else{
-                currentFlowState = currentFlowState[branchIdx];
-            }
-        });
+        let pointer = this.peekFlowPath();
+        if (Array.isArray(pointer)) {
+            pointer.forEach(function(branchIdx) {
+                if (branchIdx >= currentFlowState.length) {
+                    throw "Invalid flow path led to index out of bounds!";
+                } else{
+                    currentFlowState = currentFlowState[branchIdx];
+                }
+            });
+        } else {
+            currentFlowState = currentFlowState[pointer];
+        }
         if (Array.isArray(currentFlowState)) {
             throw "Invalid flow path led to an array result, when it should be an element."
         }
