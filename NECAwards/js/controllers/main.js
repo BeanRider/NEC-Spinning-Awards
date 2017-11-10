@@ -247,6 +247,17 @@ function touchHandler(event) {
             selectEnd(INPUT_IS_TOUCH);
             break;
         case "touchmove":
+            if (!isInitDone) {
+                return;
+            }
+
+            idleActivationTimer.resetValues();
+
+            // No drag in search mode.
+            if (CARD_MANAGER.getSearchCard()) {
+                return;
+            }
+
             touchDragging = touchDown;
 
             if (touchDragging) {
