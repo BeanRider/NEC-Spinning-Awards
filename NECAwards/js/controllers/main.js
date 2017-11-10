@@ -580,6 +580,24 @@ function activateFlipGesture(target, x, y) {
 // HTML Updates
 // =====================================================================================================================
 
+const INFO_BG_TEMPLATE =
+    "<div class=\"info-bg\">\n" +
+    "        <span class=\"year\">1990</span>\n" +
+    "        <div class=\"name\">\n" +
+    "            <span class=\"firstName\">Red</span>\n" +
+    "            <span class=\"lastName\">&nbspSnow</span>\n" +
+    "        </div>\n" +
+    "        <div class=\"competitionName\"></div>\n" +
+    "        <div class=\"details hide\">\n" +
+    "            <p class=\"compPrize small bold\">N/A</p>\n" +
+    "            <p class=\"compInsti small\">N/A</p>\n" +
+    "            <p class=\"compLoc small\">N/A</p>\n" +
+    "\n" +
+    "            <br />\n" +
+    "            <!-- Student Details goes here-->\n" +
+    "        </div>\n" +
+    "    </div>";
+
 // Updates the overlay contents
 function updateHTMLCard_Overlay($card, show) {
     if (show) {
@@ -748,8 +766,6 @@ function updateHTMLCard_AddAlumDetails($c, alum, i) {
 }
 
 function updateHTMLCard_AwardText($card, awardInfo, ensembleAlums, winner) {
-
-
     // Header contents
     let year = awardInfo["compDate"];
     let card = $($card);
@@ -798,24 +814,6 @@ function updateHTMLCard_AwardText($card, awardInfo, ensembleAlums, winner) {
         updateHTMLCard_AddAlumDetails($card, winner, 0);
     }
 }
-
-const INFO_BG_TEMPLATE =
-    "<div class=\"info-bg\">\n" +
-    "        <span class=\"year\">1990</span>\n" +
-    "        <div class=\"name\">\n" +
-    "            <span class=\"firstName\">Red</span>\n" +
-    "            <span class=\"lastName\">&nbspSnow</span>\n" +
-    "        </div>\n" +
-    "        <div class=\"competitionName\"></div>\n" +
-    "        <div class=\"details hide\">\n" +
-    "            <p class=\"compPrize small bold\">N/A</p>\n" +
-    "            <p class=\"compInsti small\">N/A</p>\n" +
-    "            <p class=\"compLoc small\">N/A</p>\n" +
-    "\n" +
-    "            <br />\n" +
-    "            <!-- Student Details goes here-->\n" +
-    "        </div>\n" +
-    "    </div>"
 
 function updateHTMLCard_AllTypes(index, isFront, cardData) {
     let rc = CardManager.getCardRowCol(index);

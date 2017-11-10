@@ -58,7 +58,6 @@ class CardManager {
         return this.allCardDataFront[this.searchCardIndex];
     }
 
-
     // =================================================================================================================
     // All Initializers
     // =================================================================================================================
@@ -142,7 +141,8 @@ class CardManager {
     async replaceCardOpposite(cardIdx, isFront) {
         const nCardData = await this.generateRandomInfoCardData();
 
-        // TODO prepare old card for garbage collection
+        // Old card for garbage collection
+        this.destroyCard(isFront, cardIdx);
 
         // Push new random card into data array
         if (isFront) {
@@ -151,40 +151,63 @@ class CardManager {
             this.allCardDataFront[cardIdx] = nCardData;
         }
 
-        // TODO move this Update the HTML
+        // TODO move this update the HTML
         updateHTMLCard_AllTypes(cardIdx, !isFront, nCardData);
     }
 
     replaceAllWithOnly(newListOfCardsData) {
-        // For all non-search cards...
-        let cardIdx;
-        for (cardIdx = 0; cardIdx < this.NUM_CARDS; ++cardIdx) {
+        let pushAmount = this.NUM_CARDS - 2 - newListOfCardsData.length;
 
-            // TODO prepare old card for garbage collection
+        // Empty cards
+        for (let cardIdx = 0; cardIdx < pushAmount; cardIdx++) {
+            this.destroyCard(true, cardIdx);
+            this.destroyCard(false, cardIdx);
+
+            // Remove card data
+            this.allCardDataFront[cardIdx] = null;
+            this.allCardDataBack[cardIdx] = null;
+
+            // Update the HTML
+            updateHTMLCard_AllTypes(cardIdx, true, null);
+            updateHTMLCard_AllTypes(cardIdx, false, null);
+        }
+
+        // New cards
+        for (let newCardIdx = 0; newCardIdx < newListOfCardsData.length; newCardIdx++) {
+
+            let cardIdx = pushAmount + newCardIdx;
 
             // Skip if we are on the search card.
             if (cardIdx === this.searchCardIndex) {
                 continue;
             }
 
-            if (cardIdx < newListOfCardsData.length) {
-                // Construct new card data.
-                let nCardData = new AwardCard(newListOfCardsData[cardIdx]);
-                this.allCardDataFront[cardIdx] = nCardData;
-                this.allCardDataBack[cardIdx] = nCardData;
+            // Construct new card data.
+            let nCardData = new AwardCard(newListOfCardsData[newCardIdx]);
 
-                // Update the HTML
-                updateHTMLCard_AllTypes(cardIdx, true, nCardData);
-                updateHTMLCard_AllTypes(cardIdx, false, nCardData);
-            } else {
-                // Remove card data
-                this.allCardDataFront[cardIdx] = null;
-                this.allCardDataBack[cardIdx] = null;
+            this.destroyCard(true, cardIdx);
+            this.destroyCard(false, cardIdx);
 
-                // Update the HTML
-                updateHTMLCard_AllTypes(cardIdx, true, null);
-                updateHTMLCard_AllTypes(cardIdx, false, null);
-            }
+            this.allCardDataFront[cardIdx] = nCardData;
+            this.allCardDataBack[cardIdx] = nCardData;
+
+            // Update the HTML
+            updateHTMLCard_AllTypes(cardIdx, true, nCardData);
+            updateHTMLCard_AllTypes(cardIdx, false, nCardData);
+        }
+    }
+
+    destroyCard(isFront, index) {
+        let card;
+
+        if (isFront) {
+            card = this.allCardDataFront[index];
+        } else {
+            card = this.allCardDataBack[index];
+        }
+        if (card) {
+            // console.log(card);
+            card.destroy();
         }
     }
 }

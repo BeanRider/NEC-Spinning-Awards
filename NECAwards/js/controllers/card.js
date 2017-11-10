@@ -24,6 +24,10 @@ class Card {
     constructor(cardType) {
         this.type = cardType;
     }
+
+    destroy() {
+        // DO NOTHING
+    }
 }
 
 const OVERLAY_TIMEOUT_SECONDS = 30;
@@ -41,6 +45,10 @@ class AwardCard extends Card {
         }
         this.imageUrl = getImageForWinnerId(winnerInfo.ensembleId ? winnerInfo.ensembleId : winnerInfo.alumId, gender);
         this.overlayTimer = new Timer(OVERLAY_TIMEOUT_SECONDS * 1000);
+    }
+
+    destroy() {
+        this.overlayTimer.abortTimer();
     }
 }
 

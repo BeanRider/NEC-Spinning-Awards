@@ -193,8 +193,7 @@ function attachPageButtonListeners() {
         if ($(this).hasClass("activatable")) {
             const pageIdx = (parseInt($(this).text()) - 1);
             const searchCard = CARD_MANAGER.getSearchCard();
-            CARD_MANAGER.replaceAllWithOnly(
-                searchCard.searchResults[pageIdx + ""]);
+            CARD_MANAGER.replaceAllWithOnly(searchCard.searchResults[pageIdx + ""]);
             searchCard.pageIdx = pageIdx;
             updateHTMLCard_Search();
         }

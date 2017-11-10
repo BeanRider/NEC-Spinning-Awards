@@ -19,138 +19,143 @@
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index2.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/index2.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="256" column="17" lean-forward="true" selection-start-line="256" selection-start-column="17" selection-end-line="256" selection-end-column="17" />
-              <folding>
-                <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ol#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ol#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ol#2;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ol#3;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#0;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#1;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#2;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#3;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#4;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#5;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#6;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#7;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#1;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#2;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#3;n#div#2;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#3;n#div#2;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#3;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/controllers/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="470">
-              <caret line="848" column="17" lean-forward="false" selection-start-line="848" selection-start-column="17" selection-end-line="848" selection-end-column="17" />
-              <folding>
-                <element signature="n#!!block;n#selectEnd#0" expanded="false" />
-                <element signature="n#!!block;n#selectDown#0" expanded="false" />
-                <element signature="n#!!block;n#touchHandler#0" expanded="false" />
-                <element signature="n#!!block;n#mouseMoveDo#0" expanded="false" />
-                <element signature="n#!!block;n#onClickGestureClick#0" expanded="false" />
-                <element signature="n#!!block;n#flipAllCards#0" expanded="false" />
-                <element signature="e#13099#13319#0" expanded="false" />
-                <element signature="n#!!block;n#playRandomGesture#0" expanded="false" />
-                <element signature="e#13388#13782#0" expanded="false" />
-                <element signature="n#!!block;n#playbackLastGesture#0" expanded="false" />
-                <element signature="n#!!block;n#playbackDragGesture#0" expanded="false" />
-                <element signature="n#!!block;n#activateFlipGesture#0" expanded="false" />
-                <element signature="n#!!block;n#updateHTMLCard_Overlay#0" expanded="false" />
-                <element signature="n#!!block;n#updateHTMLCard_OnClick#0" expanded="false" />
-                <element signature="n#!!block;n#randomBGColor#0" expanded="false" />
-                <element signature="n#!!block;n#getTransformAngle#0" expanded="false" />
-                <element signature="n#!!block;n#getCardIndex#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="photo.client.controller.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/controllers/photo.client.controller.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="custommath.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/utils/custommath.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="30" column="8" lean-forward="false" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="search-card.client.controller.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/controllers/search-card.client.controller.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="112" column="50" lean-forward="false" selection-start-line="112" selection-start-column="50" selection-end-line="112" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cardManager.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/controllers/cardManager.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-676">
-              <caret line="56" column="4" lean-forward="false" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="award.client.service.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/services/award.client.service.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="45" column="41" lean-forward="true" selection-start-line="45" selection-start-column="41" selection-end-line="45" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="card.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/controllers/card.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="131" column="9" lean-forward="true" selection-start-line="131" selection-start-column="9" selection-end-line="131" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="idleActivationTimer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/controllers/gestureEngine/idleActivationTimer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="25" column="36" lean-forward="true" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="index2.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/index2.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="214">
+                  <caret line="69" column="0" lean-forward="true" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+                  <folding>
+                    <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#ol#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#ol#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#ol#2;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#ol#3;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#li#0;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#li#1;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#li#2;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#li#3;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#li#4;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#li#5;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#li#6;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#li#7;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#div#1;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#div#1;n#div#1;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#div#2;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#div#0;n#div#3;n#div#2;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#div#1;n#div#3;n#div#2;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#div#3;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="n#div#4;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/js/controllers/main.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="287">
+                  <caret line="277" column="5" lean-forward="true" selection-start-line="277" selection-start-column="5" selection-end-line="277" selection-end-column="5" />
+                  <folding>
+                    <element signature="n#!!block;n#selectEnd#0" expanded="false" />
+                    <element signature="n#!!block;n#selectDown#0" expanded="false" />
+                    <element signature="n#!!block;n#onClickGestureClick#0" expanded="false" />
+                    <element signature="n#!!block;n#flipAllCards#0" expanded="false" />
+                    <element signature="e#13099#13319#0" expanded="false" />
+                    <element signature="n#!!block;n#playRandomGesture#0" expanded="false" />
+                    <element signature="e#13388#13782#0" expanded="false" />
+                    <element signature="n#!!block;n#playbackLastGesture#0" expanded="false" />
+                    <element signature="n#!!block;n#playbackDragGesture#0" expanded="false" />
+                    <element signature="n#!!block;n#updateHTMLCard_Overlay#0" expanded="false" />
+                    <element signature="n#!!block;n#updateHTMLCard_OnClick#0" expanded="false" />
+                    <element signature="n#!!block;n#updateHTMLCard_AddAlumDetails#0" expanded="false" />
+                    <element signature="n#!!block;n#updateHTMLCard_AwardText#0" expanded="false" />
+                    <element signature="n#!!block;n#updateHTMLCard_AllTypes#0" expanded="false" />
+                    <element signature="n#!!block;n#randomBGColor#0" expanded="false" />
+                    <element signature="n#!!block;n#getTransformAngle#0" expanded="false" />
+                    <element signature="n#!!block;n#getCardIndex#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="cardManager.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/js/controllers/cardManager.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="245">
+                  <caret line="34" column="18" lean-forward="false" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="18" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="search-card.client.controller.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/js/controllers/search-card.client.controller.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="599">
+                  <caret line="195" column="38" lean-forward="true" selection-start-line="195" selection-start-column="38" selection-end-line="195" selection-end-column="38" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="card.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/js/controllers/card.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="156">
+                  <caret line="27" column="4" lean-forward="false" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="idleActivationTimer.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/js/controllers/gestureEngine/idleActivationTimer.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="181">
+                  <caret line="25" column="36" lean-forward="true" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/js/controllers/main.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="287">
+                  <caret line="277" column="5" lean-forward="false" selection-start-line="277" selection-start-column="5" selection-end-line="277" selection-end-column="5" />
+                  <folding>
+                    <element signature="n#!!block;n#selectEnd#0" expanded="false" />
+                    <element signature="n#!!block;n#selectDown#0" expanded="false" />
+                    <element signature="n#!!block;n#onClickGestureClick#0" expanded="false" />
+                    <element signature="n#!!block;n#flipAllCards#0" expanded="false" />
+                    <element signature="e#13099#13319#0" expanded="false" />
+                    <element signature="n#!!block;n#playRandomGesture#0" expanded="false" />
+                    <element signature="e#13388#13782#0" expanded="false" />
+                    <element signature="n#!!block;n#playbackLastGesture#0" expanded="false" />
+                    <element signature="n#!!block;n#playbackDragGesture#0" expanded="false" />
+                    <element signature="n#!!block;n#updateHTMLCard_Overlay#0" expanded="false" />
+                    <element signature="n#!!block;n#updateHTMLCard_OnClick#0" expanded="false" />
+                    <element signature="n#!!block;n#updateHTMLCard_AddAlumDetails#0" expanded="false" />
+                    <element signature="n#!!block;n#updateHTMLCard_AwardText#0" expanded="false" />
+                    <element signature="n#!!block;n#updateHTMLCard_AllTypes#0" expanded="false" />
+                    <element signature="n#!!block;n#randomBGColor#0" expanded="false" />
+                    <element signature="n#!!block;n#getTransformAngle#0" expanded="false" />
+                    <element signature="n#!!block;n#getCardIndex#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -163,9 +168,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>os-oly</find>
-      <find>fa-sq</find>
-      <find>square</find>
       <find>Montserrat</find>
       <find>searchButton</find>
       <find>getWinner</find>
@@ -190,9 +192,12 @@
       <find>searchback</find>
       <find>activatable</find>
       <find>border</find>
-      <find>span</find>
       <find>img</find>
+      <find>replace</find>
+      <find>span</find>
       <find>student</find>
+      <find>pushed</find>
+      <find>drag</find>
     </findStrings>
     <replaceStrings>
       <replace>this.img2</replace>
@@ -229,14 +234,14 @@
         <option value="$PROJECT_DIR$/js/controllers/timer.js" />
         <option value="$PROJECT_DIR$/js/services/award.client.service.js" />
         <option value="$PROJECT_DIR$/js/utils/custommath.js" />
-        <option value="$PROJECT_DIR$/js/controllers/cardManager.js" />
         <option value="$PROJECT_DIR$/js/controllers/photo.client.controller.js" />
         <option value="$PROJECT_DIR$/css/style.css" />
-        <option value="$PROJECT_DIR$/js/controllers/search-card.client.controller.js" />
         <option value="$PROJECT_DIR$/js/controllers/gestureEngine/idleActivationTimer.js" />
-        <option value="$PROJECT_DIR$/js/controllers/card.js" />
-        <option value="$PROJECT_DIR$/js/controllers/main.js" />
         <option value="$PROJECT_DIR$/index2.html" />
+        <option value="$PROJECT_DIR$/js/controllers/main.js" />
+        <option value="$PROJECT_DIR$/js/controllers/card.js" />
+        <option value="$PROJECT_DIR$/js/controllers/cardManager.js" />
+        <option value="$PROJECT_DIR$/js/controllers/search-card.client.controller.js" />
       </list>
     </option>
   </component>
@@ -247,9 +252,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="638" />
+    <option name="x" value="306" />
     <option name="y" value="23" />
-    <option name="width" value="1042" />
+    <option name="width" value="1374" />
     <option name="height" value="951" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -512,17 +517,17 @@
       <workItem from="1509129811823" duration="4199000" />
       <workItem from="1509244934926" duration="28170000" />
       <workItem from="1509739773873" duration="5618000" />
-      <workItem from="1510187436864" duration="19241000" />
+      <workItem from="1510187436864" duration="30573000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="450485000" />
+    <option name="totallyTimeSpent" value="461817000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="638" y="23" width="1042" height="951" extended-state="0" />
+    <frame x="306" y="23" width="1374" height="951" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22233105" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16777532" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908458" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32827103" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -636,6 +641,7 @@
             <element signature="n#div#0;n#div#3;n#div#2;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#1;n#div#3;n#div#2;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#3;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#4;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -655,8 +661,6 @@
           <folding>
             <element signature="n#!!block;n#selectEnd#0" expanded="false" />
             <element signature="n#!!block;n#selectDown#0" expanded="false" />
-            <element signature="n#!!block;n#touchHandler#0" expanded="false" />
-            <element signature="n#!!block;n#mouseMoveDo#0" expanded="false" />
             <element signature="n#!!block;n#onClickGestureClick#0" expanded="false" />
             <element signature="n#!!block;n#flipAllCards#0" expanded="false" />
             <element signature="e#13099#13319#0" expanded="false" />
@@ -664,9 +668,11 @@
             <element signature="e#13388#13782#0" expanded="false" />
             <element signature="n#!!block;n#playbackLastGesture#0" expanded="false" />
             <element signature="n#!!block;n#playbackDragGesture#0" expanded="false" />
-            <element signature="n#!!block;n#activateFlipGesture#0" expanded="false" />
             <element signature="n#!!block;n#updateHTMLCard_Overlay#0" expanded="false" />
             <element signature="n#!!block;n#updateHTMLCard_OnClick#0" expanded="false" />
+            <element signature="n#!!block;n#updateHTMLCard_AddAlumDetails#0" expanded="false" />
+            <element signature="n#!!block;n#updateHTMLCard_AwardText#0" expanded="false" />
+            <element signature="n#!!block;n#updateHTMLCard_AllTypes#0" expanded="false" />
             <element signature="n#!!block;n#randomBGColor#0" expanded="false" />
             <element signature="n#!!block;n#getTransformAngle#0" expanded="false" />
             <element signature="n#!!block;n#getCardIndex#0" expanded="false" />
@@ -738,6 +744,7 @@
             <element signature="n#div#0;n#div#3;n#div#2;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#1;n#div#3;n#div#2;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#3;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#4;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -797,8 +804,6 @@
           <folding>
             <element signature="n#!!block;n#selectEnd#0" expanded="false" />
             <element signature="n#!!block;n#selectDown#0" expanded="false" />
-            <element signature="n#!!block;n#touchHandler#0" expanded="false" />
-            <element signature="n#!!block;n#mouseMoveDo#0" expanded="false" />
             <element signature="n#!!block;n#onClickGestureClick#0" expanded="false" />
             <element signature="n#!!block;n#flipAllCards#0" expanded="false" />
             <element signature="e#13099#13319#0" expanded="false" />
@@ -806,9 +811,11 @@
             <element signature="e#13388#13782#0" expanded="false" />
             <element signature="n#!!block;n#playbackLastGesture#0" expanded="false" />
             <element signature="n#!!block;n#playbackDragGesture#0" expanded="false" />
-            <element signature="n#!!block;n#activateFlipGesture#0" expanded="false" />
             <element signature="n#!!block;n#updateHTMLCard_Overlay#0" expanded="false" />
             <element signature="n#!!block;n#updateHTMLCard_OnClick#0" expanded="false" />
+            <element signature="n#!!block;n#updateHTMLCard_AddAlumDetails#0" expanded="false" />
+            <element signature="n#!!block;n#updateHTMLCard_AwardText#0" expanded="false" />
+            <element signature="n#!!block;n#updateHTMLCard_AllTypes#0" expanded="false" />
             <element signature="n#!!block;n#randomBGColor#0" expanded="false" />
             <element signature="n#!!block;n#getTransformAngle#0" expanded="false" />
             <element signature="n#!!block;n#getCardIndex#0" expanded="false" />
@@ -840,6 +847,7 @@
             <element signature="n#div#0;n#div#3;n#div#2;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#1;n#div#3;n#div#2;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#3;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#4;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -859,8 +867,6 @@
           <folding>
             <element signature="n#!!block;n#selectEnd#0" expanded="false" />
             <element signature="n#!!block;n#selectDown#0" expanded="false" />
-            <element signature="n#!!block;n#touchHandler#0" expanded="false" />
-            <element signature="n#!!block;n#mouseMoveDo#0" expanded="false" />
             <element signature="n#!!block;n#onClickGestureClick#0" expanded="false" />
             <element signature="n#!!block;n#flipAllCards#0" expanded="false" />
             <element signature="e#13099#13319#0" expanded="false" />
@@ -868,9 +874,11 @@
             <element signature="e#13388#13782#0" expanded="false" />
             <element signature="n#!!block;n#playbackLastGesture#0" expanded="false" />
             <element signature="n#!!block;n#playbackDragGesture#0" expanded="false" />
-            <element signature="n#!!block;n#activateFlipGesture#0" expanded="false" />
             <element signature="n#!!block;n#updateHTMLCard_Overlay#0" expanded="false" />
             <element signature="n#!!block;n#updateHTMLCard_OnClick#0" expanded="false" />
+            <element signature="n#!!block;n#updateHTMLCard_AddAlumDetails#0" expanded="false" />
+            <element signature="n#!!block;n#updateHTMLCard_AwardText#0" expanded="false" />
+            <element signature="n#!!block;n#updateHTMLCard_AllTypes#0" expanded="false" />
             <element signature="n#!!block;n#randomBGColor#0" expanded="false" />
             <element signature="n#!!block;n#getTransformAngle#0" expanded="false" />
             <element signature="n#!!block;n#getCardIndex#0" expanded="false" />
@@ -942,6 +950,7 @@
             <element signature="n#div#0;n#div#3;n#div#2;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#1;n#div#3;n#div#2;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#3;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#4;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -961,8 +970,6 @@
           <folding>
             <element signature="n#!!block;n#selectEnd#0" expanded="false" />
             <element signature="n#!!block;n#selectDown#0" expanded="false" />
-            <element signature="n#!!block;n#touchHandler#0" expanded="false" />
-            <element signature="n#!!block;n#mouseMoveDo#0" expanded="false" />
             <element signature="n#!!block;n#onClickGestureClick#0" expanded="false" />
             <element signature="n#!!block;n#flipAllCards#0" expanded="false" />
             <element signature="e#13099#13319#0" expanded="false" />
@@ -970,9 +977,11 @@
             <element signature="e#13388#13782#0" expanded="false" />
             <element signature="n#!!block;n#playbackLastGesture#0" expanded="false" />
             <element signature="n#!!block;n#playbackDragGesture#0" expanded="false" />
-            <element signature="n#!!block;n#activateFlipGesture#0" expanded="false" />
             <element signature="n#!!block;n#updateHTMLCard_Overlay#0" expanded="false" />
             <element signature="n#!!block;n#updateHTMLCard_OnClick#0" expanded="false" />
+            <element signature="n#!!block;n#updateHTMLCard_AddAlumDetails#0" expanded="false" />
+            <element signature="n#!!block;n#updateHTMLCard_AwardText#0" expanded="false" />
+            <element signature="n#!!block;n#updateHTMLCard_AllTypes#0" expanded="false" />
             <element signature="n#!!block;n#randomBGColor#0" expanded="false" />
             <element signature="n#!!block;n#getTransformAngle#0" expanded="false" />
             <element signature="n#!!block;n#getCardIndex#0" expanded="false" />
@@ -1031,62 +1040,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/vendor/lodash.core.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="3740" column="2" lean-forward="false" selection-start-line="3740" selection-start-column="2" selection-end-line="3740" selection-end-column="2" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/timer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="24" lean-forward="false" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/services/award.client.service.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="45" column="41" lean-forward="true" selection-start-line="45" selection-start-column="41" selection-end-line="45" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/utils/custommath.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="30" column="8" lean-forward="false" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="334">
           <caret line="288" column="23" lean-forward="true" selection-start-line="288" selection-start-column="23" selection-end-line="288" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/photo.client.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/cardManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-676">
-          <caret line="56" column="4" lean-forward="false" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="4" />
           <folding />
         </state>
       </provider>
@@ -1099,52 +1056,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/controllers/photo.client.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/controllers/timer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="4" lean-forward="false" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/services/award.client.service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="16" lean-forward="true" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/controllers/card.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="131" column="9" lean-forward="true" selection-start-line="131" selection-start-column="9" selection-end-line="131" selection-end-column="9" />
+        <state relative-caret-position="156">
+          <caret line="27" column="4" lean-forward="false" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/search-card.client.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="112" column="50" lean-forward="false" selection-start-line="112" selection-start-column="50" selection-end-line="112" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="470">
-          <caret line="848" column="17" lean-forward="false" selection-start-line="848" selection-start-column="17" selection-end-line="848" selection-end-column="17" />
-          <folding>
-            <element signature="n#!!block;n#selectEnd#0" expanded="false" />
-            <element signature="n#!!block;n#selectDown#0" expanded="false" />
-            <element signature="n#!!block;n#touchHandler#0" expanded="false" />
-            <element signature="n#!!block;n#mouseMoveDo#0" expanded="false" />
-            <element signature="n#!!block;n#onClickGestureClick#0" expanded="false" />
-            <element signature="n#!!block;n#flipAllCards#0" expanded="false" />
-            <element signature="e#13099#13319#0" expanded="false" />
-            <element signature="n#!!block;n#playRandomGesture#0" expanded="false" />
-            <element signature="e#13388#13782#0" expanded="false" />
-            <element signature="n#!!block;n#playbackLastGesture#0" expanded="false" />
-            <element signature="n#!!block;n#playbackDragGesture#0" expanded="false" />
-            <element signature="n#!!block;n#activateFlipGesture#0" expanded="false" />
-            <element signature="n#!!block;n#updateHTMLCard_Overlay#0" expanded="false" />
-            <element signature="n#!!block;n#updateHTMLCard_OnClick#0" expanded="false" />
-            <element signature="n#!!block;n#randomBGColor#0" expanded="false" />
-            <element signature="n#!!block;n#getTransformAngle#0" expanded="false" />
-            <element signature="n#!!block;n#getCardIndex#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index2.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="256" column="17" lean-forward="true" selection-start-line="256" selection-start-column="17" selection-end-line="256" selection-end-column="17" />
+        <state relative-caret-position="214">
+          <caret line="69" column="0" lean-forward="true" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
           <folding>
             <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#ol#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -1165,6 +1114,65 @@
             <element signature="n#div#0;n#div#3;n#div#2;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#1;n#div#3;n#div#2;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#3;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#4;n#div#0;n#li#8;n#ol#4;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/utils/custommath.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="30" column="8" lean-forward="true" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/vendor/lodash.core.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="3225" column="11" lean-forward="false" selection-start-line="3225" selection-start-column="11" selection-end-line="3225" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/controllers/search-card.client.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="599">
+          <caret line="195" column="38" lean-forward="true" selection-start-line="195" selection-start-column="38" selection-end-line="195" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/controllers/cardManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="34" column="18" lean-forward="false" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/controllers/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="277" column="5" lean-forward="true" selection-start-line="277" selection-start-column="5" selection-end-line="277" selection-end-column="5" />
+          <folding>
+            <element signature="n#!!block;n#selectEnd#0" expanded="false" />
+            <element signature="n#!!block;n#selectDown#0" expanded="false" />
+            <element signature="n#!!block;n#onClickGestureClick#0" expanded="false" />
+            <element signature="n#!!block;n#flipAllCards#0" expanded="false" />
+            <element signature="e#13099#13319#0" expanded="false" />
+            <element signature="n#!!block;n#playRandomGesture#0" expanded="false" />
+            <element signature="e#13388#13782#0" expanded="false" />
+            <element signature="n#!!block;n#playbackLastGesture#0" expanded="false" />
+            <element signature="n#!!block;n#playbackDragGesture#0" expanded="false" />
+            <element signature="n#!!block;n#updateHTMLCard_Overlay#0" expanded="false" />
+            <element signature="n#!!block;n#updateHTMLCard_OnClick#0" expanded="false" />
+            <element signature="n#!!block;n#updateHTMLCard_AddAlumDetails#0" expanded="false" />
+            <element signature="n#!!block;n#updateHTMLCard_AwardText#0" expanded="false" />
+            <element signature="n#!!block;n#updateHTMLCard_AllTypes#0" expanded="false" />
+            <element signature="n#!!block;n#randomBGColor#0" expanded="false" />
+            <element signature="n#!!block;n#getTransformAngle#0" expanded="false" />
+            <element signature="n#!!block;n#getCardIndex#0" expanded="false" />
           </folding>
         </state>
       </provider>
