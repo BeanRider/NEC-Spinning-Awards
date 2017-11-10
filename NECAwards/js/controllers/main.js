@@ -212,6 +212,7 @@ function selectDown(isTouch) {
     }
 
     if (isTouch) {
+        console.log("touchdown okay");
         touchDown = true;
     } else {
         mouseDown = true;
@@ -222,6 +223,8 @@ function selectDown(isTouch) {
 }
 
 function touchHandler(event) {
+
+    console.log("reach touchhandler");
 
     if (!isInitDone) {
         return;
@@ -247,6 +250,7 @@ function touchHandler(event) {
             selectEnd(INPUT_IS_TOUCH);
             break;
         case "touchmove":
+            console.log("in touchmove");
             if (!isInitDone) {
                 return;
             }
@@ -254,7 +258,7 @@ function touchHandler(event) {
             idleActivationTimer.resetValues();
 
             // No drag in search mode.
-            if (CARD_MANAGER.getSearchCard()) {
+            if (CARD_MANAGER.getSearchCard().isActive()) {
                 return;
             }
 
@@ -264,7 +268,8 @@ function touchHandler(event) {
                 currentDragGesture.push({
                     "t": Date.now() - dragStartTime,
                     "pos": {"x": mouseX, "y": mouseY}});
-                let selectedElement = document.elementFromAbsolutePoint(mouseX, mouseY);
+                let selectedElement = document.elementFromPoint(mouseX, mouseY);
+                console.log("touch dragging");
                 if (selectedElement && currentDragGesture.length > 8) {
                     let $e = $(selectedElement);
                     activateFlipGesture($e, mouseX, mouseY);
@@ -826,6 +831,13 @@ function updateHTMLCard_AwardText($card, awardInfo, ensembleAlums, winner) {
     }
 }
 
+
+// TODO
+// 1. no blue cards
+// 2. input greyout
+// 3. N/A
+// 4. Staggering flip all to reduce lag.
+// 5. blank cards issue.
 function updateHTMLCard_AllTypes(index, isFront, cardData) {
     let rc = CardManager.getCardRowCol(index);
     let r = rc.r;
@@ -843,6 +855,9 @@ function updateHTMLCard_AllTypes(index, isFront, cardData) {
     $card.css({
         'background': 'black'
     });
+
+    // Remove old activated state:
+    $card.parent().data("activated", false);
 
     if (!cardData) {
         return;

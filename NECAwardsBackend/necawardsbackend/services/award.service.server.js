@@ -246,12 +246,14 @@ module.exports = function(app, mysql) {
         });
     }
 
-    function convertAlumOrEnsemble_ToWinner(winnerType, obj) {
+    async function convertAlumOrEnsemble_ToWinner(con, winnerType, obj) {
         switch (winnerType) {
             case WinnerType.ALUM:
                 return [convertAlum(obj)];
             case WinnerType.ENSEMBLE:
-                return [convertEnsemble(obj), convertEnsembleAlums(obj)];
+
+                let result = await convertEnsembleAlums(con, obj);
+                return [convertEnsemble(obj), result];
             default:
                 throw 'Bad winner type! + ' + winnerType;
         }
@@ -287,14 +289,15 @@ module.exports = function(app, mysql) {
         }
     }
 
-    function convertEnsembleAlums(ensembleObj) {
+    async function convertEnsembleAlums(con, ensembleObj) {
         let ensembleAlumIds = ensembleObj.alumIds.split(",").map(function (d) {
             return d.trim();
         });
         const toReturn = [];
-        ensembleAlumIds.forEach(function(alumId) {
-            toReturn.push(convertAlum(alumId));
-        });
+        for (let alumId of ensembleAlumIds) {
+            const alumObj = await prepareAlum(con, alumId);
+            toReturn.push(alumObj);
+        }
         return toReturn;
     }
 
@@ -339,6 +342,19 @@ module.exports = function(app, mysql) {
         }
         return alumObj;
     }
+
+    const prepareAlum = async function(con, alumId) {
+        try {
+            let alumObj = await queryAlum_ById(con, alumId);
+            if (!alumObj) {
+                return Promise.reject("No alums found with ID = " + alumId);
+            }
+            let alumObjConverted = convertAlum(alumObj);
+            return Promise.resolve(alumObjConverted);
+        } catch (e) {
+            return Promise.reject(e)
+        }
+    };
 
     async function searchAward(req, res, next) {
 
@@ -496,10 +512,10 @@ module.exports = function(app, mysql) {
                 console.log(queryString);
                 try {
                     const awardObjList = await sqlQuery(con, queryString);
-                    awardObjList.forEach((awardObj) => {
+                    for (const awardObj of awardObjList) {
                         console.log("got awardObj" + awardObj);
 
-                        let convertedWinnerData = convertAlumOrEnsemble_ToWinner(winnerType, winnerObj);
+                        const convertedWinnerData = await convertAlumOrEnsemble_ToWinner(con, winnerType, winnerObj);
                         let cardObj = {"award": awardObj, "winner": convertedWinnerData[0]};
 
                         if (winnerType === WinnerType.ENSEMBLE) {
@@ -507,7 +523,7 @@ module.exports = function(app, mysql) {
                         }
 
                         cardObjList.push(cardObj);
-                    });
+                    }
                 } catch (e) {
                     return Promise.reject(e);
                 }
@@ -515,18 +531,7 @@ module.exports = function(app, mysql) {
             return Promise.resolve(cardObjList);
         };
 
-        const prepareAlum = async function(alumId) {
-            try {
-                let alumObj = await queryAlum_ById(con, alumId);
-                if (!alumObj) {
-                    return Promise.reject("No alums found with ID = " + alumId);
-                }
-                let alumObjConverted = convertAlum(alumObj);
-                return Promise.resolve(alumObjConverted);
-            } catch (e) {
-                return Promise.reject(e)
-            }
-        };
+
 
         const prepareCardList_UsingAwards = async function(awardObjList) {
             let cardObjList = [];
@@ -538,7 +543,7 @@ module.exports = function(app, mysql) {
                     let alumIds = awardObj.alumId.split(",");
                     let alumId =  alumIds[Math.floor(alumIds.length * Math.random())].replace(/\s/g, '');
                     try {
-                        cardObj.winner = await prepareAlum(alumId);
+                        cardObj.winner = await prepareAlum(con, alumId);
                     } catch (e) {
                         return Promise.reject(e);
                     }
@@ -550,7 +555,7 @@ module.exports = function(app, mysql) {
                     cardObj.ensembleAlums = [];
                     for (let ensembleAlumId of ensembleAlumIds) {
                         try {
-                            const alumObj = await prepareAlum(ensembleAlumId);
+                            const alumObj = await prepareAlum(con, ensembleAlumId);
                             cardObj.ensembleAlums.push(alumObj);
 
                             cardObj.winner = await queryEnsemble_ById(con, ensembleId);
