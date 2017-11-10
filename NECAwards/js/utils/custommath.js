@@ -27,3 +27,14 @@ function degrees(radians) {
 function isOdd(num) {
     return num % 2;
 }
+
+// =====
+
+function stringIncludes(a, b) {
+    return a.indexOf(b) !== -1;
+}
+
+
+function deepCopyArray(array) {
+    return JSON.parse(JSON.stringify(array));
+}

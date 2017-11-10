@@ -84,10 +84,6 @@ class CardManager {
         // For the search card...
         this.assignSearchCard(this.searchCardIndex);
 
-        // TODO move this html code.
-        $searchCardFront = $(".front.search");
-        $searchCardBack = $(".back.search");
-
         updateHTMLCard_Search();
     }
 
@@ -165,7 +161,7 @@ class CardManager {
         for (cardIdx = 0; cardIdx < this.NUM_CARDS; ++cardIdx) {
 
             // TODO prepare old card for garbage collection
-            
+
             // Skip if we are on the search card.
             if (cardIdx === this.searchCardIndex) {
                 continue;

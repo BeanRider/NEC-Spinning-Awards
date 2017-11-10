@@ -1,63 +1,225 @@
 'use strict';
-// =====================================================================================================================
-// Photo Retrieval
-// =====================================================================================================================
-
-const blankProfileM = "img/blankProfileM.png";
-const blankProfileF = "img/blankProfileF.png";
-const blankEnsemble = "img/blankEnsemble.png";
-const allWinnerPhotos = {};
-function getImageForWinnerId(winnerId, gender) {
-    if (allWinnerPhotos[winnerId]) {
-        return allWinnerPhotos[winnerId];
-    } else {
-        switch (gender) {
-            case "ENSEMBLE":
-                return blankEnsemble;
-            case "M":
-                return blankProfileM;
-            case "F":
-                return blankProfileF;
-        }
-    }
-}
-
-function getGestureCardBackgroundURL(gestureType) {
-    return "img/gestureBG/" + gestureType + ".jpg";
-}
-
-function getFactCardBackgroundURL(factType) {
-    return "img/factBG/" + factType + ".jpg";
-}
 
 // =====================================================================================================================
 // Mouse / Touch Input Logic
 // =====================================================================================================================
-function onClickGestureClick(gestureType) {
-    switch (gestureType) {
-        case CardDirectory.GESTURE_TYPE_GLISS:
-            playbackDragGesture(deepCopyArray(RECORDED_GESTURE_GLISS));
-            break;
-        case CardDirectory.GESTURE_TYPE_RANDOM:
-            playRandomGesture();
-            break;
-        case CardDirectory.GESTURE_TYPE_REPEAT:
-            playbackLastGesture();
-            break;
-    }
-}
 
-function stringIncludes(a, b) {
-    return a.indexOf(b) !== -1;
-}
+const INPUT_IS_TOUCH = true;
+const INPUT_IS_MOUSE = false;
 
 const MIN_DRAG_AMOUNT = 10;
 
 let currentDragGesture = [];
 let startTime = Date.now();
 
+let numSwipes = 0;
+let numSwipesBeforeImprov = 0;
+let transposedGesture;
+
+let $lastAnimatedCard = null;
+
+// Input gesture states:
 let touchDown = false;
 let touchDragging = false;
+
+let mouseDown = false;
+let mouseDragging = false;
+
+function selectEnd(isTouch) {
+    if (!isInitDone) {
+        return;
+    }
+
+    idleActivationTimer.resetValues();
+
+    // No drag in search mode.
+    if (CARD_MANAGER.getSearchCard().isActive()) {
+        return;
+    }
+
+    // Only if the drag gesture was long enough
+    if (currentDragGesture.length > MIN_DRAG_AMOUNT) {
+
+        let directionString;
+
+        if ($lastAnimatedCard) {
+            let gLen = currentDragGesture.length;
+            let lastPoint = currentDragGesture[gLen - 1].pos;
+            let secondLastPoint = currentDragGesture[gLen - 3].pos;
+            if (lastPoint.x === secondLastPoint.x) {
+                secondLastPoint.x += 0.0001;
+            }
+            if (lastPoint.y === secondLastPoint.y) {
+                secondLastPoint.y += 0.0001;
+            }
+
+            let delta_x = lastPoint.x - secondLastPoint.x;
+            let delta_y = lastPoint.y - secondLastPoint.y;
+
+            const angle = degrees(Math.atan2(delta_y, delta_x));
+            console.log("angle %s", angle);
+
+
+            const lastRowCol = CardManager.getCardRowCol(getCardIndex($lastAnimatedCard));
+            const lR = lastRowCol.r;
+            const lC = lastRowCol.c;
+
+            let $next1;
+            let $next2;
+
+            if (150 <= angle && angle < 180) {
+                $next1 = $(".r"+ lR  + " li .c" + (lC - 1) +".front");
+                $next2 = $(".r"+ lR + " li .c" + (lC - 2) +".front");
+                console.log("left");
+                directionString = "left";
+            } else if (120 <= angle && angle < 150) {
+                $next1 = $(".r"+ (lR + 1)  + " li .c" + (lC - 1) +".front");
+                $next2 = $(".r"+ (lR + 2) + " li .c" + (lC - 2) +".front");
+                console.log("bottom left");
+                directionString = "bot left";
+            } else if (60 <= angle && angle < 120) {
+                $next1 = $(".r"+ (lR + 1)  + " li .c" + lC +".front");
+                $next2 = $(".r"+ (lR + 2) + " li .c" + lC +".front");
+                console.log("bottom");
+                directionString = "bot";
+            } else if (30 <= angle && angle < 60) {
+                $next1 = $(".r"+ (lR + 1) + " li .c" + (lC + 1) +".front");
+                $next2 = $(".r"+ (lR + 2) + " li .c" + (lC + 2) +".front");
+                console.log("bottom right");
+                directionString = "bot right";
+            } else if (-30 <= angle && angle < 30) {
+                $next1 = $(".r"+ lR  + " li .c" + (lC + 1) +".front");
+                $next2 = $(".r"+ lR + " li .c" + (lC + 2) +".front");
+                console.log("right");
+                directionString = "right";
+            } else if (-60 <= angle && angle < -30) {
+                $next1 = $(".r"+ (lR - 1)  + " li .c" + (lC + 1) +".front");
+                $next2 = $(".r"+ (lR - 2) + " li .c" + (lC + 2) +".front");
+                console.log("right top");
+                directionString = "right top";
+            } else if (-120 <= angle && angle < -60) {
+                $next1 = $(".r"+ (lR - 1)  + " li .c" + lC +".front");
+                $next2 = $(".r"+ (lR - 2) + " li .c" + lC +".front");
+                console.log("top");
+                directionString = "top";
+            } else if (-150 <= angle && angle < -120) {
+                $next1 = $(".r"+ (lR - 1)  + " li .c" + (lC - 1) +".front");
+                $next2 = $(".r"+ (lR - 1) + " li .c" + (lC - 2) +".front");
+                console.log("top left");
+                directionString = "top left";
+            } else if (-180 <= angle && angle < -150) {
+                $next1 = $(".r"+ lR  + " li .c" + (lC - 1) +".front");
+                $next2 = $(".r"+ lR + " li .c" + (lC - 2) +".front");
+                console.log("left");
+                directionString = "left";
+            }
+
+            const extension1 = new Timer(300);
+            extension1.onDone = function () {
+                if ($next1 && $next1.offset()) {
+                    const offset = $next1.offset();
+                    activateFlipGesture($next1, offset.left + 60, offset.top + 60);
+                }
+
+            };
+
+            const extension2 = new Timer(900);
+            extension2.onDone = function () {
+                if ($next2 && $next2.offset()) {
+                    const offset = $next2.offset();
+                    activateFlipGesture($next2, offset.left + 60, offset.top + 60);
+                }
+            };
+            extension1.start();
+            extension2.start();
+        }
+
+        postDragGesture(currentDragGesture, function (data) {
+            console.log("after postDragGesture: " + data);
+        });
+        lastGesture = deepCopyArray(currentDragGesture);
+
+        numSwipes++;
+        if (numSwipes > numSwipesBeforeImprov) {
+            numSwipes = 0;
+            numSwipesBeforeImprov = Math.floor((Math.random() * 8) + 2);
+
+            const chance = Math.random();
+            transposedGesture = deepCopyArray(currentDragGesture)
+                .map(function (data) {
+                    if (chance <= 0.50) {
+                        if (stringIncludes(directionString, "left") || stringIncludes(directionString, "right")) {
+                            data.pos.y -= 360;
+                        } else {
+                            data.pos.x -= 360;
+                        }
+                    } else {
+                        if (stringIncludes(directionString, "left") || stringIncludes(directionString, "right")) {
+                            data.pos.y += 360;
+                        } else {
+                            data.pos.x += 360;
+                        }
+                    }
+                    return data;
+                });
+
+            // var chanceMirror = Math.random();
+            // var maxTime = transposedGesture[transposedGesture.length - 1].t;
+            // if (chanceMirror < 0.9) {
+            //     console.log("reverse");
+            //     transposedGesture.reverse().map(function(data) {
+            //         data.t = maxTime - data.t;
+            //     });
+            // }
+
+            // Improv
+            // var chanceMirror = Math.random();
+            // if (chanceMirror < 0.1) {
+            //     var toPlay = new Timer(4000);
+            //     toPlay.onDone = function () {
+            //         console.log("reach");
+            //         playbackDragGesture(transposedGesture);
+            //     };
+            // }
+            // toPlay.start();
+        }
+    }
+
+    currentDragGesture = [];
+
+    if (isTouch) {
+        touchDown = false;
+        touchDragging = false;
+    } else {
+        mouseDown = false;
+        mouseDragging = false;
+    }
+}
+
+function selectDown(isTouch) {
+    // Is DOM ready?
+    if (!isInitDone) {
+        return;
+    }
+
+    // Reset idle timer
+    idleActivationTimer.resetValues();
+
+    // No drag in search mode.
+    if (CARD_MANAGER.getSearchCard().isActive()) {
+        return;
+    }
+
+    if (isTouch) {
+        touchDown = true;
+    } else {
+        mouseDown = true;
+    }
+
+    currentDragGesture = [];
+    startTime = Date.now();
+}
+
 function touchHandler(event) {
 
     if (!isInitDone) {
@@ -78,12 +240,12 @@ function touchHandler(event) {
 
     switch (event.type) {
         case "touchstart":
-            touchDown = true;
-            currentDragGesture = [];
-            startTime = Date.now();
+            selectDown(INPUT_IS_TOUCH);
+            break;
+        case "touchend":
+            selectEnd(INPUT_IS_TOUCH);
             break;
         case "touchmove":
-
             touchDragging = touchDown;
 
             if (touchDragging) {
@@ -97,380 +259,50 @@ function touchHandler(event) {
                 }
             }
             break;
-        case "touchend":
-            // Only if the drag gesture was long enough
-            if (currentDragGesture.length > MIN_DRAG_AMOUNT) {
-
-                let directionString;
-
-                if ($lastAnimatedCard) {
-                    let gLen = currentDragGesture.length;
-                    let lastPoint = currentDragGesture[gLen - 1].pos;
-                    let secondLastPoint = currentDragGesture[gLen - 3].pos;
-                    if (lastPoint.x == secondLastPoint.x) {
-                        secondLastPoint.x += 0.0001;
-                    }
-                    if (lastPoint.y == secondLastPoint.y) {
-                        secondLastPoint.y += 0.0001;
-                    }
-
-                    let delta_x = lastPoint.x - secondLastPoint.x;
-                    let delta_y = lastPoint.y - secondLastPoint.y;
-
-                    const angle = degrees(Math.atan2(delta_y, delta_x));
-                    console.log("angle %s", angle);
-
-
-                    const lastRowCol = CardManager.getCardRowCol(getCardIndex($lastAnimatedCard));
-                    const lR = lastRowCol.r;
-                    const lC = lastRowCol.c;
-
-                    let $next1;
-                    let $next2;
-
-                    if (150 <= angle && angle < 180) {
-                        $next1 = $(".r"+ lR  + " li .c" + (lC - 1) +".front");
-                        $next2 = $(".r"+ lR + " li .c" + (lC - 2) +".front");
-                        console.log("left");
-                        directionString = "left";
-                    } else if (120 <= angle && angle < 150) {
-                        $next1 = $(".r"+ (lR + 1)  + " li .c" + (lC - 1) +".front");
-                        $next2 = $(".r"+ (lR + 2) + " li .c" + (lC - 2) +".front");
-                        console.log("bottom left");
-                        directionString = "bot left";
-                    } else if (60 <= angle && angle < 120) {
-                        $next1 = $(".r"+ (lR + 1)  + " li .c" + lC +".front");
-                        $next2 = $(".r"+ (lR + 2) + " li .c" + lC +".front");
-                        console.log("bottom");
-                        directionString = "bot";
-                    } else if (30 <= angle && angle < 60) {
-                        $next1 = $(".r"+ (lR + 1) + " li .c" + (lC + 1) +".front");
-                        $next2 = $(".r"+ (lR + 2) + " li .c" + (lC + 2) +".front");
-                        console.log("bottom right");
-                        directionString = "bot right";
-                    } else if (-30 <= angle && angle < 30) {
-                        $next1 = $(".r"+ lR  + " li .c" + (lC + 1) +".front");
-                        $next2 = $(".r"+ lR + " li .c" + (lC + 2) +".front");
-                        console.log("right");
-                        directionString = "right";
-                    } else if (-60 <= angle && angle < -30) {
-                        $next1 = $(".r"+ (lR - 1)  + " li .c" + (lC + 1) +".front");
-                        $next2 = $(".r"+ (lR - 2) + " li .c" + (lC + 2) +".front");
-                        console.log("right top");
-                        directionString = "right top";
-                    } else if (-120 <= angle && angle < -60) {
-                        $next1 = $(".r"+ (lR - 1)  + " li .c" + lC +".front");
-                        $next2 = $(".r"+ (lR - 2) + " li .c" + lC +".front");
-                        console.log("top");
-                        directionString = "top";
-                    } else if (-150 <= angle && angle < -120) {
-                        $next1 = $(".r"+ (lR - 1)  + " li .c" + (lC - 1) +".front");
-                        $next2 = $(".r"+ (lR - 1) + " li .c" + (lC - 2) +".front");
-                        console.log("top left");
-                        directionString = "top left";
-                    } else if (-180 <= angle && angle < -150) {
-                        $next1 = $(".r"+ lR  + " li .c" + (lC - 1) +".front");
-                        $next2 = $(".r"+ lR + " li .c" + (lC - 2) +".front");
-                        console.log("left");
-                        directionString = "left";
-                    }
-
-                    const extension1 = new Timer(300);
-                    extension1.onDone = function () {
-                        if ($next1 && $next1.offset()) {
-                            const offset = $next1.offset();
-                            activateFlipGesture($next1, offset.left + 60, offset.top + 60);
-                        }
-
-                    };
-
-                    const extension2 = new Timer(900);
-                    extension2.onDone = function () {
-                        if ($next2 && $next2.offset()) {
-                            const offset = $next2.offset();
-                            activateFlipGesture($next2, offset.left + 60, offset.top + 60);
-                        }
-                    };
-                    extension1.start();
-                    extension2.start();
-                }
-
-                postDragGesture(currentDragGesture, function (data) {
-                    console.log("after postDragGesture: " + data);
-                });
-                lastGesture = deepCopyArray(currentDragGesture);
-
-                numSwipes++;
-                if (numSwipes > numSwipesBeforeImprov) {
-                    numSwipes = 0;
-                    numSwipesBeforeImprov = Math.floor((Math.random() * 8) + 2);
-
-                    const chance = Math.random();
-                    transposedGesture = deepCopyArray(currentDragGesture)
-                        .map(function (data) {
-                            if (chance <= 0.50) {
-                                if (stringIncludes(directionString, "left") || stringIncludes(directionString, "right")) {
-                                    data.pos.y -= 360;
-                                } else {
-                                    data.pos.x -= 360;
-                                }
-                            } else {
-                                if (stringIncludes(directionString, "left") || stringIncludes(directionString, "right")) {
-                                    data.pos.y += 360;
-                                } else {
-                                    data.pos.x += 360;
-                                }
-                            }
-                            return data;
-                        });
-
-                    // var chanceMirror = Math.random();
-                    // var maxTime = transposedGesture[transposedGesture.length - 1].t;
-                    // if (chanceMirror < 0.9) {
-                    //     console.log("reverse");
-                    //     transposedGesture.reverse().map(function(data) {
-                    //         data.t = maxTime - data.t;
-                    //     });
-                    // }
-
-                    // Improv
-                    // var chanceMirror = Math.random();
-                    // if (chanceMirror < 0.1) {
-                    //     var toPlay = new Timer(4000);
-                    //     toPlay.onDone = function () {
-                    //         console.log("reach");
-                    //         playbackDragGesture(transposedGesture);
-                    //     };
-                    // }
-                    // toPlay.start();
-                }
-            }
-
-            currentDragGesture = [];
-
-            touchDown = false;
-            touchDragging = false;
-            break;
         default:
             return;
     }
 }
 
-function deepCopyArray(array) {
-    return JSON.parse(JSON.stringify(array));
+function mouseMoveDo(event) {
+    if (!isInitDone) {
+        return;
+    }
+
+    idleActivationTimer.resetValues();
+
+    // No drag in search mode.
+    if (CARD_MANAGER.getSearchCard().isActive()) {
+        return;
+    }
+
+    mouseDragging = mouseDown;
+
+    if (mouseDragging) {
+        const mouseX = event.pageX;
+        const mouseY = event.pageY;
+        currentDragGesture.push({
+            "t": Date.now() - startTime,
+            "pos": {"x": mouseX, "y": mouseY}});
+        if (currentDragGesture.length > 8) {
+            activateFlipGesture(event.target, mouseX, mouseY);
+        }
+    }
 }
 
-let numSwipes = 0;
-let numSwipesBeforeImprov = 0;
-let transposedGesture;
-
-let $lastAnimatedCard = null;
-
-let isDragging = false;
-let mouseDown = false;
-$(document)
-    .mousedown(function() {
-        if (!isInitDone) {
-            return;
-        }
-
-        idleActivationTimer.resetValues();
-
-        // No drag in search mode.
-        if (CARD_MANAGER.getSearchCard().isActive()) {
-            return;
-        }
-        mouseDown = true;
-        currentDragGesture = [];
-        startTime = Date.now();
-    })
-    .mousemove(function(event) {
-        if (!isInitDone) {
-            return;
-        }
-
-        idleActivationTimer.resetValues();
-
-        // No drag in search mode.
-        if (CARD_MANAGER.getSearchCard().isActive()) {
-            return;
-        }
-        if (mouseDown) {
-            isDragging = true;
-        } else {
-            isDragging = false
-        }
-
-        if (isDragging) {
-            const mouseX = event.pageX;
-            const mouseY = event.pageY;
-            currentDragGesture.push({
-                "t": Date.now() - startTime,
-                "pos": {"x": mouseX, "y": mouseY}});
-            if (currentDragGesture.length > 8) {
-                activateFlipGesture(event.target, mouseX, mouseY);
-            }
-        }
-    })
-    .mouseup(function() {
-        if (!isInitDone) {
-            return;
-        }
-
-        idleActivationTimer.resetValues();
-
-        // No drag in search mode.
-        if (CARD_MANAGER.getSearchCard().isActive()) {
-            return;
-        }
-        // Only if the drag gesture was long enough
-        if (currentDragGesture.length > MIN_DRAG_AMOUNT) {
-            let directionString;
-
-            if ($lastAnimatedCard) {
-                const gLen = currentDragGesture.length;
-                const lastPoint = currentDragGesture[gLen - 1].pos;
-                const secondLastPoint = currentDragGesture[gLen - 3].pos;
-                if (lastPoint.x === secondLastPoint.x) {
-                    secondLastPoint.x += 0.0001;
-                }
-                if (lastPoint.y === secondLastPoint.y) {
-                    secondLastPoint.y += 0.0001;
-                }
-
-                const delta_x = lastPoint.x - secondLastPoint.x;
-                const delta_y = lastPoint.y - secondLastPoint.y;
-                const angle = degrees(Math.atan2(delta_y, delta_x));
-                console.log("angle %s", angle);
-
-
-                const lastRowCol = CardManager.getCardRowCol(getCardIndex($lastAnimatedCard));
-                const lR = lastRowCol.r;
-                const lC = lastRowCol.c;
-
-                let $next1;
-                let $next2;
-
-                if (150 <= angle && angle < 180) {
-                    $next1 = $(".r"+ lR  + " li .c" + (lC - 1) +".front");
-                    $next2 = $(".r"+ lR + " li .c" + (lC - 2) +".front");
-                    console.log("left");
-                    directionString = "left";
-                } else if (120 <= angle && angle < 150) {
-                    $next1 = $(".r"+ (lR + 1)  + " li .c" + (lC - 1) +".front");
-                    $next2 = $(".r"+ (lR + 2) + " li .c" + (lC - 2) +".front");
-                    console.log("bottom left");
-                    directionString = "bot left";
-                } else if (60 <= angle && angle < 120) {
-                    $next1 = $(".r"+ (lR + 1)  + " li .c" + lC +".front");
-                    $next2 = $(".r"+ (lR + 2) + " li .c" + lC +".front");
-                    console.log("bottom");
-                    directionString = "bot";
-                } else if (30 <= angle && angle < 60) {
-                    $next1 = $(".r"+ (lR + 1) + " li .c" + (lC + 1) +".front");
-                    $next2 = $(".r"+ (lR + 2) + " li .c" + (lC + 2) +".front");
-                    console.log("bottom right");
-                    directionString = "bot right";
-                } else if (-30 <= angle && angle < 30) {
-                    $next1 = $(".r"+ lR  + " li .c" + (lC + 1) +".front");
-                    $next2 = $(".r"+ lR + " li .c" + (lC + 2) +".front");
-                    console.log("right");
-                    directionString = "right";
-                } else if (-60 <= angle && angle < -30) {
-                    $next1 = $(".r"+ (lR - 1)  + " li .c" + (lC + 1) +".front");
-                    $next2 = $(".r"+ (lR - 2) + " li .c" + (lC + 2) +".front");
-                    console.log("right top");
-                    directionString = "right top";
-                } else if (-120 <= angle && angle < -60) {
-                    $next1 = $(".r"+ (lR - 1)  + " li .c" + lC +".front");
-                    $next2 = $(".r"+ (lR - 2) + " li .c" + lC +".front");
-                    console.log("top");
-                    directionString = "top";
-                } else if (-150 <= angle && angle < -120) {
-                    $next1 = $(".r"+ (lR - 1)  + " li .c" + (lC - 1) +".front");
-                    $next2 = $(".r"+ (lR - 1) + " li .c" + (lC - 2) +".front");
-                    console.log("top left");
-                    directionString = "top left";
-                } else if (-180 <= angle && angle < -150) {
-                    $next1 = $(".r"+ lR  + " li .c" + (lC - 1) +".front");
-                    $next2 = $(".r"+ lR + " li .c" + (lC - 2) +".front");
-                    console.log("left");
-                    directionString = "left";
-                }
-
-                const extension1 = new Timer(300);
-                extension1.onDone = function () {
-                    if ($next1 && $next1.offset()) {
-                        const offset = $next1.offset();
-                        activateFlipGesture($next1, offset.left + 60, offset.top + 60);
-                    }
-
-                };
-
-                const extension2 = new Timer(900);
-                extension2.onDone = function () {
-                    if ($next2 && $next2.offset()) {
-                        const offset = $next2.offset();
-                        activateFlipGesture($next2, offset.left + 60, offset.top + 60);
-                    }
-                };
-                extension1.start();
-                extension2.start();
-            }
-
-
-            postDragGesture(currentDragGesture, function (data) {
-                console.log("after postDragGesture: " + data);
-            });
-            lastGesture = deepCopyArray(currentDragGesture);
-
-            numSwipes++;
-            if (numSwipes > numSwipesBeforeImprov) {
-                numSwipes = 0;
-                numSwipesBeforeImprov = Math.floor((Math.random() * 8) + 2);
-
-                const chance = Math.random();
-                transposedGesture = deepCopyArray(currentDragGesture)
-                    .map(function (data) {
-                    if (chance <= 0.50) {
-                        if (stringIncludes(directionString, "left") || stringIncludes(directionString, "right")) {
-                            data.pos.y -= 360;
-                        } else {
-                            data.pos.x -= 360;
-                        }
-                    } else {
-                        if (stringIncludes(directionString, "left") || stringIncludes(directionString, "right")) {
-                            data.pos.y += 360;
-                        } else {
-                            data.pos.x += 360;
-                        }
-                    }
-                    return data;
-                });
-
-                // var chanceMirror = Math.random();
-                // var maxTime = transposedGesture[transposedGesture.length - 1].t;
-                // if (chanceMirror < 0.9) {
-                //     console.log("reverse");
-                //     transposedGesture.reverse().map(function(data) {
-                //         data.t = maxTime - data.t;
-                //     });
-                // }
-
-                // Improv
-                // var toPlay = new Timer(4000);
-                // toPlay.onDone = function () {
-                //     console.log("reach");
-                //     playbackDragGesture(transposedGesture);
-                // };
-                // toPlay.start();
-            }
-        }
-
-        currentDragGesture = [];
-        isDragging = false;
-        mouseDown = false;
-    });
+function onClickGestureClick(gestureType) {
+    switch (gestureType) {
+        case CardDirectory.GESTURE_TYPE_GLISS:
+            playbackDragGesture(deepCopyArray(RECORDED_GESTURE_GLISS));
+            break;
+        case CardDirectory.GESTURE_TYPE_RANDOM:
+            playRandomGesture();
+            break;
+        case CardDirectory.GESTURE_TYPE_REPEAT:
+            playbackLastGesture();
+            break;
+    }
+}
 
 // =====================================================================================================================
 // Initialization
@@ -480,15 +312,10 @@ let idleActivationTimer;
 
 const CARD_MANAGER = new CardManager();
 
-let $searchCardFront;
-let $searchCardBack;
-
-let ready = false;
-$(document).ready(async function() {
-    if (ready) {
+async function initEverything() {
+    // This makes sure this function is called once.
+    if (isInitDone) {
         return;
-    } else {
-        ready = true;
     }
 
     (function initTouchHandlers() {
@@ -499,150 +326,12 @@ $(document).ready(async function() {
     })();
 
     (function initClickHandlers() {
-        $('.SEARCH_FLOW_INACTIVE').click(() => {
-            CARD_MANAGER.getSearchCard().flowPath = [1];
-            updateHTMLCard_Search();
-        });
+        $(document)
+            .mousedown(() => { selectDown(INPUT_IS_MOUSE); })
+            .mouseup(() => { selectEnd(INPUT_IS_MOUSE); })
+            .mousemove(mouseMoveDo);
 
-        $(".closeButton").click(() => {
-            CARD_MANAGER.getSearchCard().flowPath = [0];
-            flipAllCards();
-            updateHTMLCard_Search();
-        });
-
-        $(".SEARCH_FLOW_SEARCH_OPTIONS > div.searchBackNavButton").click(() => {
-            CARD_MANAGER.getSearchCard().flowPath = [0];
-            flipAllCards();
-            updateHTMLCard_Search();
-        });
-
-        $(".searchOption").click(function(e) {
-            let $newOption = $(e.currentTarget);
-            let searchType = $newOption.find(".searchOptionText").text();
-            let searchCard = CARD_MANAGER.getSearchCard();
-            switch(searchType) {
-                case "NAME":
-                    searchCard.searchType = searchType;
-                    searchCard.flowPath = [2, 3];
-                    break;
-                case "YEAR":
-                    searchCard.searchType = searchType;
-                    searchCard.flowPath = [2, 0];
-                    break;
-                case "DISCIPLINE":
-                    searchCard.searchType = searchType;
-                    searchCard.flowPath = [2, 1];
-                    break;
-                case "AWARD":
-                    searchCard.searchType = searchType;
-                    searchCard.flowPath = [2, 2];
-                    break;
-                default:
-                    // DO NOTHING
-            }
-            updateHTMLCard_Search();
-        });
-
-        $(".os-only").click(function() {
-            let $toggle = $(".os-only");
-            let searchCard = CARD_MANAGER.getSearchCard();
-
-            if ($toggle.hasClass("active")) {
-                $toggle.find('i').toggleClass("fa-circle-o  fa-check-circle-o");
-                $toggle.removeClass("active");
-                searchCard.outstanding = false;
-            } else {
-                $toggle.find('i').toggleClass("fa-check-circle-o fa-circle-o");
-                $toggle.addClass("active");
-                searchCard.outstanding = true;
-            }
-        });
-
-        const onKeyClick = function(e) {
-            let $k = $(e.currentTarget);
-            let kChar = $k.text();
-            if (kChar === '⎵') {
-                kChar = " ";
-            }
-
-            let $field = $(".searchField");
-            let fieldText = $field.val();
-            $field.val(fieldText + kChar);
-        };
-        $(".zRow > span").click(onKeyClick);
-        $(".aRow > span").click(onKeyClick);
-        $(".qRow > span").click(onKeyClick);
-        $(".numberKeys > span").click(onKeyClick);
-
-        $(".backspace").click(() => {
-            let $field = $(".searchField");
-            let fieldText = $field.val();
-            $field.val(fieldText.substring(0, fieldText.length - 1));
-        });
-
-
-
-        $(".searchButton").click(function() {
-            (async function doThis() {
-                let searchCard = CARD_MANAGER.getSearchCard();
-
-                let body = {
-                    "type": searchCard.searchType,
-                    "keyword": $(".searchField").val(),
-                    "outstanding": searchCard.outstanding
-                };
-
-                try {
-                    const response = await postSearch(body);
-                    let data = response.data;
-                    if (data) {
-                        console.log("Got search results: " + data);
-                        let searchResults = data;
-
-                        idleActivationTimer.setShortTimerEnabled(false);
-
-                        if (_.isEmpty(searchResults)) {
-                            CARD_MANAGER.replaceAllWithOnly([]);
-                            searchCard.pages = 1;
-                        } else if (_.has(searchResults, '0')) {
-                            CARD_MANAGER.replaceAllWithOnly(searchResults["0"]);
-                            searchCard.flowPath = [3];
-                            searchCard.searchResults = searchResults;
-                        }
-                        searchCard.pageIdx = 0;
-                    } else {
-                        console.log("Did not get a result!");
-                    }
-                } catch(err) {
-                    console.log(err);
-                    // Set nothing on screen.
-                    idleActivationTimer.setShortTimerEnabled(false);
-                    CARD_MANAGER.replaceAllWithOnly([]);
-                }
-
-                // let flowPath = CARD_MANAGER.getSearchCard().flowPath;
-                // CARD_MANAGER.getSearchCard().flowPath = flowPath.push(0);
-
-                updateHTMLCard_Search();
-            })();
-        });
-
-        $(".SEARCH_FLOW_RESULT_PAGES > .searchBackNavButton").click(function() {
-            // let flowPath = CARD_MANAGER.getSearchCard().flowPath;
-            // CARD_MANAGER.getSearchCard().flowPath = flowPath.slice(0, flowPath - 1);
-            CARD_MANAGER.getSearchCard().flowPath = [2, 1];
-            updateHTMLCard_Search()
-        });
-
-        $(".SEARCH_FLOW_INPUT_YEAR > .searchBackNavButton").click(function() {
-            CARD_MANAGER.getSearchCard().flowPath = [1];
-            updateHTMLCard_Search()
-        });
-
-        $(".SEARCH_FLOW_INPUT_ALPHA > .searchBackNavButton").click(function() {
-            CARD_MANAGER.getSearchCard().flowPath = [1];
-            updateHTMLCard_Search()
-        });
+        initSearchCard();
 
         $('div.front, div.back').click(function(e) {
             let $card = $(e.currentTarget);
@@ -651,45 +340,36 @@ $(document).ready(async function() {
     })();
 
     // Initializes a dictionary variable containing all winnerId to image path
-    async function initImages() {
+    await (async function initImages() {
         const response = await getWinnerIdsWithPhotos();
         let winnerIds = response.data;
 
-        let imageLoadCounter = winnerIds.length;
         winnerIds.forEach(function(winnerId) {
-
             let imagePath = "/NECAwards/img/winnerPhotosBetter/" + winnerId + "-00" + '.jpg';
 
             // Confirm it exists
             if (urlExists(imagePath)) {
                 allWinnerPhotos[winnerId] = imagePath;
             }
-
-            imageLoadCounter--;
-            // console.log(imageLoadCounter);
-            if (imageLoadCounter <= 0) {
-                // return;
-            }
         });
-    }
+    })();
 
     // Initializes all card data, which is randomly generated by the backend
-    async function initCards() {
+    await (async function initCards() {
         const data = await postForRandomAwards(CARD_MANAGER.NUM_CARDS, []);
         await CARD_MANAGER.initCards(data.data);
-    }
-
-    await initImages();
-    await initCards();
+    })();
 
     idleActivationTimer = new IdleActivationTimer();
     idleActivationTimer.start();
 
     isInitDone = true;
-});
+}
+
+$(document).ready(initEverything);
 
 // =====================================================================================================================
-// Gesture playback logic
+// Gesture playback logic + view manipulation
 // =====================================================================================================================
 function flipAllCards() {
     let cardIdx = 0;
@@ -776,373 +456,6 @@ function playbackDragGesture(gesture) {
         timerLoop.elapsedTime += 1;
     };
     timerLoop.start();
-}
-
-// =====================================================================================================================
-// HTML Updates
-// =====================================================================================================================
-
-function updateHTMLCard_Search() {
-    let state = CARD_MANAGER.getSearchCardState();
-    $searchCardFront.children().hide();
-
-    // Reset input field
-    let $field = $(".searchField");
-    $field.val("");
-
-    // Reset outstanding to false
-    let $os = $(".os-only");
-    $os.removeClass("active");
-    $os.find('i').addClass("fa-circle-o");
-    $os.find('i').removeClass("fa-check-circle-o");
-    let searchCard = CARD_MANAGER.getSearchCard();
-    searchCard.outstanding = false;
-
-    if (SEARCH_FLOW_INACTIVE === state) {
-        $(".search").removeClass("active");
-    } else {
-        $(".search").addClass("active");
-    }
-
-    if (SEARCH_FLOW_INPUT_YEAR === state) {
-        $searchCardFront.find("." + SEARCH_FLOW_INPUT_YEAR).show();
-    } else if (SEARCH_FLOW_INPUT_ALUM === state
-        || SEARCH_FLOW_INPUT_AWARD === state
-        || SEARCH_FLOW_INPUT_DISCIPLINE === state) {
-        $searchCardFront.find(".SEARCH_FLOW_INPUT_ALPHA").show();
-    } else if (SEARCH_FLOW_RESULT_PAGES === state) {
-        let $pageWrapper = $searchCardFront.find(".page-numbers-wrapper");
-
-        $pageWrapper.empty();
-
-        let numPages = Object.keys(searchCard.searchResults).length;
-        let onPage = searchCard.pageIdx;
-        for (let i = 0; i < numPages; ++i) {
-            if (onPage === i) {
-                $pageWrapper.append(`<span class="bold">${i + 1}</span>`);
-            } else {
-                $pageWrapper.append(`<span class="lower-focus activatable">${i + 1}</span>`);
-            }
-        }
-        attachPageButtonListeners();
-        $searchCardFront.find("." + state).show();
-    } else {
-        $searchCardFront.find("." + state).show();
-
-    }
-}
-
-function attachPageButtonListeners() {
-    let $pageWrapper = $searchCardFront.find(".page-numbers-wrapper");
-
-    $pageWrapper.find("span").click(function() {
-        if ($(this).hasClass("activatable")) {
-            const pageIdx = (parseInt($(this).text()) - 1);
-            const searchCard = CARD_MANAGER.getSearchCard();
-            CARD_MANAGER.replaceAllWithOnly(
-                searchCard.searchResults[pageIdx + ""]);
-            searchCard.pageIdx = pageIdx;
-            updateHTMLCard_Search();
-        }
-    });
-}
-
-function updateHTMLCard_OverlayVisible($card, show) {
-    if (show) {
-        $card.parent().data("activated", true);
-        $card.find(".details").removeClass("hide");
-        $card.find(".info-bg").css("height", "100%");
-    } else {
-        $card.parent().data("activated", false);
-        $card.find(".details").addClass("hide");
-        // $card.find(".info-bg").css("bottom", "auto");
-        $card.find(".info-bg").css("height", "117px");
-    }
-}
-
-// What happens when user wants to click on a card?
-function updateHTMLCard_OnClick($card) {
-
-    if ($card.hasClass("search")) {
-        return;
-    }
-
-    if ($card.parent().data("isFlipping")) {
-        return;
-    }
-
-    let cardDataFB = CARD_MANAGER.getCardDataPair(getCardIndex($card));
-    let cardDataF = cardDataFB.front;
-    let cardDataB = cardDataFB.back;
-
-    let cardDataClicked = null;
-    if ($card.hasClass("front")) {
-        // console.log("clicked on front");
-        cardDataClicked = cardDataFB.front;
-    } else {
-        // console.log("clicked on back");
-        cardDataClicked = cardDataFB.back;
-    }
-
-    if (!cardDataClicked) {
-        return;
-    }
-
-    // Depending on type, do different things on click...
-    let cardType = cardDataClicked.type;
-    switch (cardType) {
-        case CardDirectory.CARD_TYPE_GESTURE:
-            onClickGestureClick(cardDataClicked.gestureType);
-            return;
-        case CardDirectory.CARD_TYPE_FACT:
-        case CardDirectory.CARD_TYPE_AWARD:
-    }
-
-    // For awards only!
-    if ($card.parent().data("activated")) {
-        updateHTMLCard_OverlayVisible($card, false);
-
-        // Cancel any existing timers to prevent multiple calls
-        if (cardDataF && cardDataF.type === CardDirectory.CARD_TYPE_AWARD) {
-            cardDataF.overlayTimer.abortTimer();
-        }
-        if (cardDataB && cardDataB.type === CardDirectory.CARD_TYPE_AWARD) {
-            cardDataB.overlayTimer.abortTimer();
-        }
-    } else {
-        updateHTMLCard_OverlayVisible($card, true);
-
-        // Cancel any existing timers to prevent multiple calls
-        if (cardDataF && cardDataF.type === CardDirectory.CARD_TYPE_AWARD) {
-            cardDataF.overlayTimer.onDone = function() {
-                updateHTMLCard_OverlayVisible($card, false);
-            };
-            cardDataF.overlayTimer.restartTimer();
-        }
-        if (cardDataB && cardDataB.type === CardDirectory.CARD_TYPE_AWARD) {
-            cardDataB.overlayTimer.onDone = function() {
-                updateHTMLCard_OverlayVisible($card, false);
-            };
-            cardDataB.overlayTimer.restartTimer();
-        }
-    }
-}
-
-// What happens when user updates the alum details?
-function updateHTMLCard_AddAlumDetails($c, alum, awardInfo, i) {
-    let newDetailsDiv = $(".student-details-template").clone();
-    newDetailsDiv.removeClass("student-details-template");
-    newDetailsDiv.removeClass("hide");
-    newDetailsDiv.addClass("student-details");
-    newDetailsDiv.addClass("index-" + i);
-
-    $($c.selector + " .details").append(newDetailsDiv);
-
-    let $card = newDetailsDiv;
-
-    $($card).find(".memberFirstName").text(alum.firstName ? alum.firstName : "N/A");
-    $($card).find(".memberLastName").text(alum.lastName ? alum.lastName : "N/A");
-
-    if (alum.gradYear) {
-        $($card).find(".memberPosition").text(
-            alum.gradYear !== "Faculty" ? "Student" : "Faculty");
-    } else {
-        $($card).find(".memberPosition").text("N/A");
-    }
-
-    if (alum.disciplines && alum.disciplines.length > 0) {
-        let $dis = $($card).find(".memberDisciplines").text("");
-        let disNum = 0;
-        let disLen = alum.disciplines.length;
-        alum.disciplines.forEach(function(d) {
-            $dis.append(d);
-            if (disNum < disLen - 1) {
-                $dis.append("<br />");
-            }
-            disNum++;
-        });
-    } else {
-        $($card).find(".memberDisciplines").text("N/A");
-    }
-
-    if (alum.degrees && alum.degrees.length > 0) {
-        let $degrees = $($card).find(".memberDegrees").text("");
-        let degreeNum = 0;
-        let degreeLen = alum.degrees.length;
-        alum.degrees.forEach(function(d) {
-            $degrees.append(d);
-            if (degreeNum < degreeLen - 1) {
-                $degrees.append("<br />");
-            }
-            degreeNum++;
-        });
-    } else {
-        $($card).find(".memberDegrees").text("N/A");
-    }
-
-    if (alum.gradYears && alum.gradYears.length > 0) {
-        let $years = $($card).find(".memberYears").text("");
-        let yearsNum = 0;
-        let yearsLen = alum.gradYears.length;
-        alum.gradYears.forEach(function(d) {
-            $years.append(d);
-            if (yearsNum < yearsLen - 1) {
-                $years.append("<br />");
-            }
-            yearsNum++;
-        });
-    } else {
-        $($card).find(".memberYears").text("N/A");
-    }
-
-    if (alum.studioTeachers && alum.studioTeachers.length > 0) {
-        let $teachers = $($card).find(".memberTeachers").text("");
-        let teachersNum = 0;
-        let teachersLen = alum.studioTeachers.length;
-        alum.studioTeachers.forEach(function(d) {
-            $teachers.append(d.split(",").reverse().join(" "));
-            if (teachersNum < teachersLen - 1) {
-                $teachers.append("<br />");
-            }
-            teachersNum++;
-        });
-    } else {
-        $($card).find(".memberTeachers").text("N/A");
-    }
-}
-
-function updateHTMLCard_AwardText($card, awardInfo, ensembleAlums, winner) {
-    // Header info
-    let year = awardInfo.compDate;
-    if (year) {
-        $($card).find(".year").text(year);
-    }
-    if (awardInfo.ensembleId) {
-        $($card).find(".firstName").hide();
-        $($card).find(".lastName").text(winner.ensembleName);
-    } else {
-        $($card).find(".firstName").show();
-        $($card).find(".firstName").text(winner.firstName);
-        $($card).find(".lastName").text("  " + winner.lastName);
-    }
-
-    let compName = awardInfo.compName;
-    if (compName) {
-        $($card).find(".competitionName").text(compName);
-    }
-
-    // Competition prize info
-    let compCategory = awardInfo.compCategory;
-    let compPrize = awardInfo.prizeAchieved;
-    let compInsti = awardInfo.compInstitution;
-    let compLoc = awardInfo.compLoc;
-    if (compPrize) {
-        let compCategoryAndPrize = compCategory;
-        if (compCategory) {
-            compCategoryAndPrize += " / " + compPrize;
-        }
-        $($card).find(".compPrize").text(compCategoryAndPrize);
-    } else {
-        $($card).find(".compPrize").text("N/A")
-    }
-    if (compInsti) {
-        $($card).find(".compInsti").text(compInsti);
-    } else {
-        $($card).find(".compInsti").text("N/A")
-    }
-    if (compLoc) {
-        $($card).find(".compLoc").text(compLoc);
-    } else {
-        $($card).find(".compLoc").text("N/A");
-    }
-
-    // Student info
-    // Clear all previous details:
-    $($card.selector + " .details > .student-details").remove();
-
-    if (ensembleAlums && ensembleAlums.length > 0) {
-        ensembleAlums.forEach(function(alum, i) {
-            updateHTMLCard_AddAlumDetails($card, alum, awardInfo, i);
-        });
-    } else {
-        updateHTMLCard_AddAlumDetails($card, winner, awardInfo, 0);
-    }
-}
-
-const SIL_COLORS = ["#40BCD8", "#E4A860", "#EF7674", "#AE86B5"];
-function randomBGColor() {
-    return SIL_COLORS[Math.floor(Math.random() * SIL_COLORS.length)];
-}
-
-function updateHTMLCard_AllTypes(index, isFront, cardData) {
-    let rc = CardManager.getCardRowCol(index);
-    let r = rc.r;
-    let c = rc.c;
-
-    let $card;
-    if (isFront) {
-        $card = $(".r"+ r + " li .c" + c +".front");
-    } else {
-        $card = $(".r"+ r + " li .c" + c +".back");
-    }
-
-    // Empty card
-    if (!cardData) {
-        $card.find(".info-bg").hide();
-        $card.css({
-            'background': 'black'
-        });
-        return;
-    }
-
-    switch (cardData.type) {
-        case CardDirectory.CARD_TYPE_AWARD:
-            // Award Cards
-            let awardInfo = cardData.awardData.award;
-            let ensembleAlums = cardData.awardData.ensembleAlums;
-            let winner = cardData.awardData.winner;
-
-            $card.find(".info-bg").show();
-            $card.css({
-                'background': randomBGColor() + ' url("' + cardData.imageUrl + '")',
-                'background-size': 'contain'
-            });
-            updateHTMLCard_AwardText($card, awardInfo, ensembleAlums, winner);
-            break;
-        case CardDirectory.CARD_TYPE_GESTURE:
-            $card.find(".info-bg").hide();
-            $card.css({
-                'background': randomBGColor() + ' url("' + cardData.imageUrl + '")',
-                'background-size': 'contain'
-            });
-            break;
-        case CardDirectory.CARD_TYPE_FACT:
-            $card.find(".info-bg").hide();
-            $card.css({
-                'background': randomBGColor() + ' url("' + cardData.imageUrl + '")',
-                'background-size': 'contain'
-            });
-            break;
-    }
-}
-
-function getTransformAngle($e) {
-    let t = $e.css('transform');
-    if (t === "none") {
-        return 0;
-    } else {
-        return parseInt(t.split("(")[1].split("deg")[0]);
-    }
-}
-
-function getCardIndex($card) {
-    let $item = $card.parent();
-    let $row = $item.parent();
-    let $table = $row.parent();
-    let c = $row.find("li").index($item);
-    let r = $table.find(".row").index($row);
-
-    return r * CARD_COLUMNS + c;
 }
 
 function activateFlipGesture(target, x, y) {
@@ -1260,4 +573,304 @@ function activateFlipGesture(target, x, y) {
             // When transition ends:
             $card.parent().data("isFlipping", false);
         });
+}
+
+// =====================================================================================================================
+// HTML Updates
+// =====================================================================================================================
+
+// Updates the overlay contents
+function updateHTMLCard_Overlay($card, show) {
+    if (show) {
+        $card.parent().data("activated", true);
+        $card.find(".details").removeClass("hide");
+        $card.find(".info-bg").css("height", "100%");
+    } else {
+        $card.parent().data("activated", false);
+        $card.find(".details").addClass("hide");
+        // $card.find(".info-bg").css("bottom", "auto");
+        $card.find(".info-bg").css("height", "117px");
+    }
+}
+
+// Updates depending on whether the card is clicked
+function updateHTMLCard_OnClick($card) {
+
+    if ($card.hasClass("search")) {
+        return;
+    }
+
+    if ($card.parent().data("isFlipping")) {
+        return;
+    }
+
+    let cardDataFB = CARD_MANAGER.getCardDataPair(getCardIndex($card));
+    let cardDataF = cardDataFB.front;
+    let cardDataB = cardDataFB.back;
+
+    let cardDataClicked = null;
+    if ($card.hasClass("front")) {
+        // console.log("clicked on front");
+        cardDataClicked = cardDataFB.front;
+    } else {
+        // console.log("clicked on back");
+        cardDataClicked = cardDataFB.back;
+    }
+
+    if (!cardDataClicked) {
+        return;
+    }
+
+    // Depending on type, do different things on click...
+    let cardType = cardDataClicked.type;
+    switch (cardType) {
+        case CardDirectory.CARD_TYPE_GESTURE:
+            onClickGestureClick(cardDataClicked.gestureType);
+            return;
+        case CardDirectory.CARD_TYPE_FACT:
+        case CardDirectory.CARD_TYPE_AWARD:
+    }
+
+    // For awards only!
+    if ($card.parent().data("activated")) {
+        updateHTMLCard_Overlay($card, false);
+
+        // Cancel any existing timers to prevent multiple calls
+        if (cardDataF && cardDataF.type === CardDirectory.CARD_TYPE_AWARD) {
+            cardDataF.overlayTimer.abortTimer();
+        }
+        if (cardDataB && cardDataB.type === CardDirectory.CARD_TYPE_AWARD) {
+            cardDataB.overlayTimer.abortTimer();
+        }
+    } else {
+        updateHTMLCard_Overlay($card, true);
+
+        // Cancel any existing timers to prevent multiple calls
+        if (cardDataF && cardDataF.type === CardDirectory.CARD_TYPE_AWARD) {
+            cardDataF.overlayTimer.onDone = function() {
+                updateHTMLCard_Overlay($card, false);
+            };
+            cardDataF.overlayTimer.restartTimer();
+        }
+        if (cardDataB && cardDataB.type === CardDirectory.CARD_TYPE_AWARD) {
+            cardDataB.overlayTimer.onDone = function() {
+                updateHTMLCard_Overlay($card, false);
+            };
+            cardDataB.overlayTimer.restartTimer();
+        }
+    }
+}
+
+// Updates the alum details on a card
+function updateHTMLCard_AddAlumDetails($c, alum, i) {
+    let newDetailsDiv = $(".student-details-template").clone();
+    newDetailsDiv.removeClass("student-details-template");
+    newDetailsDiv.removeClass("hide");
+    newDetailsDiv.addClass("student-details");
+    newDetailsDiv.addClass("index-" + i);
+
+    $($c.selector + " .details").append(newDetailsDiv);
+
+    let $card = newDetailsDiv;
+
+    let alumFN = alum["firstName"];
+    let alumLN = alum["lastName"];
+    $($card).find(".memberFirstName").text(alumFN ? alumFN : "N/A");
+    $($card).find(".memberLastName").text(alumLN ? alumLN : "N/A");
+
+    if (alum.gradYear) {
+        $($card).find(".memberPosition").text(
+            alum.gradYear !== "Faculty" ? "Student" : "Faculty");
+    } else {
+        $($card).find(".memberPosition").text("N/A");
+    }
+
+    if (alum.disciplines && alum.disciplines.length > 0) {
+        let $dis = $($card).find(".memberDisciplines").text("");
+        let disNum = 0;
+        let disLen = alum.disciplines.length;
+        alum.disciplines.forEach(function(d) {
+            $dis.append(d);
+            if (disNum < disLen - 1) {
+                $dis.append("<br />");
+            }
+            disNum++;
+        });
+    } else {
+        $($card).find(".memberDisciplines").text("N/A");
+    }
+
+    if (alum.degrees && alum.degrees.length > 0) {
+        let $degrees = $($card).find(".memberDegrees").text("");
+        let degreeNum = 0;
+        let degreeLen = alum.degrees.length;
+        alum.degrees.forEach(function(d) {
+            $degrees.append(d);
+            if (degreeNum < degreeLen - 1) {
+                $degrees.append("<br />");
+            }
+            degreeNum++;
+        });
+    } else {
+        $($card).find(".memberDegrees").text("N/A");
+    }
+
+    if (alum.gradYears && alum.gradYears.length > 0) {
+        let $years = $($card).find(".memberYears").text("");
+        let yearsNum = 0;
+        let yearsLen = alum.gradYears.length;
+        alum.gradYears.forEach(function(d) {
+            $years.append(d);
+            if (yearsNum < yearsLen - 1) {
+                $years.append("<br />");
+            }
+            yearsNum++;
+        });
+    } else {
+        $($card).find(".memberYears").text("N/A");
+    }
+
+    if (alum.studioTeachers && alum.studioTeachers.length > 0) {
+        let $teachers = $($card).find(".memberTeachers").text("");
+        let teachersNum = 0;
+        let teachersLen = alum.studioTeachers.length;
+        alum.studioTeachers.forEach(function(d) {
+            $teachers.append(d.split(",").reverse().join(" "));
+            if (teachersNum < teachersLen - 1) {
+                $teachers.append("<br />");
+            }
+            teachersNum++;
+        });
+    } else {
+        $($card).find(".memberTeachers").text("N/A");
+    }
+}
+
+function updateHTMLCard_AwardText($card, awardInfo, ensembleAlums, winner) {
+    // Header contents
+    let year = awardInfo["compDate"];
+    let card = $($card);
+    if (year) {
+        card.find(".year").text(year);
+    }
+    if (awardInfo["ensembleId"]) {
+        card.find(".firstName").hide();
+        card.find(".lastName").text(winner["ensembleName"]);
+    } else {
+        card.find(".firstName").show();
+        card.find(".firstName").text(winner["firstName"]);
+        card.find(".lastName").text("  " + winner["lastName"]);
+    }
+
+    let compName = awardInfo.compName;
+    card.find(".competitionName").text(compName ? compName : "");
+
+    // Competition prize info
+    let compCategory = awardInfo["compCategory"];
+    let compPrize = awardInfo["prizeAchieved"];
+    let compInsti = awardInfo["compInstitution"];
+    let compLoc = awardInfo["compLoc"];
+    if (compPrize) {
+        let compCategoryAndPrize = compCategory;
+        if (compCategory) {
+            compCategoryAndPrize += " / " + compPrize;
+        }
+        card.find(".compPrize").text(compCategoryAndPrize);
+    } else {
+        card.find(".compPrize").text("N/A")
+    }
+
+    card.find(".compInsti").text(compInsti ? compInsti : "N/A");
+    card.find(".compLoc").text(compLoc ? compLoc : "N/A");
+
+    // Student info
+    // Clear all previous details:
+    $($card.selector + " .details > .student-details").remove();
+
+    if (ensembleAlums && ensembleAlums.length > 0) {
+        ensembleAlums.forEach(function(alum, i) {
+            updateHTMLCard_AddAlumDetails($card, alum, i);
+        });
+    } else {
+        updateHTMLCard_AddAlumDetails($card, winner, 0);
+    }
+}
+
+function updateHTMLCard_AllTypes(index, isFront, cardData) {
+    let rc = CardManager.getCardRowCol(index);
+    let r = rc.r;
+    let c = rc.c;
+
+    let $card;
+    if (isFront) {
+        $card = $(".r"+ r + " li .c" + c +".front");
+    } else {
+        $card = $(".r"+ r + " li .c" + c +".back");
+    }
+
+    // Empty card
+    if (!cardData) {
+        $card.find(".info-bg").hide();
+        $card.css({
+            'background': 'black'
+        });
+        return;
+    }
+
+    switch (cardData.type) {
+        case CardDirectory.CARD_TYPE_AWARD:
+            // Award Cards
+            let awardInfo = cardData.awardData.award;
+            let ensembleAlums = cardData.awardData.ensembleAlums;
+            let winner = cardData.awardData.winner;
+
+            $card.find(".info-bg").show();
+            $card.css({
+                'background': randomBGColor() + ' url("' + cardData.imageUrl + '")',
+                'background-size': 'contain'
+            });
+            updateHTMLCard_AwardText($card, awardInfo, ensembleAlums, winner);
+            break;
+        case CardDirectory.CARD_TYPE_GESTURE:
+            $card.find(".info-bg").hide();
+            $card.css({
+                'background': randomBGColor() + ' url("' + cardData.imageUrl + '")',
+                'background-size': 'contain'
+            });
+            break;
+        case CardDirectory.CARD_TYPE_FACT:
+            $card.find(".info-bg").hide();
+            $card.css({
+                'background': randomBGColor() + ' url("' + cardData.imageUrl + '")',
+                'background-size': 'contain'
+            });
+            break;
+    }
+}
+
+// =====================================================================================================================
+// Other helpers
+// =====================================================================================================================
+const SIL_COLORS = ["#40BCD8", "#E4A860", "#EF7674", "#AE86B5"];
+function randomBGColor() {
+    return SIL_COLORS[Math.floor(Math.random() * SIL_COLORS.length)];
+}
+
+function getTransformAngle($e) {
+    let t = $e.css('transform');
+    if (t === "none") {
+        return 0;
+    } else {
+        return parseInt(t.split("(")[1].split("deg")[0]);
+    }
+}
+
+function getCardIndex($card) {
+    let $item = $card.parent();
+    let $row = $item.parent();
+    let $table = $row.parent();
+    let c = $row.find("li").index($item);
+    let r = $table.find(".row").index($row);
+
+    return r * CARD_COLUMNS + c;
 }

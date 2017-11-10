@@ -281,11 +281,14 @@ Search Card Styles
     display: block;
     float: left;
     background-color: transparent;
-    border: solid white 6px;
+    border: solid white 5px;
     color: transparent;
     text-shadow: 0 0 0 white;
     font-size: 23px;
-    padding: 3px;
+    padding-top: 3px;
+    padding-right: 3px;
+    padding-left: 10px;
+    padding-bottom: 3px;
     text-transform: uppercase;
 }
 
