@@ -2,7 +2,7 @@ var mysql = require("mysql");
 var fs = require('fs');
 
 module.exports = (function() {
-    var configFile = JSON.parse(fs.readFileSync('config/auth.json', 'utf8'));
+    var configFile = JSON.parse(fs.readFileSync('C:\\NECAwardsProduction\\Current\\NECAwardsBackend\\necawardsbackend\\config\\auth.json', 'utf8'));
 
     var username = configFile.username;
     var password = configFile.password;
