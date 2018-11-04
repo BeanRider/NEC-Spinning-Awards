@@ -1,8 +1,7 @@
 # "Spinning Awards" — New England Conservatory of Music
 ### Public interactive installation that showcases almnus music awards and musicians
 
-Project still in-progress.
-This is a fullstack web application built using jQuery, NodeJS, ExressJS, and MySQL. Currently locally hosted.
+This is a fullstack web application built using jQuery, NodeJS, ExressJS, and MySQL.
 
 ## Summary from <a href="http://www.informationinaction.com/spinning-awards/">Information in Action</a>
 
